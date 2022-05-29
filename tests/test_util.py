@@ -1,12 +1,11 @@
-import pytest
 import numpy as np
+import pytest
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import Matern
 
 from bayes_opt import BayesianOptimization
 from bayes_opt.util import UtilityFunction, Colours
 from bayes_opt.util import acq_max, load_logs, ensure_rng
-
-from sklearn.gaussian_process.kernels import Matern
-from sklearn.gaussian_process import GaussianProcessRegressor
 
 
 def get_globals():
@@ -23,7 +22,8 @@ def get_globals():
     ])
 
     def get_y(X):
-        return -(X[:, 0] - 0.3) ** 2 - 0.5 * (X[:, 1] - 0.6)**2 + 2
+        return -(X[:, 0] - 0.3) ** 2 - 0.5 * (X[:, 1] - 0.6) ** 2 + 2
+
     y = get_y(X)
 
     mesh = np.dstack(
@@ -67,6 +67,7 @@ def test_utility_fucntion():
         util = UtilityFunction(kind="other", kappa=1.0, xi=1.0)
 
 
+@pytest.mark.unittest
 def test_acq_with_ucb():
     util = UtilityFunction(kind="ucb", kappa=1.0, xi=1.0)
     episilon = 1e-2
@@ -85,6 +86,7 @@ def test_acq_with_ucb():
     assert all(abs(brute_max_arg - max_arg) < episilon)
 
 
+@pytest.mark.unittest
 def test_acq_with_ei():
     util = UtilityFunction(kind="ei", kappa=1.0, xi=1e-6)
     episilon = 1e-2
@@ -103,6 +105,7 @@ def test_acq_with_ei():
     assert all(abs(brute_max_arg - max_arg) < episilon)
 
 
+@pytest.mark.unittest
 def test_acq_with_poi():
     util = UtilityFunction(kind="poi", kappa=1.0, xi=1e-4)
     episilon = 1e-2
@@ -121,6 +124,7 @@ def test_acq_with_poi():
     assert all(abs(brute_max_arg - max_arg) < episilon)
 
 
+@pytest.mark.unittest
 def test_logs():
     import pytest
     def f(x, y):
@@ -146,6 +150,7 @@ def test_logs():
         load_logs(other_optimizer, ["./tests/test_logs.json"])
 
 
+@pytest.mark.unittest
 def test_colours():
     colour_wrappers = [
         (Colours.END, Colours.black),
@@ -174,4 +179,5 @@ if __name__ == '__main__':
         python tests/test_target_space.py
     """
     import pytest
+
     pytest.main([__file__])

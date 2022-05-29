@@ -1,5 +1,7 @@
-from bayes_opt import SequentialDomainReductionTransformer
+import pytest
+
 from bayes_opt import BayesianOptimization
+from bayes_opt import SequentialDomainReductionTransformer
 
 
 def black_box_function(x, y):
@@ -12,8 +14,8 @@ def black_box_function(x, y):
     return -x ** 2 - (y - 1) ** 2 + 1
 
 
+@pytest.mark.unittest
 def test_bound_x_maximize():
-
     class Tracker:
         def __init__(self):
             self.start_count = 0

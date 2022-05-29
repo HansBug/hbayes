@@ -1,7 +1,9 @@
 import pytest
+
 from bayes_opt.bayesian_optimization import Queue
 
 
+@pytest.mark.unittest
 def test_add():
     queue = Queue()
 
@@ -18,8 +20,8 @@ def test_add():
     assert len(queue) == 3
 
 
+@pytest.mark.unittest
 def test_queue():
-
     queue = Queue()
 
     with pytest.raises(StopIteration):
@@ -38,7 +40,6 @@ def test_queue():
     assert next(queue) == 2
     assert next(queue) == 3
     assert len(queue) == 0
-
 
 
 if __name__ == '__main__':

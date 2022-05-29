@@ -1,12 +1,13 @@
-from bayes_opt.bayesian_optimization import Observable
-from bayes_opt.observer import _Tracker
-from bayes_opt.event import Events
+import pytest
 
+from bayes_opt.bayesian_optimization import Observable
+from bayes_opt.event import Events
+from bayes_opt.observer import _Tracker
 
 EVENTS = ["a", "b", "c"]
 
 
-class SimpleObserver():
+class SimpleObserver:
     def __init__(self):
         self.counter = 0
 
@@ -14,6 +15,7 @@ class SimpleObserver():
         self.counter += 1
 
 
+@pytest.mark.unittest
 def test_get_subscribers():
     observer = SimpleObserver()
     observable = Observable(events=EVENTS)
@@ -28,6 +30,7 @@ def test_get_subscribers():
     assert len(observable.get_subscribers('c')) == 0
 
 
+@pytest.mark.unittest
 def test_unsubscribe():
     observer = SimpleObserver()
     observable = Observable(events=EVENTS)
@@ -39,6 +42,7 @@ def test_unsubscribe():
     assert len(observable.get_subscribers('a')) == 0
 
 
+@pytest.mark.unittest
 def test_dispatch():
     observer_a = SimpleObserver()
     observer_b = SimpleObserver()
@@ -65,6 +69,7 @@ def test_dispatch():
     assert observer_a.counter == 2
 
 
+@pytest.mark.unittest
 def test_tracker():
     class MockInstance:
         def __init__(self, max_target=1, max_params=[1, 1]):
@@ -118,4 +123,5 @@ if __name__ == '__main__':
         python tests/test_observer.py
     """
     import pytest
+
     pytest.main([__file__])

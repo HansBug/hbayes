@@ -1,5 +1,6 @@
-import pytest
 import numpy as np
+import pytest
+
 from bayes_opt.target_space import TargetSpace
 
 
@@ -11,6 +12,7 @@ def target_func(**kwargs):
 PBOUNDS = {'p1': (0, 1), 'p2': (1, 100)}
 
 
+@pytest.mark.unittest
 def test_keys_and_bounds_in_same_order():
     pbounds = {
         'p1': (0, 1),
@@ -22,11 +24,12 @@ def test_keys_and_bounds_in_same_order():
 
     assert space.dim == len(pbounds)
     assert space.empty
-    assert space.keys == ["p1", "p2",  "p3",  "p4"]
+    assert space.keys == ["p1", "p2", "p3", "p4"]
     assert all(space.bounds[:, 0] == np.array([0, 0, 0, 0]))
     assert all(space.bounds[:, 1] == np.array([1, 2, 3, 4]))
 
 
+@pytest.mark.unittest
 def test_params_to_array():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -40,6 +43,7 @@ def test_params_to_array():
         space.params_to_array({"other": 1})
 
 
+@pytest.mark.unittest
 def test_array_to_params():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -50,6 +54,7 @@ def test_array_to_params():
         space.array_to_params(np.array([2, 3, 5]))
 
 
+@pytest.mark.unittest
 def test_as_array():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -71,6 +76,7 @@ def test_as_array():
         x = space._as_array({"other": 7})
 
 
+@pytest.mark.unittest
 def test_register():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -93,6 +99,7 @@ def test_register():
         space.register(params={"p1": 5, "p2": 4}, target=9)
 
 
+@pytest.mark.unittest
 def test_probe():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -122,6 +129,7 @@ def test_probe():
     assert all(space.target == np.array([3, 9]))
 
 
+@pytest.mark.unittest
 def test_random_sample():
     pbounds = {
         'p1': (0, 1),
@@ -138,6 +146,7 @@ def test_random_sample():
         assert all(random_sample <= space.bounds[:, 1])
 
 
+@pytest.mark.unittest
 def test_max():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -149,6 +158,7 @@ def test_max():
     assert space.max() == {"params": {"p1": 5, "p2": 4}, "target": 9}
 
 
+@pytest.mark.unittest
 def test_res():
     space = TargetSpace(target_func, PBOUNDS)
 
@@ -159,15 +169,16 @@ def test_res():
     space.probe(params={"p1": 1, "p2": 6})
 
     expected_res = [
-        {"params":  {"p1": 1, "p2": 2}, "target": 3},
-        {"params":  {"p1": 5, "p2": 4}, "target": 9},
-        {"params":  {"p1": 2, "p2": 3}, "target": 5},
-        {"params":  {"p1": 1, "p2": 6}, "target": 7},
+        {"params": {"p1": 1, "p2": 2}, "target": 3},
+        {"params": {"p1": 5, "p2": 4}, "target": 9},
+        {"params": {"p1": 2, "p2": 3}, "target": 5},
+        {"params": {"p1": 1, "p2": 6}, "target": 7},
     ]
     assert len(space.res()) == 4
     assert space.res() == expected_res
 
 
+@pytest.mark.unittest
 def test_set_bounds():
     pbounds = {
         'p1': (0, 1),

@@ -1,9 +1,10 @@
-import pytest
 import numpy as np
-from bayes_opt import UtilityFunction
+import pytest
+
 from bayes_opt import BayesianOptimization
-from bayes_opt.logger import ScreenLogger
+from bayes_opt import UtilityFunction
 from bayes_opt.event import Events, DEFAULT_EVENTS
+from bayes_opt.logger import ScreenLogger
 
 
 def target_func(**kwargs):
@@ -14,6 +15,7 @@ def target_func(**kwargs):
 PBOUNDS = {'p1': (0, 10), 'p2': (0, 10)}
 
 
+@pytest.mark.unittest
 def test_register():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert len(optimizer.space) == 0
@@ -32,6 +34,7 @@ def test_register():
         optimizer.register(params={"p1": 5, "p2": 4}, target=9)
 
 
+@pytest.mark.unittest
 def test_probe_lazy():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
 
@@ -48,6 +51,7 @@ def test_probe_lazy():
     assert len(optimizer._queue) == 3
 
 
+@pytest.mark.unittest
 def test_probe_eager():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
 
@@ -70,6 +74,7 @@ def test_probe_eager():
     assert optimizer.max["params"] == {"p1": 3, "p2": 3}
 
 
+@pytest.mark.unittest
 def test_suggest_at_random():
     util = UtilityFunction(kind="poi", kappa=5, xi=0)
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
@@ -81,6 +86,7 @@ def test_suggest_at_random():
         assert all(sample <= optimizer.space.bounds[:, 1])
 
 
+@pytest.mark.unittest
 def test_suggest_with_one_observation():
     util = UtilityFunction(kind="ucb", kappa=5, xi=0)
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
@@ -99,6 +105,7 @@ def test_suggest_with_one_observation():
     #     assert suggestion == new_suggestion
 
 
+@pytest.mark.unittest
 def test_prime_queue_all_empty():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert len(optimizer._queue) == 0
@@ -109,6 +116,7 @@ def test_prime_queue_all_empty():
     assert len(optimizer.space) == 0
 
 
+@pytest.mark.unittest
 def test_prime_queue_empty_with_init():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert len(optimizer._queue) == 0
@@ -119,6 +127,7 @@ def test_prime_queue_empty_with_init():
     assert len(optimizer.space) == 0
 
 
+@pytest.mark.unittest
 def test_prime_queue_with_register():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert len(optimizer._queue) == 0
@@ -130,6 +139,7 @@ def test_prime_queue_with_register():
     assert len(optimizer.space) == 1
 
 
+@pytest.mark.unittest
 def test_prime_queue_with_register_and_init():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert len(optimizer._queue) == 0
@@ -141,6 +151,7 @@ def test_prime_queue_with_register_and_init():
     assert len(optimizer.space) == 1
 
 
+@pytest.mark.unittest
 def test_prime_subscriptions():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     optimizer._prime_subscriptions()
@@ -195,6 +206,7 @@ def test_prime_subscriptions():
         optimizer._events["other"]
 
 
+@pytest.mark.unittest
 def test_set_bounds():
     pbounds = {
         'p1': (0, 1),
@@ -215,6 +227,7 @@ def test_set_bounds():
     assert all(optimizer.space.bounds[:, 1] == np.array([1, 8, 3, 4]))
 
 
+@pytest.mark.unittest
 def test_set_gp_params():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert optimizer._gp.alpha == 1e-6
@@ -229,8 +242,8 @@ def test_set_gp_params():
     assert optimizer._gp.n_restarts_optimizer == 7
 
 
+@pytest.mark.unittest
 def test_maximize():
-    from sklearn.exceptions import NotFittedError
     class Tracker:
         def __init__(self):
             self.start_count = 0
@@ -292,6 +305,7 @@ def test_maximize():
     assert tracker.end_count == 3
 
 
+@pytest.mark.unittest
 def test_define_wrong_transformer():
     with pytest.raises(TypeError):
         optimizer = BayesianOptimization(target_func, PBOUNDS,
