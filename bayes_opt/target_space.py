@@ -1,4 +1,5 @@
 import numpy as np
+
 from .util import ensure_rng
 
 
@@ -22,6 +23,7 @@ class TargetSpace(object):
     >>> y = space.register_point(x)
     >>> assert self.max_point()['max_val'] == y
     """
+
     def __init__(self, target_func, pbounds, random_state=None):
         """
         Parameters
@@ -49,9 +51,9 @@ class TargetSpace(object):
             dtype=np.float
         )
 
-        # preallocated memory for X and Y points
+        # pre-allocated memory for X and Y points
         self._params = np.empty(shape=(0, self.dim))
-        self._target = np.empty(shape=(0))
+        self._target = np.empty(shape=0)
 
         # keep track of unique points we have seen so far
         self._cache = {}

@@ -1,9 +1,12 @@
 import numpy as np
+
 from .target_space import TargetSpace
 
 
-class DomainTransformer():
-    '''The base transformer class'''
+class DomainTransformer:
+    """
+    The base transformer class
+    """
 
     def __init__(self, **kwargs):
         pass
@@ -22,11 +25,12 @@ class SequentialDomainReductionTransformer(DomainTransformer):
     """
 
     def __init__(
-        self,
-        gamma_osc: float = 0.7,
-        gamma_pan: float = 1.0,
-        eta: float = 0.9
+            self,
+            gamma_osc: float = 0.7,
+            gamma_pan: float = 1.0,
+            eta: float = 0.9
     ) -> None:
+        DomainTransformer.__init__(self)
         self.gamma_osc = gamma_osc
         self.gamma_pan = gamma_pan
         self.eta = eta
@@ -42,7 +46,7 @@ class SequentialDomainReductionTransformer(DomainTransformer):
         self.r = target_space.bounds[:, 1] - target_space.bounds[:, 0]
 
         self.previous_d = 2.0 * \
-            (self.current_optimal - self.previous_optimal) / self.r
+                          (self.current_optimal - self.previous_optimal) / self.r
 
         self.current_d = 2.0 * (self.current_optimal -
                                 self.previous_optimal) / self.r
@@ -54,7 +58,7 @@ class SequentialDomainReductionTransformer(DomainTransformer):
                             self.gamma_osc * (1.0 - self.c_hat))
 
         self.contraction_rate = self.eta + \
-            np.abs(self.current_d) * (self.gamma - self.eta)
+                                np.abs(self.current_d) * (self.gamma - self.eta)
 
         self.r = self.contraction_rate * self.r
 
@@ -68,8 +72,7 @@ class SequentialDomainReductionTransformer(DomainTransformer):
             np.argmax(target_space.target)
         ]
 
-        self.current_d = 2.0 * (self.current_optimal -
-                                self.previous_optimal) / self.r
+        self.current_d = 2.0 * (self.current_optimal - self.previous_optimal) / self.r
 
         self.c = self.current_d * self.previous_d
 
@@ -78,8 +81,7 @@ class SequentialDomainReductionTransformer(DomainTransformer):
         self.gamma = 0.5 * (self.gamma_pan * (1.0 + self.c_hat) +
                             self.gamma_osc * (1.0 - self.c_hat))
 
-        self.contraction_rate = self.eta + \
-            np.abs(self.current_d) * (self.gamma - self.eta)
+        self.contraction_rate = self.eta + np.abs(self.current_d) * (self.gamma - self.eta)
 
         self.r = self.contraction_rate * self.r
 

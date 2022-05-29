@@ -1,9 +1,10 @@
 from __future__ import print_function
-import os
-import json
 
-from .observer import _Tracker
+import json
+import os
+
 from .event import Events
+from .observer import _Tracker
 from .util import Colours
 
 
@@ -30,10 +31,10 @@ class ScreenLogger(_Tracker):
 
     def _format_number(self, x):
         if isinstance(x, int):
-                s = "{x:< {s}}".format(
-                    x=x,
-                    s=self._default_cell_size,
-                )
+            s = "{x:< {s}}".format(
+                x=x,
+                s=self._default_cell_size,
+            )
         else:
             s = "{x:< {s}.{p}}".format(
                 x=x,
@@ -59,10 +60,10 @@ class ScreenLogger(_Tracker):
 
     def _step(self, instance, colour=Colours.black):
         res = instance.res[-1]
-        cells = []
-
-        cells.append(self._format_number(self._iterations + 1))
-        cells.append(self._format_number(res["target"]))
+        cells = [
+            self._format_number(self._iterations + 1),
+            self._format_number(res["target"])
+        ]
 
         for key in instance.space.keys:
             cells.append(self._format_number(res["params"][key]))
@@ -70,9 +71,10 @@ class ScreenLogger(_Tracker):
         return "| " + " | ".join(map(colour, cells)) + " |"
 
     def _header(self, instance):
-        cells = []
-        cells.append(self._format_key("iter"))
-        cells.append(self._format_key("target"))
+        cells = [
+            self._format_key("iter"),
+            self._format_key("target"),
+        ]
         for key in instance.space.keys:
             cells.append(self._format_key(key))
 
