@@ -202,6 +202,6 @@ def test_set_bounds():
 if __name__ == '__main__':
     r"""
     CommandLine:
-        python tests/test_target_space.py
+        python test/test_target_space.py
     """
     pytest.main([__file__])

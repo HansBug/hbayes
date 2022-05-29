@@ -5,7 +5,7 @@ PYTEST ?= $(shell which pytest)
 
 PROJ_DIR := $(shell readlink -f ${CURDIR})
 DIST_DIR := ${PROJ_DIR}/dist
-TEST_DIR := ${PROJ_DIR}/tests
+TEST_DIR := ${PROJ_DIR}/test
 SRC_DIR  := ${PROJ_DIR}/bayes_opt
 
 RANGE_DIR      ?= .

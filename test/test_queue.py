@@ -45,6 +45,6 @@ def test_queue():
 if __name__ == '__main__':
     r"""
     CommandLine:
-        python tests/test_observer.py
+        python test/test_observer.py
     """
     pytest.main([__file__])

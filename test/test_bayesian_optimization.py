@@ -316,6 +316,6 @@ def test_define_wrong_transformer():
 if __name__ == '__main__':
     r"""
     CommandLine:
-        python tests/test_bayesian_optimization.py
+        python test/test_bayesian_optimization.py
     """
     pytest.main([__file__])

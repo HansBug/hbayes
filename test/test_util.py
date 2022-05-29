@@ -136,10 +136,10 @@ def test_logs():
     )
     assert len(optimizer.space) == 0
 
-    load_logs(optimizer, "./tests/test_logs.json")
+    load_logs(optimizer, "./test/test_logs.json")
     assert len(optimizer.space) == 5
 
-    load_logs(optimizer, ["./tests/test_logs.json"])
+    load_logs(optimizer, ["./test/test_logs.json"])
     assert len(optimizer.space) == 5
 
     other_optimizer = BayesianOptimization(
@@ -147,7 +147,7 @@ def test_logs():
         pbounds={"x": (-2, 2)}
     )
     with pytest.raises(ValueError):
-        load_logs(other_optimizer, ["./tests/test_logs.json"])
+        load_logs(other_optimizer, ["./test/test_logs.json"])
 
 
 @pytest.mark.unittest
@@ -176,7 +176,7 @@ def test_colours():
 if __name__ == '__main__':
     r"""
     CommandLine:
-        python tests/test_target_space.py
+        python test/test_target_space.py
     """
     import pytest
 

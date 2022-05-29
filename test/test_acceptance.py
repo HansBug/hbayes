@@ -63,7 +63,7 @@
 # if __name__ == '__main__':
 #     r"""
 #     CommandLine:
-#         python tests/test_bayesian_optimization.py
+#         python test/test_bayesian_optimization.py
 #     """
 #     import pytest
 #     pytest.main([__file__])
