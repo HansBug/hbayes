@@ -1,7 +1,8 @@
 import warnings
+
 import numpy as np
-from scipy.stats import norm
 from scipy.optimize import minimize
+from scipy.stats import norm
 
 
 def acq_max(ac, gp, y_max, bounds, random_state, n_warmup=10000, n_iter=10):
@@ -62,9 +63,13 @@ def acq_max(ac, gp, y_max, bounds, random_state, n_warmup=10000, n_iter=10):
             continue
 
         # Store it if better than previous minimum(maximum).
-        if max_acq is None or -res.fun[0] >= max_acq:
+        try:  # for scipy<1.8
+            fun = -res.fun[0]
+        except TypeError:  # for scipy>=1.8
+            fun = -res.fun
+        if max_acq is None or -fun >= max_acq:
             x_max = res.x
-            max_acq = -res.fun[0]
+            max_acq = fun
 
     # Clip output to make sure it lies within the bounds. Due to floating
     # point technicalities this is not always the case.
@@ -83,7 +88,7 @@ class UtilityFunction(object):
         self._kappa_decay_delay = kappa_decay_delay
 
         self.xi = xi
-        
+
         self._iters_counter = 0
 
         if kind not in ['ucb', 'ei', 'poi']:
@@ -121,7 +126,7 @@ class UtilityFunction(object):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             mean, std = gp.predict(x, return_std=True)
-  
+
         a = (mean - y_max - xi)
         z = a / std
         return a * norm.cdf(z) + std * norm.pdf(z)
@@ -132,7 +137,7 @@ class UtilityFunction(object):
             warnings.simplefilter("ignore")
             mean, std = gp.predict(x, return_std=True)
 
-        z = (mean - y_max - xi)/std
+        z = (mean - y_max - xi) / std
         return norm.cdf(z)
 
 
