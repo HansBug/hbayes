@@ -1,3 +1,4 @@
+import json
 import warnings
 
 import numpy as np
@@ -142,7 +143,6 @@ def load_logs(optimizer, logs):
     """
     Load previous ...
     """
-    import json
 
     if isinstance(logs, str):
         logs = [logs]
@@ -167,16 +167,17 @@ def load_logs(optimizer, logs):
     return optimizer
 
 
-def ensure_rng(random_state=None):
+def ensure_rng(state=None):
     """
     Creates a random number generator based on an optional seed.  This can be
     an integer or another random state for a seeded rng, or None for an
     unseeded rng.
     """
-    if random_state is None:
-        random_state = np.random.RandomState()
-    elif isinstance(random_state, int):
-        random_state = np.random.RandomState(random_state)
+    if state is None:
+        return np.random.RandomState()
+    elif isinstance(state, int):
+        return np.random.RandomState(state)
+    elif isinstance(state, np.random.RandomState):
+        return state
     else:
-        assert isinstance(random_state, np.random.RandomState)
-    return random_state
+        raise TypeError(f'Unknown random state type - {repr(state)}.')
