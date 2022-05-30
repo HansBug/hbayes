@@ -15,13 +15,19 @@ class TargetSpace(object):
 
     Example
     -------
+    >>> from bayes_opt.target_space import TargetSpace
+    >>>
     >>> def target_func(p1, p2):
-    >>>     return p1 + p2
+    ...     return p1 + p2
+    >>>
     >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
     >>> space = TargetSpace(target_func, pbounds, random_state=0)
-    >>> x = space.random_points(1)[0]
-    >>> y = space.register_point(x)
-    >>> assert self.max_point()['max_val'] == y
+    >>> x = space.random_sample()
+    >>> y = space.probe(x)
+    >>> print(x, y)
+    [ 0.5488135  71.80374727] 72.35256077479684
+    >>> print(space.max())
+    {'target': 72.35256077479684, 'params': {'p1': 0.5488135039273248, 'p2': 71.80374727086952}}
     """
 
     def __init__(self, target_func, pbounds, random_state=None):
@@ -126,15 +132,16 @@ class TargetSpace(object):
         return x
 
     def register(self, params, target):
+        # noinspection PyShadowingNames
         """
         Append a point and its target value to the known data.
 
         Parameters
         ----------
-        x : ndarray
+        params : ndarray
             a single point, with len(x) == self.dim
 
-        y : float
+        target : float
             target function value
 
         Raises
@@ -148,13 +155,17 @@ class TargetSpace(object):
 
         Example
         -------
+        >>> import numpy as np
+        >>> from bayes_opt.target_space import TargetSpace
+        >>>
         >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
         >>> space = TargetSpace(lambda p1, p2: p1 + p2, pbounds)
         >>> len(space)
         0
-        >>> x = np.array([0, 0])
+        >>> x_ = np.array([0, 0])
         >>> y = 1
-        >>> space.add_observation(x, y)
+        >>> space.register(x_, y)
+        [[0. 0.]] [1.]
         >>> len(space)
         1
         """
@@ -179,7 +190,7 @@ class TargetSpace(object):
 
         Parameters
         ----------
-        x : ndarray
+        params : ndarray
             a single point, with len(x) == self.dim
 
         Returns
@@ -208,11 +219,13 @@ class TargetSpace(object):
 
         Example
         -------
+        >>> from bayes_opt.target_space import TargetSpace
+        >>>
         >>> target_func = lambda p1, p2: p1 + p2
         >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
         >>> space = TargetSpace(target_func, pbounds, random_state=0)
-        >>> space.random_points(1)
-        array([[ 55.33253689,   0.54488318]])
+        >>> space.random_sample()
+        array([ 0.5488135 , 71.80374727])
         """
         # TODO: support integer, category, and basic scipy.optimize constraints
         data = np.empty((1, self.dim))
@@ -221,8 +234,11 @@ class TargetSpace(object):
         return data.ravel()
 
     def max(self):
-        """Get maximum target value found and corresponding parametes."""
+        """
+        Get maximum target value found and corresponding parameters.
+        """
         try:
+            # noinspection PyArgumentList
             res = {
                 'target': self.target.max(),
                 'params': dict(
@@ -234,7 +250,9 @@ class TargetSpace(object):
         return res
 
     def res(self):
-        """Get all target values found and corresponding parametes."""
+        """
+        Get all target values found and corresponding parameters.
+        """
         params = [dict(zip(self.keys, p)) for p in self.params]
 
         return [

@@ -82,15 +82,12 @@ class UtilityFunction(object):
     """
 
     def __init__(self, kind, kappa, xi, kappa_decay=1, kappa_decay_delay=0):
-
         self.kappa = kappa
         self._kappa_decay = kappa_decay
         self._kappa_decay_delay = kappa_decay_delay
-
         self.xi = xi
 
         self._iters_counter = 0
-
         if kind not in ['ucb', 'ei', 'poi']:
             err = f"The utility function " \
                   f"{kind} has not been implemented, " \
@@ -142,8 +139,8 @@ class UtilityFunction(object):
 
 
 def load_logs(optimizer, logs):
-    """Load previous ...
-
+    """
+    Load previous ...
     """
     import json
 

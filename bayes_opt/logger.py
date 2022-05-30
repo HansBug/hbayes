@@ -99,6 +99,8 @@ class ScreenLogger(_Tracker):
                 line = self._step(instance, colour=colour) + "\n"
         elif event == Events.OPTIMIZATION_END:
             line = "=" * self._header_length + "\n"
+        else:
+            raise ValueError(f'Unknown event - {event}.')  # pragma: no cover
 
         if self._verbose:
             print(line, end="")

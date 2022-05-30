@@ -18,6 +18,20 @@ class DomainTransformer:
         raise NotImplementedError
 
 
+def _create_bounds(parameters: dict, bounds: np.array) -> dict:
+    return {param: bounds[i, :] for i, param in enumerate(parameters)}
+
+
+def _trim(new_bounds: np.array, global_bounds: np.array) -> np.array:
+    for i, variable in enumerate(new_bounds):
+        if variable[0] < global_bounds[i, 0]:
+            variable[0] = global_bounds[i, 0]
+        if variable[1] > global_bounds[i, 1]:
+            variable[1] = global_bounds[i, 1]
+
+    return new_bounds
+
+
 class SequentialDomainReductionTransformer(DomainTransformer):
     """
     A sequential domain reduction transformer bassed on the work by Stander, N. and Craig, K:
@@ -63,7 +77,6 @@ class SequentialDomainReductionTransformer(DomainTransformer):
         self.r = self.contraction_rate * self.r
 
     def _update(self, target_space: TargetSpace) -> None:
-
         # setting the previous
         self.previous_optimal = self.current_optimal
         self.previous_d = self.current_d
@@ -85,20 +98,7 @@ class SequentialDomainReductionTransformer(DomainTransformer):
 
         self.r = self.contraction_rate * self.r
 
-    def _trim(self, new_bounds: np.array, global_bounds: np.array) -> np.array:
-        for i, variable in enumerate(new_bounds):
-            if variable[0] < global_bounds[i, 0]:
-                variable[0] = global_bounds[i, 0]
-            if variable[1] > global_bounds[i, 1]:
-                variable[1] = global_bounds[i, 1]
-
-        return new_bounds
-
-    def _create_bounds(self, parameters: dict, bounds: np.array) -> dict:
-        return {param: bounds[i, :] for i, param in enumerate(parameters)}
-
     def transform(self, target_space: TargetSpace) -> dict:
-
         self._update(target_space)
 
         new_bounds = np.array(
@@ -108,6 +108,6 @@ class SequentialDomainReductionTransformer(DomainTransformer):
             ]
         ).T
 
-        self._trim(new_bounds, self.original_bounds)
+        _trim(new_bounds, self.original_bounds)
         self.bounds.append(new_bounds)
-        return self._create_bounds(target_space.keys, new_bounds)
+        return _create_bounds(target_space.keys, new_bounds)
