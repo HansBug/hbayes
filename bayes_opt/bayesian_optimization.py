@@ -1,12 +1,13 @@
 import warnings
 
-from .target_space import TargetSpace
-from .event import Events, DEFAULT_EVENTS
-from .logger import _get_default_logger
-from .util import UtilityFunction, acq_max, ensure_rng
-
-from sklearn.gaussian_process.kernels import Matern
+from hbutils.design import Observable
 from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import Matern
+
+from .event import OptimizationEvent
+from .logger import _get_default_logger
+from .target_space import TargetSpace
+from .util import UtilityFunction, acq_max, ensure_rng
 
 
 class Queue:
@@ -33,33 +34,6 @@ class Queue:
     def add(self, obj):
         """Add object to end of queue."""
         self._queue.append(obj)
-
-
-class Observable(object):
-    """
-
-    Inspired/Taken from
-        https://www.protechtraining.com/blog/post/879#simple-observer
-    """
-    def __init__(self, events):
-        # maps event names to subscribers
-        # str -> dict
-        self._events = {event: dict() for event in events}
-
-    def get_subscribers(self, event):
-        return self._events[event]
-
-    def subscribe(self, event, subscriber, callback=None):
-        if callback is None:
-            callback = getattr(subscriber, 'update')
-        self.get_subscribers(event)[subscriber] = callback
-
-    def unsubscribe(self, event, subscriber):
-        del self.get_subscribers(event)[subscriber]
-
-    def dispatch(self, event):
-        for _, callback in self.get_subscribers(event).items():
-            callback(event, self)
 
 
 class BayesianOptimization(Observable):
@@ -101,6 +75,7 @@ class BayesianOptimization(Observable):
     set_bounds()
         Allows changing the lower and upper searching bounds
     """
+
     def __init__(self, f, pbounds, random_state=None, verbose=2,
                  bounds_transformer=None):
         self._random_state = ensure_rng(random_state)
@@ -129,7 +104,7 @@ class BayesianOptimization(Observable):
                 raise TypeError('The transformer must be an instance of '
                                 'DomainTransformer')
 
-        super(BayesianOptimization, self).__init__(events=DEFAULT_EVENTS)
+        super(BayesianOptimization, self).__init__(events=OptimizationEvent)
 
     @property
     def space(self):
@@ -146,7 +121,7 @@ class BayesianOptimization(Observable):
     def register(self, params, target):
         """Expect observation with known target"""
         self._space.register(params, target)
-        self.dispatch(Events.OPTIMIZATION_STEP)
+        self.dispatch(OptimizationEvent.STEP)
 
     def probe(self, params, lazy=True):
         """
@@ -165,7 +140,7 @@ class BayesianOptimization(Observable):
             self._queue.add(params)
         else:
             self._space.probe(params)
-            self.dispatch(Events.OPTIMIZATION_STEP)
+            self.dispatch(OptimizationEvent.STEP)
 
     def suggest(self, utility_function):
         """Most promising point to probe next"""
@@ -200,9 +175,9 @@ class BayesianOptimization(Observable):
     def _prime_subscriptions(self):
         if not any([len(subs) for subs in self._events.values()]):
             _logger = _get_default_logger(self._verbose)
-            self.subscribe(Events.OPTIMIZATION_START, _logger)
-            self.subscribe(Events.OPTIMIZATION_STEP, _logger)
-            self.subscribe(Events.OPTIMIZATION_END, _logger)
+            self.subscribe(OptimizationEvent.START, _logger)
+            self.subscribe(OptimizationEvent.STEP, _logger)
+            self.subscribe(OptimizationEvent.END, _logger)
 
     def maximize(self,
                  init_points=5,
@@ -250,7 +225,7 @@ class BayesianOptimization(Observable):
             [unused]
         """
         self._prime_subscriptions()
-        self.dispatch(Events.OPTIMIZATION_START)
+        self.dispatch(OptimizationEvent.START)
         self._prime_queue(init_points)
         self.set_gp_params(**gp_params)
 
@@ -274,7 +249,7 @@ class BayesianOptimization(Observable):
                 self.set_bounds(
                     self._bounds_transformer.transform(self._space))
 
-        self.dispatch(Events.OPTIMIZATION_END)
+        self.dispatch(OptimizationEvent.END)
 
     def set_bounds(self, new_bounds):
         """

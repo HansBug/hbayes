@@ -1,4 +1,4 @@
-from .bayesian_optimization import BayesianOptimization, Events
+from .bayesian_optimization import BayesianOptimization, OptimizationEvent
 from .domain_reduction import SequentialDomainReductionTransformer
 from .logger import ScreenLogger, JSONLogger
 from .util import UtilityFunction
@@ -6,7 +6,7 @@ from .util import UtilityFunction
 __all__ = [
     "BayesianOptimization",
     "UtilityFunction",
-    "Events",
+    "OptimizationEvent",
     "ScreenLogger",
     "JSONLogger",
     "SequentialDomainReductionTransformer",

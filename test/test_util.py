@@ -4,7 +4,7 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern
 
 from bayes_opt import BayesianOptimization
-from bayes_opt.util import UtilityFunction, Colours
+from bayes_opt.util import UtilityFunction
 from bayes_opt.util import acq_max, load_logs, ensure_rng
 
 
@@ -148,29 +148,6 @@ def test_logs():
     )
     with pytest.raises(ValueError):
         load_logs(other_optimizer, ["./test/test_logs.json"])
-
-
-@pytest.mark.unittest
-def test_colours():
-    colour_wrappers = [
-        (Colours.END, Colours.black),
-        (Colours.BLUE, Colours.blue),
-        (Colours.BOLD, Colours.bold),
-        (Colours.CYAN, Colours.cyan),
-        (Colours.DARKCYAN, Colours.darkcyan),
-        (Colours.GREEN, Colours.green),
-        (Colours.PURPLE, Colours.purple),
-        (Colours.RED, Colours.red),
-        (Colours.UNDERLINE, Colours.underline),
-        (Colours.YELLOW, Colours.yellow),
-    ]
-
-    for colour, wrapper in colour_wrappers:
-        text1 = Colours._wrap_colour("test", colour)
-        text2 = wrapper("test")
-
-        assert text1.split("test") == [colour, Colours.END]
-        assert text2.split("test") == [colour, Colours.END]
 
 
 if __name__ == '__main__':

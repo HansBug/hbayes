@@ -3,7 +3,7 @@ import pytest
 
 from bayes_opt import BayesianOptimization
 from bayes_opt import UtilityFunction
-from bayes_opt.event import Events, DEFAULT_EVENTS
+from bayes_opt.event import OptimizationEvent
 from bayes_opt.logger import ScreenLogger
 
 
@@ -157,14 +157,10 @@ def test_prime_subscriptions():
     optimizer._prime_subscriptions()
 
     # Test that the default observer is correctly subscribed
-    for event in DEFAULT_EVENTS:
+    for event in OptimizationEvent.__members__.values():
         assert all([
-            isinstance(k, ScreenLogger) for k in
-            optimizer._events[event].keys()
-        ])
-        assert all([
-            hasattr(k, "update") for k in
-            optimizer._events[event].keys()
+            isinstance(k, ScreenLogger) and hasattr(k, 'update')
+            for k, callback in optimizer.subscriptions(event)
         ])
 
     test_subscriber = "test_subscriber"
@@ -174,36 +170,28 @@ def test_prime_subscriptions():
 
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     optimizer.subscribe(
-        event=Events.OPTIMIZATION_START,
+        event=OptimizationEvent.START,
         subscriber=test_subscriber,
         callback=test_callback,
     )
     # Test that the desired observer is subscribed
     assert all([
-        k == test_subscriber for k in
-        optimizer._events[Events.OPTIMIZATION_START].keys()
-    ])
-    assert all([
-        v == test_callback for v in
-        optimizer._events[Events.OPTIMIZATION_START].values()
+        k == test_subscriber and v == test_callback
+        for k, v in optimizer.subscriptions(OptimizationEvent.START)
     ])
 
     # Check that prime subscriptions won't overight manual subscriptions
     optimizer._prime_subscriptions()
     assert all([
-        k == test_subscriber for k in
-        optimizer._events[Events.OPTIMIZATION_START].keys()
-    ])
-    assert all([
-        v == test_callback for v in
-        optimizer._events[Events.OPTIMIZATION_START].values()
+        k == test_subscriber and v == test_callback
+        for k, v in optimizer.subscriptions(OptimizationEvent.START)
     ])
 
-    assert optimizer._events[Events.OPTIMIZATION_STEP] == {}
-    assert optimizer._events[Events.OPTIMIZATION_END] == {}
+    assert optimizer.subscriptions(OptimizationEvent.STEP) == []
+    assert optimizer.subscriptions(OptimizationEvent.END) == []
 
     with pytest.raises(KeyError):
-        optimizer._events["other"]
+        optimizer.subscriptions("other")
 
 
 @pytest.mark.unittest
@@ -267,17 +255,17 @@ def test_maximize():
 
     tracker = Tracker()
     optimizer.subscribe(
-        event=Events.OPTIMIZATION_START,
+        event=OptimizationEvent.START,
         subscriber=tracker,
         callback=tracker.update_start,
     )
     optimizer.subscribe(
-        event=Events.OPTIMIZATION_STEP,
+        event=OptimizationEvent.STEP,
         subscriber=tracker,
         callback=tracker.update_step,
     )
     optimizer.subscribe(
-        event=Events.OPTIMIZATION_END,
+        event=OptimizationEvent.END,
         subscriber=tracker,
         callback=tracker.update_end,
     )

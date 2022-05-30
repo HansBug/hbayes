@@ -1,11 +1,7 @@
-class Events:
-    OPTIMIZATION_START = 'optimization:start'
-    OPTIMIZATION_STEP = 'optimization:step'
-    OPTIMIZATION_END = 'optimization:end'
+from enum import IntEnum
 
 
-DEFAULT_EVENTS = [
-    Events.OPTIMIZATION_START,
-    Events.OPTIMIZATION_STEP,
-    Events.OPTIMIZATION_END,
-]
+class OptimizationEvent(IntEnum):
+    START = 1
+    STEP = 2
+    END = 3

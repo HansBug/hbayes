@@ -2,17 +2,54 @@ from __future__ import print_function
 
 import json
 import os
+from datetime import datetime
 
-from .event import Events
-from .observer import _Tracker
-from .util import Colours
+from .event import OptimizationEvent
+
+
+class StepTracker(object):
+    def __init__(self):
+        self._iterations = 0
+
+        self._previous_max = None
+        self._previous_max_params = None
+
+        self._start_time = None
+        self._previous_time = None
+
+    def _update_tracker(self, event, instance):
+        if event == OptimizationEvent.STEP:
+            self._iterations += 1
+
+            current_max = instance.max
+            if (self._previous_max is None or
+                    current_max["target"] > self._previous_max):
+                self._previous_max = current_max["target"]
+                self._previous_max_params = current_max["params"]
+
+    def _time_metrics(self):
+        now = datetime.now()
+        if self._start_time is None:
+            self._start_time = now
+        if self._previous_time is None:
+            self._previous_time = now
+
+        time_elapsed = now - self._start_time
+        time_delta = now - self._previous_time
+
+        self._previous_time = now
+        return (
+            now.strftime("%Y-%m-%d %H:%M:%S"),
+            time_elapsed.total_seconds(),
+            time_delta.total_seconds()
+        )
 
 
 def _get_default_logger(verbose):
     return ScreenLogger(verbose=verbose)
 
 
-class ScreenLogger(_Tracker):
+class ScreenLogger(StepTracker):
     _default_cell_size = 9
     _default_precision = 4
 
@@ -58,7 +95,7 @@ class ScreenLogger(_Tracker):
             return s[:self._default_cell_size - 3] + "..."
         return s
 
-    def _step(self, instance, colour=Colours.black):
+    def _step(self, instance):
         res = instance.res[-1]
         cells = [
             self._format_number(self._iterations + 1),
@@ -68,7 +105,7 @@ class ScreenLogger(_Tracker):
         for key in instance.space.keys:
             cells.append(self._format_number(res["params"][key]))
 
-        return "| " + " | ".join(map(colour, cells)) + " |"
+        return "| " + " | ".join(cells) + " |"
 
     def _header(self, instance):
         cells = [
@@ -88,16 +125,15 @@ class ScreenLogger(_Tracker):
         return instance.max["target"] > self._previous_max
 
     def update(self, event, instance):
-        if event == Events.OPTIMIZATION_START:
+        if event == OptimizationEvent.START:
             line = self._header(instance) + "\n"
-        elif event == Events.OPTIMIZATION_STEP:
+        elif event == OptimizationEvent.STEP:
             is_new_max = self._is_new_max(instance)
             if self._verbose == 1 and not is_new_max:
                 line = ""
             else:
-                colour = Colours.purple if is_new_max else Colours.black
-                line = self._step(instance, colour=colour) + "\n"
-        elif event == Events.OPTIMIZATION_END:
+                line = self._step(instance) + "\n"
+        elif event == OptimizationEvent.END:
             line = "=" * self._header_length + "\n"
         else:
             raise ValueError(f'Unknown event - {event}.')  # pragma: no cover
@@ -107,7 +143,7 @@ class ScreenLogger(_Tracker):
         self._update_tracker(event, instance)
 
 
-class JSONLogger(_Tracker):
+class JSONLogger(StepTracker):
     def __init__(self, path, reset=True):
         self._path = path if path[-5:] == ".json" else path + ".json"
         if reset:
@@ -118,7 +154,7 @@ class JSONLogger(_Tracker):
         super(JSONLogger, self).__init__()
 
     def update(self, event, instance):
-        if event == Events.OPTIMIZATION_STEP:
+        if event == OptimizationEvent.STEP:
             data = dict(instance.res[-1])
 
             now, time_elapsed, time_delta = self._time_metrics()
