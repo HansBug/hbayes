@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from bayes_opt.target_space import TargetSpace
+from bayes_opt.target_space import TargetSpace, FuncFailed
 
 
 def target_func(**kwargs):
@@ -176,6 +176,27 @@ def test_res():
     ]
     assert len(space.res()) == 4
     assert space.res() == expected_res
+
+
+@pytest.mark.unittest
+def test_failed():
+    def _my_func(p1, p2):
+        if p1 >= 4 and p2 >= 4:
+            raise FuncFailed(p1, p2)
+        return p1 + p2
+
+    space = TargetSpace(_my_func, PBOUNDS)
+    assert not space.max()
+    space.probe(x={"p1": 1, "p2": 2})
+    space.probe(x={"p1": 5, "p2": 4})
+    space.probe(x={"p1": 2, "p2": 3})
+    space.probe(x={"p1": 1, "p2": 6})
+    assert space.max() == {"params": {"p1": 1, "p2": 6}, "target": 7}
+    assert space.res() == [
+        {"params": {"p1": 1, "p2": 2}, "target": 3},
+        {"params": {"p1": 2, "p2": 3}, "target": 5},
+        {"params": {"p1": 1, "p2": 6}, "target": 7},
+    ]
 
 
 @pytest.mark.unittest

@@ -18,12 +18,11 @@ class StepTracker(object):
         self._previous_time = None
 
     def _update_tracker(self, event, instance):
-        if event == OptimizationEvent.STEP:
+        if event in {OptimizationEvent.STEP, OptimizationEvent.SKIP}:
             self._iterations += 1
 
             current_max = instance.max
-            if (self._previous_max is None or
-                    current_max["target"] > self._previous_max):
+            if current_max and (self._previous_max is None or current_max["target"] > self._previous_max):
                 self._previous_max = current_max["target"]
                 self._previous_max_params = current_max["params"]
 
@@ -95,17 +94,21 @@ class ScreenLogger(StepTracker):
             return s[:self._default_cell_size - 3] + "..."
         return s
 
-    def _step(self, instance):
-        res = instance.res[-1]
+    def _row(self, target, keys, params):
         cells = [
             self._format_number(self._iterations + 1),
-            self._format_number(res["target"])
+            self._format_number(target) if isinstance(target, (int, float)) else self._format_key(target),
         ]
-
-        for key in instance.space.keys:
-            cells.append(self._format_number(res["params"][key]))
-
+        for key in keys:
+            cells.append(self._format_number(params[key]))
         return "| " + " | ".join(cells) + " |"
+
+    def _step(self, instance):
+        res = instance.res[-1]
+        return self._row(res['target'], instance.space.keys, res['params'])
+
+    def _skip(self, instance):
+        return self._row('<skipped>', instance.space.keys, instance.last_skipped)
 
     def _header(self, instance):
         cells = [
@@ -120,9 +123,12 @@ class ScreenLogger(StepTracker):
         return line + "\n" + ("-" * self._header_length)
 
     def _is_new_max(self, instance):
-        if self._previous_max is None:
-            self._previous_max = instance.max["target"]
-        return instance.max["target"] > self._previous_max
+        if instance.max:
+            if self._previous_max is None:
+                self._previous_max = instance.max["target"]
+            return instance.max["target"] > self._previous_max
+        else:
+            return False
 
     def update(self, event, instance):
         if event == OptimizationEvent.START:
@@ -133,6 +139,8 @@ class ScreenLogger(StepTracker):
                 line = ""
             else:
                 line = self._step(instance) + "\n"
+        elif event == OptimizationEvent.SKIP:
+            line = self._skip(instance) + "\n"
         elif event == OptimizationEvent.END:
             line = "=" * self._header_length + "\n"
         else:

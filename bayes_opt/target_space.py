@@ -1,4 +1,4 @@
-from typing import List, Dict, Union, Tuple
+from typing import List, Dict, Union, Tuple, Optional
 
 import numpy as np
 
@@ -10,6 +10,15 @@ def _hashable(x: np.ndarray) -> Tuple[float, ...]:
     Ensure that a point is hashable by a python dict.
     """
     return tuple(map(float, x))
+
+
+class FuncFailed(Exception):
+    """
+    Overview:
+        Exception class thrown then ``target_func`` is failed. \
+        The result (including x and y) will be skipped and ignored after that.
+    """
+    pass
 
 
 class TargetSpace(object):
@@ -161,12 +170,14 @@ class TargetSpace(object):
         self._params = np.concatenate([self._params, x.reshape(1, -1)])
         self._target = np.concatenate([self._target, [y]])
 
-    def probe(self, x: Union[np.ndarray, Dict[str, float]]) -> float:
+    def probe(self, x: Union[np.ndarray, Dict[str, float]]) -> Optional[float]:
         """
         Evaluates a single point x, to obtain the value y and then records them as observations.
 
-        .. notes:
-            If ``x` has been previously seen returns a cached value of y.
+        .. note::
+            * If ``x`` has been previously seen returns a cached value of y.
+            * If :class:`FuncFailed` is raised from ``target_func``, this pair of x and y will be ignored, with \
+                return value of ``None``.
 
         :param x: A single point, with ``len(params) == self.dim``.
         :returns: Target function value.
@@ -174,12 +185,16 @@ class TargetSpace(object):
         x = self._as_array(x)
 
         try:
-            target = self._cache[_hashable(x)]
+            return self._cache[_hashable(x)]
         except KeyError:
             x = dict(zip(self._keys, x))
-            target = self.target_func(**x)
-            self.register(x, target)
-        return target
+            try:
+                target = self.target_func(**x)
+            except FuncFailed:
+                return None
+            else:
+                self.register(x, target)
+                return target
 
     def random_sample(self) -> np.ndarray:
         """

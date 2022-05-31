@@ -64,6 +64,7 @@ class BayesianOptimization(Observable):
         # its domain, and a record of the evaluations we have done so far
         self._space = TargetSpace(f, pbounds, random_state)
         self._queue = Queue()
+        self._last_skipped_params = None
 
         # Internal GP regressor
         self._gp = GaussianProcessRegressor(
@@ -83,6 +84,10 @@ class BayesianOptimization(Observable):
                 raise TypeError('The transformer must be an instance of DomainTransformer')
 
         super(BayesianOptimization, self).__init__(events=OptimizationEvent)
+
+    @property
+    def last_skipped(self) -> Dict[str, float]:
+        return self._last_skipped_params
 
     @property
     def space(self) -> TargetSpace:
@@ -114,8 +119,12 @@ class BayesianOptimization(Observable):
         if lazy:
             self._queue.add(params)
         else:
-            self._space.probe(params)
-            self.dispatch(OptimizationEvent.STEP)
+            result = self._space.probe(params)
+            if result is not None:
+                self.dispatch(OptimizationEvent.STEP)
+            else:
+                self._last_skipped_params = params
+                self.dispatch(OptimizationEvent.SKIP)
 
     def suggest(self, utility_function: UtilityFunction) -> Dict[str, float]:
         """
@@ -155,9 +164,8 @@ class BayesianOptimization(Observable):
     def _prime_subscriptions(self):
         if not any([subs for subs in self._events.values()]):
             _logger = _get_default_logger(self._verbose)
-            self.subscribe(OptimizationEvent.START, _logger)
-            self.subscribe(OptimizationEvent.STEP, _logger)
-            self.subscribe(OptimizationEvent.END, _logger)
+            for event in OptimizationEvent.__members__.values():
+                self.subscribe(event, _logger)
 
     def maximize(self, init_points: int = 5, n_iter: int = 25,
                  acq='ucb', kappa=2.576, kappa_decay=1, kappa_decay_delay=0,

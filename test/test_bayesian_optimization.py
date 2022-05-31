@@ -1,3 +1,5 @@
+import random
+
 import numpy as np
 import pytest
 
@@ -5,6 +7,7 @@ from bayes_opt import BayesianOptimization
 from bayes_opt import UtilityFunction
 from bayes_opt.event import OptimizationEvent
 from bayes_opt.logger import ScreenLogger
+from bayes_opt.target_space import FuncFailed
 
 
 def target_func(**kwargs):
@@ -165,7 +168,7 @@ def test_prime_subscriptions():
 
     test_subscriber = "test_subscriber"
 
-    def test_callback(event, instance):
+    def test_callback():
         pass
 
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
@@ -236,15 +239,19 @@ def test_maximize():
         def __init__(self):
             self.start_count = 0
             self.step_count = 0
+            self.skip_count = 0
             self.end_count = 0
 
-        def update_start(self, event, instance):
+        def update_start(self):
             self.start_count += 1
 
-        def update_step(self, event, instance):
+        def update_step(self):
             self.step_count += 1
 
-        def update_end(self, event, instance):
+        def update_skip(self):
+            self.skip_count += 1
+
+        def update_end(self):
             self.end_count += 1
 
         def reset(self):
@@ -265,6 +272,11 @@ def test_maximize():
         callback=tracker.update_step,
     )
     optimizer.subscribe(
+        event=OptimizationEvent.SKIP,
+        subscriber=tracker,
+        callback='update_skip',
+    )
+    optimizer.subscribe(
         event=OptimizationEvent.END,
         subscriber=tracker,
         callback=tracker.update_end,
@@ -275,6 +287,7 @@ def test_maximize():
     assert len(optimizer.space) == 1
     assert tracker.start_count == 1
     assert tracker.step_count == 1
+    assert tracker.skip_count == 0
     assert tracker.end_count == 1
 
     optimizer.maximize(init_points=2, n_iter=0, alpha=1e-2)
@@ -283,6 +296,7 @@ def test_maximize():
     assert optimizer._gp.alpha == 1e-2
     assert tracker.start_count == 2
     assert tracker.step_count == 3
+    assert tracker.skip_count == 0
     assert tracker.end_count == 2
 
     optimizer.maximize(init_points=0, n_iter=2)
@@ -290,15 +304,49 @@ def test_maximize():
     assert len(optimizer.space) == 5
     assert tracker.start_count == 3
     assert tracker.step_count == 5
+    assert tracker.skip_count == 0
     assert tracker.end_count == 3
 
 
 @pytest.mark.unittest
 def test_define_wrong_transformer():
     with pytest.raises(TypeError):
-        optimizer = BayesianOptimization(target_func, PBOUNDS,
-                                         random_state=np.random.RandomState(1),
-                                         bounds_transformer=3)
+        _ = BayesianOptimization(
+            target_func, PBOUNDS,
+            random_state=np.random.RandomState(1),
+            bounds_transformer=3
+        )
+
+
+@pytest.mark.unittest
+@pytest.mark.flaky(reruns=3, reruns_delay=1)
+def test_actual_use():
+    _is_first = True
+
+    def black_box_function(x, y):
+        nonlocal _is_first
+        _first, _is_first = _is_first, False
+        if _first or random.random() < 0.1:
+            raise FuncFailed(x, y)
+        return -x ** 2 - (y - 1) ** 2 + 1
+
+    pbounds = {'x': (2, 4), 'y': (-3, 3)}
+    optimizer = BayesianOptimization(
+        f=black_box_function,
+        pbounds=pbounds,
+        random_state=1,
+        verbose=2,
+    )
+    optimizer.maximize(
+        init_points=15,
+        n_iter=30,
+    )
+
+    target = optimizer.max['target']
+    params = optimizer.max['params']
+    assert target == pytest.approx(-3.0, abs=1e-3)
+    assert params['x'] == pytest.approx(2.0, abs=1e-4)
+    assert params['y'] == pytest.approx(1.0, abs=1e-2)
 
 
 if __name__ == '__main__':

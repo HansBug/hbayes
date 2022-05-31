@@ -1,4 +1,4 @@
-from enum import IntEnum
+from enum import IntEnum, auto
 
 import enum_tools
 
@@ -9,6 +9,7 @@ class OptimizationEvent(IntEnum):
     Overview:
         Events during optimization.
     """
-    START = 1  # doc: A person called Alice
-    STEP = 2  # doc: Step event.
-    END = 3  # doc: End event.
+    START = auto()  # doc: Start event.
+    STEP = auto()  # doc: Step event.
+    SKIP = auto()  # doc: Skipped event.
+    END = auto()  # doc: End event.
