@@ -173,11 +173,14 @@
     
   <h1>Source code for bayes_opt.bayesian_optimization</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">hbutils.design</span> <span class="kn">import</span> <span class="n">Observable</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">Matern</span>
 
+<span class="kn">from</span> <span class="nn">.domain_reduction</span> <span class="kn">import</span> <span class="n">DomainTransformer</span>
 <span class="kn">from</span> <span class="nn">.event</span> <span class="kn">import</span> <span class="n">OptimizationEvent</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">_get_default_logger</span>
 <span class="kn">from</span> <span class="nn">.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
@@ -247,12 +250,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span> <span class="o">=</span> <span class="n">bounds_transformer</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span><span class="p">,</span> <span class="n">DomainTransformer</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="p">)</span>
-            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;The transformer must be an instance of &#39;</span>
-                                <span class="s1">&#39;DomainTransformer&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;The transformer must be an instance of DomainTransformer&#39;</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">BayesianOptimization</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="n">OptimizationEvent</span><span class="p">)</span></div>
 
@@ -268,14 +270,14 @@
     <span class="k">def</span> <span class="nf">res</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">res</span><span class="p">()</span>
 
-<div class="viewcode-block" id="BayesianOptimization.register"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<div class="viewcode-block" id="BayesianOptimization.register"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Expect observation with known target</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">STEP</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BayesianOptimization.probe"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.probe">[docs]</a>    <span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="BayesianOptimization.probe"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.probe">[docs]</a>    <span class="k">def</span> <span class="nf">probe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluates the function on the given points. Useful to guide the optimizer.</span>
 
@@ -289,8 +291,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">probe</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">STEP</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BayesianOptimization.suggest"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.suggest">[docs]</a>    <span class="k">def</span> <span class="nf">suggest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utility_function</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Most promising point to probe next&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BayesianOptimization.suggest"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.suggest">[docs]</a>    <span class="k">def</span> <span class="nf">suggest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utility_function</span><span class="p">:</span> <span class="n">UtilityFunction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Most promising point to probe next</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">array_to_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">random_sample</span><span class="p">())</span>
 
@@ -301,6 +305,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
 
         <span class="c1"># Finding argmax of the acquisition function.</span>
+        <span class="c1"># noinspection PyArgumentList</span>
         <span class="n">suggestion</span> <span class="o">=</span> <span class="n">acq_max</span><span class="p">(</span>
             <span class="n">ac</span><span class="o">=</span><span class="n">utility_function</span><span class="o">.</span><span class="n">utility</span><span class="p">,</span>
             <span class="n">gp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_gp</span><span class="p">,</span>
@@ -310,7 +315,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">array_to_params</span><span class="p">(</span><span class="n">suggestion</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_prime_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_points</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_prime_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_points</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make sure there&#39;s something in the queue at the very beginning.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -318,16 +323,17 @@
             <span class="n">init_points</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">init_points</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">init_points</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">random_sample</span><span class="p">())</span>
+            <span class="n">array_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">random_sample</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">array_to_params</span><span class="p">(</span><span class="n">array_</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_prime_subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">subs</span><span class="p">)</span> <span class="k">for</span> <span class="n">subs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">values</span><span class="p">()]):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">subs</span> <span class="k">for</span> <span class="n">subs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">values</span><span class="p">()]):</span>
             <span class="n">_logger</span> <span class="o">=</span> <span class="n">_get_default_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">START</span><span class="p">,</span> <span class="n">_logger</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">STEP</span><span class="p">,</span> <span class="n">_logger</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">END</span><span class="p">,</span> <span class="n">_logger</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BayesianOptimization.maximize"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.maximize">[docs]</a>    <span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_points</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+<div class="viewcode-block" id="BayesianOptimization.maximize"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.maximize">[docs]</a>    <span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
                  <span class="n">acq</span><span class="o">=</span><span class="s1">&#39;ucb&#39;</span><span class="p">,</span> <span class="n">kappa</span><span class="o">=</span><span class="mf">2.576</span><span class="p">,</span> <span class="n">kappa_decay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kappa_decay_delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                  <span class="n">xi</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">gp_params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -352,11 +358,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_prime_queue</span><span class="p">(</span><span class="n">init_points</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_gp_params</span><span class="p">(</span><span class="o">**</span><span class="n">gp_params</span><span class="p">)</span>
 
-        <span class="n">util</span> <span class="o">=</span> <span class="n">UtilityFunction</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">acq</span><span class="p">,</span>
-                               <span class="n">kappa</span><span class="o">=</span><span class="n">kappa</span><span class="p">,</span>
-                               <span class="n">xi</span><span class="o">=</span><span class="n">xi</span><span class="p">,</span>
-                               <span class="n">kappa_decay</span><span class="o">=</span><span class="n">kappa_decay</span><span class="p">,</span>
-                               <span class="n">kappa_decay_delay</span><span class="o">=</span><span class="n">kappa_decay_delay</span><span class="p">)</span>
+        <span class="n">util</span> <span class="o">=</span> <span class="n">UtilityFunction</span><span class="p">(</span><span class="n">acq</span><span class="p">,</span> <span class="n">kappa</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">kappa_decay</span><span class="p">,</span> <span class="n">kappa_decay_delay</span><span class="p">)</span>
         <span class="n">iteration</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="n">iteration</span> <span class="o">&lt;</span> <span class="n">n_iter</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -369,12 +371,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">probe</span><span class="p">(</span><span class="n">x_probe</span><span class="p">,</span> <span class="n">lazy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bounds_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">END</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BayesianOptimization.set_bounds"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.set_bounds">[docs]</a>    <span class="k">def</span> <span class="nf">set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_bounds</span><span class="p">):</span>
+<div class="viewcode-block" id="BayesianOptimization.set_bounds"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.set_bounds">[docs]</a>    <span class="k">def</span> <span class="nf">set_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_bounds</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method that allows changing the lower and upper searching bounds</span>
 
@@ -383,7 +384,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">new_bounds</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BayesianOptimization.set_gp_params"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.set_gp_params">[docs]</a>    <span class="k">def</span> <span class="nf">set_gp_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set parameters to the internal Gaussian Process Regressor&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set parameters to the internal Gaussian Process Regressor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gp</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div></div>
 </pre></div>
 
