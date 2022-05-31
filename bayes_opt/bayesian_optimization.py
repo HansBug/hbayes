@@ -32,7 +32,9 @@ class Queue:
         return self.__next__()
 
     def add(self, obj):
-        """Add object to end of queue."""
+        """
+        Add object to end of queue.
+        """
         self._queue.append(obj)
 
 
@@ -53,7 +55,7 @@ class BayesianOptimization(Observable):
 
     random_state: int or numpy.random.RandomState, optional(default=None)
         If the value is an integer, it is used as the seed for creating a
-        numpy.random.RandomState. Otherwise the random state provieded it is used.
+        numpy.random.RandomState. Otherwise, the random state provided it is used.
         When set to None, an unseeded random state is generated.
 
     verbose: int, optional(default=2)
@@ -134,7 +136,7 @@ class BayesianOptimization(Observable):
 
         lazy: bool, optional(default=True)
             If True, the optimizer will evaluate the points when calling
-            maximize(). Otherwise it will evaluate it at the moment.
+            maximize(). Otherwise, it will evaluate it at the moment.
         """
         if lazy:
             self._queue.add(params)

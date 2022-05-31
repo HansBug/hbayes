@@ -4,45 +4,41 @@ from .util import ensure_rng
 
 
 def _hashable(x):
-    """ ensure that an point is hashable by a python dict """
+    """
+    Ensure that a point is hashable by a python dict.
+    """
     return tuple(map(float, x))
 
 
 class TargetSpace(object):
     """
-    Holds the param-space coordinates (X) and target values (Y)
-    Allows for constant-time appends while ensuring no duplicates are added
+    Overview:
+        Holds the param-space coordinates (X) and target values (Y) \
+        Allows for constant-time appends while ensuring no duplicates are added.
 
-    Example
-    -------
-    >>> from bayes_opt.target_space import TargetSpace
-    >>>
-    >>> def target_func(p1, p2):
-    ...     return p1 + p2
-    >>>
-    >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
-    >>> space = TargetSpace(target_func, pbounds, random_state=0)
-    >>> x = space.random_sample()
-    >>> y = space.probe(x)
-    >>> print(x, y)
-    [ 0.5488135  71.80374727] 72.35256077479684
-    >>> print(space.max())
-    {'target': 72.35256077479684, 'params': {'p1': 0.5488135039273248, 'p2': 71.80374727086952}}
+    Examples:
+        >>> from bayes_opt.target_space import TargetSpace
+        >>>
+        >>> def target_func(p1, p2):
+        ...     return p1 + p2
+        >>>
+        >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
+        >>> space = TargetSpace(target_func, pbounds, random_state=0)
+        >>> x = space.random_sample()
+        >>> y = space.probe(x)
+        >>> print(x, y)
+        [ 0.5488135  71.80374727] 72.35256077479684
+        >>> print(space.max())
+        {'target': 72.35256077479684, 'params': {'p1': 0.5488135039273248, 'p2': 71.80374727086952}}
     """
 
     def __init__(self, target_func, pbounds, random_state=None):
         """
-        Parameters
-        ----------
-        target_func : function
-            Function to be maximized.
+        Constructor of :class:`TargetSpace`.
 
-        pbounds : dict
-            Dictionary with parameters names as keys and a tuple with minimum
-            and maximum values.
-
-        random_state : int, RandomState, or None
-            optionally specify a seed for a random number generator
+        :param target_func: Function to be maximized.
+        :param pbounds: Dictionary with parameters names as keys and a tuple with minimum and maximum values.
+        :param random_state: Optionally specify a seed for a random number generator
         """
         self.random_state = ensure_rng(random_state)
 
@@ -136,38 +132,27 @@ class TargetSpace(object):
         """
         Append a point and its target value to the known data.
 
-        Parameters
-        ----------
-        params : ndarray
-            a single point, with len(x) == self.dim
+        :param params: A single point, with len(x) == self.dim.
+        :param target: Target function value.
+        :raises KeyError: If the point is not unique.
 
-        target : float
-            target function value
+        .. notes::
+            Runs in ammortized constant time.
 
-        Raises
-        ------
-        KeyError:
-            if the point is not unique
-
-        Notes
-        -----
-        runs in ammortized constant time
-
-        Example
-        -------
-        >>> import numpy as np
-        >>> from bayes_opt.target_space import TargetSpace
-        >>>
-        >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
-        >>> space = TargetSpace(lambda p1, p2: p1 + p2, pbounds)
-        >>> len(space)
-        0
-        >>> x_ = np.array([0, 0])
-        >>> y = 1
-        >>> space.register(x_, y)
-        [[0. 0.]] [1.]
-        >>> len(space)
-        1
+        Examples:
+            >>> import numpy as np
+            >>> from bayes_opt.target_space import TargetSpace
+            >>>
+            >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
+            >>> space = TargetSpace(lambda p1, p2: p1 + p2, pbounds)
+            >>> len(space)
+            0
+            >>> x_ = np.array([0, 0])
+            >>> y = 1
+            >>> space.register(x_, y)
+            [[0. 0.]] [1.]
+            >>> len(space)
+            1
         """
         x = self._as_array(params)
         if x in self:
@@ -181,22 +166,13 @@ class TargetSpace(object):
 
     def probe(self, params):
         """
-        Evaulates a single point x, to obtain the value y and then records them
-        as observations.
+        Evaluates a single point x, to obtain the value y and then records them as observations.
 
-        Notes
-        -----
-        If x has been previously seen returns a cached value of y.
+        .. notes:
+            If ``params` has been previously seen returns a cached value of y.
 
-        Parameters
-        ----------
-        params : ndarray
-            a single point, with len(x) == self.dim
-
-        Returns
-        -------
-        y : float
-            target function value.
+        :param params: A single point, with ``len(params) == self.dim``.
+        :returns: Target function value.
         """
         x = self._as_array(params)
 
@@ -212,20 +188,16 @@ class TargetSpace(object):
         """
         Creates random points within the bounds of the space.
 
-        Returns
-        ----------
-        data: ndarray
-            [num x dim] array points with dimensions corresponding to `self._keys`
+        :returns: [num x dim] array points with dimensions corresponding to `self._keys`
 
-        Example
-        -------
-        >>> from bayes_opt.target_space import TargetSpace
-        >>>
-        >>> target_func = lambda p1, p2: p1 + p2
-        >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
-        >>> space = TargetSpace(target_func, pbounds, random_state=0)
-        >>> space.random_sample()
-        array([ 0.5488135 , 71.80374727])
+        Examples:
+            >>> from bayes_opt.target_space import TargetSpace
+            >>>
+            >>> target_func = lambda p1, p2: p1 + p2
+            >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
+            >>> space = TargetSpace(target_func, pbounds, random_state=0)
+            >>> space.random_sample()
+            array([ 0.5488135 , 71.80374727])
         """
         # TODO: support integer, category, and basic scipy.optimize constraints
         data = np.empty((1, self.dim))
@@ -264,10 +236,7 @@ class TargetSpace(object):
         """
         A method that allows changing the lower and upper searching bounds
 
-        Parameters
-        ----------
-        new_bounds : dict
-            A dictionary with the parameter name and its new bounds
+        :param new_bounds: A dictionary with the parameter name and its new bounds
         """
         for row, key in enumerate(self.keys):
             if key in new_bounds:

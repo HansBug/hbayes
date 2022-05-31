@@ -1,24 +1,50 @@
+from typing import Type, Optional, Dict
+
 import numpy as np
 
 from .target_space import TargetSpace
 
 
-class DomainTransformer:
+class TransformerCore:
     """
-    The base transformer class
+    Overview:
+        Base class of transformer cores.
     """
 
-    def __init__(self, **kwargs):
+    # noinspection PyUnusedLocal
+    def __init__(self, space: TargetSpace, *args, **kwargs):
         pass
 
-    def initialize(self, target_space: TargetSpace):
-        raise NotImplementedError
-
-    def transform(self, target_space: TargetSpace):
-        raise NotImplementedError
+    def transform(self, space: TargetSpace) -> Dict[str, np.ndarray]:
+        raise NotImplementedError  # pragma: no cover
 
 
-def _create_bounds(parameters: dict, bounds: np.array) -> dict:
+class DomainTransformer:
+    """
+    Overview:
+        Base class of transformer.
+
+    .. note::
+        State pattern is used, its main service should be wrapped in :class:`TransformCore` object.
+    """
+
+    def __init__(self, core_class: Type[TransformerCore], *args, **kwargs):
+        self._core_class = core_class
+        self._args = args
+        self._kwargs = kwargs
+        self._core: Optional[TransformerCore] = None
+
+    def initialize(self, space: TargetSpace):
+        self._core = self._core_class(space, *self._args, **self._kwargs)
+
+    def transform(self, space: TargetSpace) -> Dict[str, np.ndarray]:
+        if self._core is not None:
+            return self._core.transform(space)
+        else:
+            raise SyntaxError('Transformer not initialized yet.')  # pragma: no cover
+
+
+def _create_bounds(parameters: dict, bounds: np.array) -> Dict[str, np.ndarray]:
     return {param: bounds[i, :] for i, param in enumerate(parameters)}
 
 
@@ -32,26 +58,24 @@ def _trim(new_bounds: np.array, global_bounds: np.array) -> np.array:
     return new_bounds
 
 
-class SequentialDomainReductionTransformer(DomainTransformer):
+class SDRCore(TransformerCore):
     """
-    A sequential domain reduction transformer bassed on the work by Stander, N. and Craig, K:
-    "On the robustness of a simple domain reduction scheme for simulation‐based optimization"
+    Overview:
+        Service core of :class:`SequentialDomainReductionTransformer`.
     """
 
-    def __init__(self, gamma_osc: float = 0.7, gamma_pan: float = 1.0, eta: float = 0.9):
-        DomainTransformer.__init__(self)
+    def __init__(self, space: TargetSpace, gamma_osc: float = 0.7, gamma_pan: float = 1.0, eta: float = 0.9):
+        TransformerCore.__init__(self, space)
         self.gamma_osc = gamma_osc
         self.gamma_pan = gamma_pan
         self.eta = eta
 
-    def initialize(self, target_space: TargetSpace):
-        """Initialize all of the parameters"""
-        self.original_bounds = np.copy(target_space.bounds)
+        self.original_bounds = np.copy(space.bounds)
         self.bounds = [self.original_bounds]
 
-        self.previous_optimal = np.mean(target_space.bounds, axis=1)
-        self.current_optimal = np.mean(target_space.bounds, axis=1)
-        self.r = target_space.bounds[:, 1] - target_space.bounds[:, 0]
+        self.previous_optimal = np.mean(space.bounds, axis=1)
+        self.current_optimal = np.mean(space.bounds, axis=1)
+        self.r = space.bounds[:, 1] - space.bounds[:, 0]
 
         self.previous_d = 2.0 * (self.current_optimal - self.previous_optimal) / self.r
         self.current_d = 2.0 * (self.current_optimal - self.previous_optimal) / self.r
@@ -64,12 +88,12 @@ class SequentialDomainReductionTransformer(DomainTransformer):
 
         self.r = self.contraction_rate * self.r
 
-    def _update(self, target_space: TargetSpace):
+    def _update(self, space: TargetSpace):
         # setting the previous
         self.previous_optimal = self.current_optimal
         self.previous_d = self.current_d
 
-        self.current_optimal = target_space.params[np.argmax(target_space.target)]
+        self.current_optimal = space.params[np.argmax(space.target)]
         self.current_d = 2.0 * (self.current_optimal - self.previous_optimal) / self.r
 
         self.c = self.current_d * self.previous_d
@@ -80,8 +104,8 @@ class SequentialDomainReductionTransformer(DomainTransformer):
 
         self.r = self.contraction_rate * self.r
 
-    def transform(self, target_space: TargetSpace) -> dict:
-        self._update(target_space)
+    def transform(self, space: TargetSpace) -> Dict[str, np.ndarray]:
+        self._update(space)
 
         new_bounds = np.array([
             self.current_optimal - 0.5 * self.r,
@@ -90,4 +114,22 @@ class SequentialDomainReductionTransformer(DomainTransformer):
 
         _trim(new_bounds, self.original_bounds)
         self.bounds.append(new_bounds)
-        return _create_bounds(target_space.keys, new_bounds)
+        return _create_bounds(space.keys, new_bounds)
+
+
+class SequentialDomainReductionTransformer(DomainTransformer):
+    """
+    Overview:
+        A sequential domain reduction transformer based on the work by \
+        Stander, N. and Craig, K: "On the robustness of a simple domain reduction scheme  \
+        for simulation‐based optimization"
+
+    .. note::
+        Its main service is wrapped into :class:`SDRCore`.
+    """
+
+    def __init__(self, gamma_osc: float = 0.7, gamma_pan: float = 1.0, eta: float = 0.9):
+        DomainTransformer.__init__(self, SDRCore, gamma_osc, gamma_pan, eta)
+        self.gamma_osc = gamma_osc
+        self.gamma_pan = gamma_pan
+        self.eta = eta

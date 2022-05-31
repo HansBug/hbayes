@@ -8,37 +8,20 @@ from scipy.stats import norm
 
 def acq_max(ac, gp, y_max, bounds, random_state, n_warmup=10000, n_iter=10):
     """
-    A function to find the maximum of the acquisition function
+    Overview:
+        A function to find the maximum of the acquisition function.
 
-    It uses a combination of random sampling (cheap) and the 'L-BFGS-B'
-    optimization method. First by sampling `n_warmup` (1e5) points at random,
-    and then running L-BFGS-B from `n_iter` (250) random starting points.
+        It uses a combination of random sampling (cheap) and the 'L-BFGS-B' \
+        optimization method. First by sampling `n_warmup` (1e5) points at random, \
+        and then running L-BFGS-B from `n_iter` (250) random starting points.
 
-    Parameters
-    ----------
-    :param ac:
-        The acquisition function object that return its point-wise value.
-
-    :param gp:
-        A gaussian process fitted to the relevant data.
-
-    :param y_max:
-        The current maximum known value of the target function.
-
-    :param bounds:
-        The variables bounds to limit the search of the acq max.
-
-    :param random_state:
-        instance of np.RandomState random number generator
-
-    :param n_warmup:
-        number of times to randomly sample the aquisition function
-
-    :param n_iter:
-        number of times to run scipy.minimize
-
-    Returns
-    -------
+    :param ac: The acquisition function object that return its point-wise value.
+    :param gp: A gaussian process fitted to the relevant data.
+    :param y_max: The current maximum known value of the target function.
+    :param bounds: The variables bounds to limit the search of the acq max.
+    :param random_state: instance of np.RandomState random number generator
+    :param n_warmup: number of times to randomly sample the acquisition function
+    :param n_iter: number of times to run ``scipy.minimize``.
     :return: x_max, The arg max of the acquisition function.
     """
 
@@ -79,7 +62,8 @@ def acq_max(ac, gp, y_max, bounds, random_state, n_warmup=10000, n_iter=10):
 
 class UtilityFunction(object):
     """
-    An object to compute the acquisition functions.
+    Overview:
+        An object to compute the acquisition functions.
     """
 
     def __init__(self, kind, kappa, xi, kappa_decay=1, kappa_decay_delay=0):
@@ -90,8 +74,7 @@ class UtilityFunction(object):
 
         self._iters_counter = 0
         if kind not in ['ucb', 'ei', 'poi']:
-            err = f"The utility function " \
-                  f"{kind} has not been implemented, " \
+            err = f"The utility function {kind} has not been implemented, " \
                   f"please choose one of ucb, ei, or poi."
             raise NotImplementedError(err)
         else:
@@ -99,17 +82,18 @@ class UtilityFunction(object):
 
     def update_params(self):
         self._iters_counter += 1
-
         if self._kappa_decay < 1 and self._iters_counter > self._kappa_decay_delay:
             self.kappa *= self._kappa_decay
 
     def utility(self, x, gp, y_max):
         if self.kind == 'ucb':
             return self._ucb(x, gp, self.kappa)
-        if self.kind == 'ei':
+        elif self.kind == 'ei':
             return self._ei(x, gp, y_max, self.xi)
-        if self.kind == 'poi':
+        elif self.kind == 'poi':
             return self._poi(x, gp, y_max, self.xi)
+        else:
+            raise ValueError(f'Unknown kind - {self.kind!r}.')  # pragma: no cover
 
     @staticmethod
     def _ucb(x, gp, kappa):
@@ -141,7 +125,8 @@ class UtilityFunction(object):
 
 def load_logs(optimizer, logs):
     """
-    Load previous ...
+    Overview:
+        Load previous progress log.
     """
 
     if isinstance(logs, str):
@@ -169,9 +154,13 @@ def load_logs(optimizer, logs):
 
 def ensure_rng(state=None):
     """
-    Creates a random number generator based on an optional seed.  This can be
-    an integer or another random state for a seeded rng, or None for an
-    unseeded rng.
+    Overview:
+        Creates a random number generator based on an optional seed. This can be \
+        an integer or another random state for a seeded rng, or None for an unseeded rng.
+
+    :param state: Random state. If integer is given, it will be used as the random seed. If \
+        ``np.random.RandomState`` is given, it will be directly used. Default is ``None`` which means \
+        use the unseeded random generator.
     """
     if state is None:
         return np.random.RandomState()

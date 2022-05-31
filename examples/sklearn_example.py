@@ -1,10 +1,10 @@
 from sklearn.datasets import make_classification
-from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestClassifier as RFC
+from sklearn.model_selection import cross_val_score
 from sklearn.svm import SVC
 
 from bayes_opt import BayesianOptimization
-from bayes_opt.util import Colours
+
 
 def get_data():
     """Synthetic binary classification dataset."""
@@ -57,6 +57,7 @@ def rfc_cv(n_estimators, min_samples_split, max_features, data, targets):
 
 def optimize_svc(data, targets):
     """Apply Bayesian Optimization to SVC parameters."""
+
     def svc_crossval(expC, expGamma):
         """Wrapper of SVC cross validation.
 
@@ -81,6 +82,7 @@ def optimize_svc(data, targets):
 
 def optimize_rfc(data, targets):
     """Apply Bayesian Optimization to Random Forest parameters."""
+
     def rfc_crossval(n_estimators, min_samples_split, max_features):
         """Wrapper of RandomForest cross validation.
 
@@ -111,11 +113,12 @@ def optimize_rfc(data, targets):
 
     print("Final result:", optimizer.max)
 
+
 if __name__ == "__main__":
     data, targets = get_data()
 
-    print(Colours.yellow("--- Optimizing SVM ---"))
+    print("--- Optimizing SVM ---")
     optimize_svc(data, targets)
 
-    print(Colours.green("--- Optimizing Random Forest ---"))
+    print("--- Optimizing Random Forest ---")
     optimize_rfc(data, targets)
