@@ -1,9 +1,9 @@
-bayes_opt.config.meta
+hbayes.config.meta
 ==========================
 
-.. currentmodule:: bayes_opt.config.meta
+.. currentmodule:: hbayes.config.meta
 
-.. automodule:: bayes_opt.config.meta
+.. automodule:: hbayes.config.meta
 
 \_\_TITLE\_\_
 ------------------

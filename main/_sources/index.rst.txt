@@ -4,7 +4,7 @@ Welcome to Bayes-Opt's Documentation
 Overview
 -------------
 
-``bayes_opt`` is a set of easy-to-use python development utilities.
+``hbayes`` is a set of easy-to-use python development utilities.
 
 .. toctree::
     :maxdepth: 2

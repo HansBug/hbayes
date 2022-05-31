@@ -1,9 +1,9 @@
-bayes_opt.logger
+hbayes.logger
 ====================================
 
-.. currentmodule:: bayes_opt.logger
+.. currentmodule:: hbayes.logger
 
-.. automodule:: bayes_opt.logger
+.. automodule:: hbayes.logger
 
 
 StepTracker

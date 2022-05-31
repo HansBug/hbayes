@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sequential Domain Reduction &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>Sequential Domain Reduction &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> bayes-opt
+            <a href="../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -108,13 +108,13 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/target_space/index.html">bayes_opt.target_space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/util/index.html">bayes_opt.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -129,7 +129,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bayes-opt</a>
+          <a href="../index.html">hbayes</a>
         
       </nav>
 
@@ -481,8 +481,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">bayes_opt</span> <span class="kn">import</span> <span class="n">BayesianOptimization</span>
-<span class="kn">from</span> <span class="nn">bayes_opt</span> <span class="kn">import</span> <span class="n">SequentialDomainReductionTransformer</span>
+<span class="kn">from</span> <span class="nn">hbayes</span> <span class="kn">import</span> <span class="n">BayesianOptimization</span>
+<span class="kn">from</span> <span class="nn">hbayes</span> <span class="kn">import</span> <span class="n">SequentialDomainReductionTransformer</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
@@ -585,7 +585,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fe21008b208&gt;
+&lt;matplotlib.legend.Legend at 0x7f2e01d452e8&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -624,7 +624,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fe20ff8b6a0&gt;
+&lt;matplotlib.legend.Legend at 0x7f2e01c47710&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -680,10 +680,6 @@ div.rendered_html tbody tr:hover {
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../v0.0.1/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="domain_reduction.html">main</a></dd>

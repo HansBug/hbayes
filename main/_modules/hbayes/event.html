@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>hbayes.event &mdash; hbayes 0.0.1 documentation</title>
@@ -39,9 +38,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="hbayes.logger" href="../logger/index.html" />
-    <link rel="prev" title="hbayes.domain_reduction" href="../domain_reduction/index.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -102,17 +99,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../best_practice/visualization.html">Visualization</a></li>
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../config/index.html">hbayes.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">hbayes.domain_reduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">hbayes.event</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#optimizationevent">OptimizationEvent</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">hbayes.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">hbayes.target_space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../util/index.html">hbayes.util</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -158,14 +152,12 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
       <li>hbayes.event</li>
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../_sources/api_doc/event/index.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -179,91 +171,29 @@
             
     
     
-  
-<style>
-/* CSS overrides for sphinx_rtd_theme */
+  <h1>Source code for hbayes.event</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span><span class="p">,</span> <span class="n">auto</span>
 
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
+<span class="kn">import</span> <span class="nn">enum_tools</span>
 
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
 
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
-<section id="module-hbayes.event">
-<span id="hbayes-event"></span><h1>hbayes.event<a class="headerlink" href="#module-hbayes.event" title="Permalink to this headline">¶</a></h1>
-<section id="optimizationevent">
-<h2>OptimizationEvent<a class="headerlink" href="#optimizationevent" title="Permalink to this headline">¶</a></h2>
-<dl class="py class enum">
-<dt id="hbayes.event.OptimizationEvent">
-<em class="property">enum </em><code class="sig-prename descclassname">hbayes.event.</code><code class="sig-name descname">OptimizationEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/event.html#OptimizationEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.event.OptimizationEvent" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Overview:</dt><dd><p>Events during optimization.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Member Type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-</dl>
-<p>Valid values are as follows:</p>
-<dl class="py attribute">
-<dt id="hbayes.event.OptimizationEvent.START">
-<code class="sig-name descname">START</code><em class="property"> = &lt;OptimizationEvent.START: 1&gt;</em><a class="headerlink" href="#hbayes.event.OptimizationEvent.START" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start event.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hbayes.event.OptimizationEvent.STEP">
-<code class="sig-name descname">STEP</code><em class="property"> = &lt;OptimizationEvent.STEP: 2&gt;</em><a class="headerlink" href="#hbayes.event.OptimizationEvent.STEP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Step event.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hbayes.event.OptimizationEvent.SKIP">
-<code class="sig-name descname">SKIP</code><em class="property"> = &lt;OptimizationEvent.SKIP: 3&gt;</em><a class="headerlink" href="#hbayes.event.OptimizationEvent.SKIP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Skipped event.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="hbayes.event.OptimizationEvent.END">
-<code class="sig-name descname">END</code><em class="property"> = &lt;OptimizationEvent.END: 4&gt;</em><a class="headerlink" href="#hbayes.event.OptimizationEvent.END" title="Permalink to this definition">¶</a></dt>
-<dd><p>End event.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-</section>
-
+<div class="viewcode-block" id="OptimizationEvent"><a class="viewcode-back" href="../../api_doc/event/index.html#hbayes.event.OptimizationEvent">[docs]</a><span class="nd">@enum_tools</span><span class="o">.</span><span class="n">documentation</span><span class="o">.</span><span class="n">document_enum</span>
+<span class="k">class</span> <span class="nc">OptimizationEvent</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Overview:</span>
+<span class="sd">        Events during optimization.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">START</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># doc: Start event.</span>
+    <span class="n">STEP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># doc: Step event.</span>
+    <span class="n">SKIP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># doc: Skipped event.</span>
+    <span class="n">END</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># doc: End event.</span></div>
+</pre></div>
 
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../logger/index.html" class="btn btn-neutral float-right" title="hbayes.logger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../domain_reduction/index.html" class="btn btn-neutral float-left" title="hbayes.domain_reduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -294,7 +224,7 @@
         <div class="rst-other-versions">
                 <dl>
                     <dt>Branches</dt>
-                        <dd><a href="index.html">main</a></dd>
+                        <dd><a href="event.html">main</a></dd>
                 </dl>
         </div>
     </div>

@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>Installation &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> bayes-opt
+            <a href="../../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -103,13 +103,13 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/target_space/index.html">bayes_opt.target_space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api_doc/util/index.html">bayes_opt.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_doc/util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -124,7 +124,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">bayes-opt</a>
+          <a href="../../index.html">hbayes</a>
         
       </nav>
 
@@ -204,20 +204,20 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">Bayes-Opt</span></code> is currently hosted on PyPI. It required python &gt;= 3.6.</p>
 <p>You can simply install Bayes-Opt from PyPI with the following command:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install bayes-opt
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install hbayes
 </pre></div>
 </div>
 <p>You can also install with the newest version through GitHub:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -U git+https://github.com/hansbug/BayesianOptimization.git@main
 </pre></div>
 </div>
-<p>After installation, run this python code, and version information of <code class="docutils literal notranslate"><span class="pre">bayes-opt</span></code> should be shown.</p>
+<p>After installation, run this python code, and version information of <code class="docutils literal notranslate"><span class="pre">hbayes</span></code> should be shown.</p>
 <div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">from</span> <span class="nn">bayes_opt.config.meta</span> <span class="kn">import</span> <span class="n">__TITLE__</span><span class="p">,</span> <span class="n">__VERSION__</span><span class="p">,</span> <span class="n">__AUTHOR__</span><span class="p">,</span> <span class="n">__DESCRIPTION__</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">from</span> <span class="nn">hbayes.config.meta</span> <span class="kn">import</span> <span class="n">__TITLE__</span><span class="p">,</span> <span class="n">__VERSION__</span><span class="p">,</span> <span class="n">__AUTHOR__</span><span class="p">,</span> <span class="n">__DESCRIPTION__</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">__TITLE__</span><span class="p">,</span> <span class="n">__VERSION__</span><span class="p">)</span>
@@ -227,7 +227,7 @@
 </div>
 <div class="highlight-text notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span>bayes-opt 0.0.1
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span>hbayes 0.0.1
 Bayesian Optimization package
 Powered by HansBug
 </pre></div></td></tr></table></div>
@@ -278,10 +278,6 @@ Powered by HansBug
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../../v0.0.1/tutorials/installation/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="index.html">main</a></dd>

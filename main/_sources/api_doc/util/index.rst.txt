@@ -1,9 +1,9 @@
-bayes_opt.util
+hbayes.util
 =====================
 
-.. currentmodule:: bayes_opt.util
+.. currentmodule:: hbayes.util
 
-.. automodule:: bayes_opt.util
+.. automodule:: hbayes.util
 
 
 acq_max

@@ -7,7 +7,7 @@ You can simply install Bayes-Opt from PyPI with the following command:
 
 .. code:: shell
 
-    pip install bayes-opt
+    pip install hbayes
 
 You can also install with the newest version through GitHub:
 
@@ -16,7 +16,7 @@ You can also install with the newest version through GitHub:
     pip install -U git+https://github.com/hansbug/BayesianOptimization.git@main
 
 After installation, run this python code, and version information \
-of ``bayes-opt`` should be shown.
+of ``hbayes`` should be shown.
 
 .. literalinclude:: install_check.demo.py
     :language: python

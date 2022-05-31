@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bayes_opt.util &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>hbayes.util &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="bayes_opt.target_space" href="../target_space/index.html" /> 
+    <link rel="prev" title="hbayes.target_space" href="../target_space/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -54,7 +54,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> bayes-opt
+            <a href="../../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -102,13 +102,13 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">bayes_opt.target_space</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bayes_opt.util</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hbayes.util</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#acq-max">acq_max</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#utilityfunction">UtilityFunction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#load-logs">load_logs</a></li>
@@ -129,7 +129,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">bayes-opt</a>
+          <a href="../../index.html">hbayes</a>
         
       </nav>
 
@@ -160,7 +160,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>bayes_opt.util</li>
+      <li>hbayes.util</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -205,13 +205,13 @@
     text-align: unset;
 }
 </style>
-<section id="module-bayes_opt.util">
-<span id="bayes-opt-util"></span><h1>bayes_opt.util<a class="headerlink" href="#module-bayes_opt.util" title="Permalink to this headline">¶</a></h1>
+<section id="module-hbayes.util">
+<span id="hbayes-util"></span><h1>hbayes.util<a class="headerlink" href="#module-hbayes.util" title="Permalink to this headline">¶</a></h1>
 <section id="acq-max">
 <h2>acq_max<a class="headerlink" href="#acq-max" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="bayes_opt.util.acq_max">
-<code class="sig-prename descclassname">bayes_opt.util.</code><code class="sig-name descname">acq_max</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ac</span></em>, <em class="sig-param"><span class="n">gp</span></em>, <em class="sig-param"><span class="n">y_max</span></em>, <em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">random_state</span></em>, <em class="sig-param"><span class="n">n_warmup</span><span class="o">=</span><span class="default_value">10000</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/util.html#acq_max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.util.acq_max" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.util.acq_max">
+<code class="sig-prename descclassname">hbayes.util.</code><code class="sig-name descname">acq_max</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ac</span></em>, <em class="sig-param"><span class="n">gp</span></em>, <em class="sig-param"><span class="n">y_max</span></em>, <em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">random_state</span></em>, <em class="sig-param"><span class="n">n_warmup</span><span class="o">=</span><span class="default_value">10000</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/util.html#acq_max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.util.acq_max" title="Permalink to this definition">¶</a></dt>
 <dd><dl>
 <dt>Overview:</dt><dd><p>A function to find the maximum of the acquisition function.</p>
 <p>It uses a combination of random sampling (cheap) and the ‘L-BFGS-B’         optimization method. First by sampling <cite>n_warmup</cite> (1e5) points at random,         and then running L-BFGS-B from <cite>n_iter</cite> (250) random starting points.</p>
@@ -239,15 +239,15 @@
 <section id="utilityfunction">
 <h2>UtilityFunction<a class="headerlink" href="#utilityfunction" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.util.UtilityFunction">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.util.</code><code class="sig-name descname">UtilityFunction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kind</span></em>, <em class="sig-param"><span class="n">kappa</span></em>, <em class="sig-param"><span class="n">xi</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/util.html#UtilityFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.util.UtilityFunction" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.util.UtilityFunction">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.util.</code><code class="sig-name descname">UtilityFunction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kind</span></em>, <em class="sig-param"><span class="n">kappa</span></em>, <em class="sig-param"><span class="n">xi</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/util.html#UtilityFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.util.UtilityFunction" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>An object to compute the acquisition functions.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="bayes_opt.util.UtilityFunction.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kind</span></em>, <em class="sig-param"><span class="n">kappa</span></em>, <em class="sig-param"><span class="n">xi</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/util.html#UtilityFunction.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.util.UtilityFunction.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.util.UtilityFunction.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kind</span></em>, <em class="sig-param"><span class="n">kappa</span></em>, <em class="sig-param"><span class="n">xi</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/util.html#UtilityFunction.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.util.UtilityFunction.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -257,8 +257,8 @@
 <section id="load-logs">
 <h2>load_logs<a class="headerlink" href="#load-logs" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="bayes_opt.util.load_logs">
-<code class="sig-prename descclassname">bayes_opt.util.</code><code class="sig-name descname">load_logs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">logs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/util.html#load_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.util.load_logs" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.util.load_logs">
+<code class="sig-prename descclassname">hbayes.util.</code><code class="sig-name descname">load_logs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">logs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/util.html#load_logs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.util.load_logs" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>Load previous progress log.</p>
 </dd>
@@ -269,8 +269,8 @@
 <section id="ensure-rng">
 <h2>ensure_rng<a class="headerlink" href="#ensure-rng" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="bayes_opt.util.ensure_rng">
-<code class="sig-prename descclassname">bayes_opt.util.</code><code class="sig-name descname">ensure_rng</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/util.html#ensure_rng"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.util.ensure_rng" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.util.ensure_rng">
+<code class="sig-prename descclassname">hbayes.util.</code><code class="sig-name descname">ensure_rng</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/util.html#ensure_rng"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.util.ensure_rng" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>Creates a random number generator based on an optional seed. This can be         an integer or another random state for a seeded rng, or None for an unseeded rng.</p>
 </dd>
@@ -295,7 +295,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../target_space/index.html" class="btn btn-neutral float-left" title="bayes_opt.target_space" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../target_space/index.html" class="btn btn-neutral float-left" title="hbayes.target_space" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -326,10 +326,6 @@
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../../v0.0.1/api_doc/util/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="index.html">main</a></dd>

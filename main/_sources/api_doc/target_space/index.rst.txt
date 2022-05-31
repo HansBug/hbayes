@@ -1,9 +1,9 @@
-bayes_opt.target_space
+hbayes.target_space
 ====================================
 
-.. currentmodule:: bayes_opt.target_space
+.. currentmodule:: hbayes.target_space
 
-.. automodule:: bayes_opt.target_space
+.. automodule:: hbayes.target_space
 
 
 FuncFailed

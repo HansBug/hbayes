@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bayes_opt.target_space &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>hbayes.target_space &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="bayes_opt.util" href="../util/index.html" />
-    <link rel="prev" title="bayes_opt.logger" href="../logger/index.html" /> 
+    <link rel="next" title="hbayes.util" href="../util/index.html" />
+    <link rel="prev" title="hbayes.logger" href="../logger/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> bayes-opt
+            <a href="../../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -103,17 +103,17 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bayes_opt.target_space</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hbayes.target_space</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#funcfailed">FuncFailed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#targetspace">TargetSpace</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../util/index.html">bayes_opt.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -128,7 +128,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">bayes-opt</a>
+          <a href="../../index.html">hbayes</a>
         
       </nav>
 
@@ -159,7 +159,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>bayes_opt.target_space</li>
+      <li>hbayes.target_space</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,13 +204,13 @@
     text-align: unset;
 }
 </style>
-<section id="module-bayes_opt.target_space">
-<span id="bayes-opt-target-space"></span><h1>bayes_opt.target_space<a class="headerlink" href="#module-bayes_opt.target_space" title="Permalink to this headline">¶</a></h1>
+<section id="module-hbayes.target_space">
+<span id="hbayes-target-space"></span><h1>hbayes.target_space<a class="headerlink" href="#module-hbayes.target_space" title="Permalink to this headline">¶</a></h1>
 <section id="funcfailed">
 <h2>FuncFailed<a class="headerlink" href="#funcfailed" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.target_space.FuncFailed">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.target_space.</code><code class="sig-name descname">FuncFailed</code><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#FuncFailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.FuncFailed" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.FuncFailed">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.target_space.</code><code class="sig-name descname">FuncFailed</code><a class="reference internal" href="../../_modules/hbayes/target_space.html#FuncFailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.FuncFailed" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>Exception class thrown then <code class="docutils literal notranslate"><span class="pre">target_func</span></code> is failed.         The result (including x and y) will be skipped and ignored after that.</p>
 </dd>
@@ -221,12 +221,12 @@
 <section id="targetspace">
 <h2>TargetSpace<a class="headerlink" href="#targetspace" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.target_space.TargetSpace">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.target_space.</code><code class="sig-name descname">TargetSpace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_func</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.target_space.</code><code class="sig-name descname">TargetSpace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_func</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace" title="Permalink to this definition">¶</a></dt>
 <dd><dl>
 <dt>Overview:</dt><dd><p>Holds the param-space coordinates (X) and target values (Y)         Allows for constant-time appends while ensuring no duplicates are added.</p>
 </dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bayes_opt.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbayes.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">target_func</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">p2</span>
@@ -244,9 +244,9 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_func</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor of <a class="reference internal" href="#bayes_opt.target_space.TargetSpace" title="bayes_opt.target_space.TargetSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetSpace</span></code></a>.</p>
+<dt id="hbayes.target_space.TargetSpace.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_func</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor of <a class="reference internal" href="#hbayes.target_space.TargetSpace" title="hbayes.target_space.TargetSpace"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetSpace</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -259,20 +259,20 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.max">
-<code class="sig-name descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.max" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace.max">
+<code class="sig-name descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get maximum target value found and corresponding parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.probe">
-<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>float<span class="p">]</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.probe" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace.probe">
+<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>float<span class="p">]</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates a single point x, to obtain the value y and then records them as observations.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> has been previously seen returns a cached value of y.</p></li>
-<li><p>If <a class="reference internal" href="#bayes_opt.target_space.FuncFailed" title="bayes_opt.target_space.FuncFailed"><code class="xref py py-class docutils literal notranslate"><span class="pre">FuncFailed</span></code></a> is raised from <code class="docutils literal notranslate"><span class="pre">target_func</span></code>, this pair of x and y will be ignored, with                 return value of <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p>If <a class="reference internal" href="#hbayes.target_space.FuncFailed" title="hbayes.target_space.FuncFailed"><code class="xref py py-class docutils literal notranslate"><span class="pre">FuncFailed</span></code></a> is raised from <code class="docutils literal notranslate"><span class="pre">target_func</span></code>, this pair of x and y will be ignored, with                 return value of <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </div>
 <dl class="field-list simple">
@@ -286,8 +286,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.random_sample">
-<code class="sig-name descname">random_sample</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.random_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.random_sample" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace.random_sample">
+<code class="sig-name descname">random_sample</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.random_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.random_sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates random points within the bounds of the space.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -295,7 +295,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bayes_opt.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbayes.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">target_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">p2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pbounds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;p1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;p2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)}</span>
@@ -309,8 +309,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.register">
-<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.register" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace.register">
+<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Append a point and its target value to the known data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -329,7 +329,7 @@
 </div>
 <dl>
 <dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bayes_opt.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbayes.target_space</span> <span class="kn">import</span> <span class="n">TargetSpace</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pbounds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;p1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;p2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">space</span> <span class="o">=</span> <span class="n">TargetSpace</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">p2</span><span class="p">,</span> <span class="n">pbounds</span><span class="p">)</span>
@@ -348,14 +348,14 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.res">
-<code class="sig-name descname">res</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.res"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.res" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace.res">
+<code class="sig-name descname">res</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.res"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.res" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all target values found and corresponding parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.target_space.TargetSpace.set_bounds">
-<code class="sig-name descname">set_bounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_bounds</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>float<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.set_bounds" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.target_space.TargetSpace.set_bounds">
+<code class="sig-name descname">set_bounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_bounds</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>float<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/target_space.html#TargetSpace.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.target_space.TargetSpace.set_bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>A method that allows changing the lower and upper searching bounds</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -378,10 +378,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../util/index.html" class="btn btn-neutral float-right" title="bayes_opt.util" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../util/index.html" class="btn btn-neutral float-right" title="hbayes.util" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../logger/index.html" class="btn btn-neutral float-left" title="bayes_opt.logger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../logger/index.html" class="btn btn-neutral float-left" title="hbayes.logger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -412,10 +412,6 @@
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../../v0.0.1/api_doc/target_space/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="index.html">main</a></dd>

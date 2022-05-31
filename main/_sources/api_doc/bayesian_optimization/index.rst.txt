@@ -1,9 +1,9 @@
-bayes_opt.bayesian_optimization
+hbayes.bayesian_optimization
 ====================================
 
-.. currentmodule:: bayes_opt.bayesian_optimization
+.. currentmodule:: hbayes.bayesian_optimization
 
-.. automodule:: bayes_opt.bayesian_optimization
+.. automodule:: hbayes.bayesian_optimization
 
 
 Queue

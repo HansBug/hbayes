@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Advanced tour of the Bayesian Optimization package &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>Advanced tour of the Bayesian Optimization package &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> bayes-opt
+            <a href="../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -118,13 +118,13 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/target_space/index.html">bayes_opt.target_space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_doc/util/index.html">bayes_opt.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -139,7 +139,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bayes-opt</a>
+          <a href="../index.html">hbayes</a>
         
       </nav>
 
@@ -467,7 +467,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bayes_opt</span> <span class="kn">import</span> <span class="n">BayesianOptimization</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hbayes</span> <span class="kn">import</span> <span class="n">BayesianOptimization</span>
 </pre></div>
 </div>
 </div>
@@ -504,7 +504,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bayes_opt</span> <span class="kn">import</span> <span class="n">UtilityFunction</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hbayes</span> <span class="kn">import</span> <span class="n">UtilityFunction</span>
 
 <span class="n">utility</span> <span class="o">=</span> <span class="n">UtilityFunction</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;ucb&quot;</span><span class="p">,</span> <span class="n">kappa</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">xi</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
 </pre></div>
@@ -687,7 +687,7 @@ Found the target value to be: 0.7861845912690542
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">bayes_opt.target_space</span> <span class="kn">import</span> <span class="n">FuncFailed</span>
+<span class="kn">from</span> <span class="nn">hbayes.target_space</span> <span class="kn">import</span> <span class="n">FuncFailed</span>
 
 
 <span class="k">def</span> <span class="nf">func_with_exception</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -730,49 +730,49 @@ Found the target value to be: 0.7861845912690542
 -------------------------------------------------
 |  1        | -7.135    |  2.834    |  1.322    |
 |  2        | -7.78     |  2.0      | -1.186    |
-|  3        | &lt;skipped&gt; |  2.294    | -2.446    |
-|  4        | -8.341    |  2.373    | -0.9266   |
+|  3        | -16.13    |  2.294    | -2.446    |
+|  4        | &lt;skipped&gt; |  2.373    | -0.9266   |
 |  5        | -7.392    |  2.794    |  0.2329   |
 |  6        | -7.069    |  2.838    |  1.111    |
-|  7        | &lt;skipped&gt; |  2.409    |  2.269    |
+|  7        | -6.412    |  2.409    |  2.269    |
 |  8        | -3.223    |  2.055    |  1.023    |
-|  9        | &lt;skipped&gt; |  2.835    |  0.3521   |
+|  9        | -7.455    |  2.835    |  0.3521   |
 |  10       | -12.11    |  2.281    | -1.811    |
-|  11       | -15.25    |  3.601    |  2.81     |
-|  12       | &lt;skipped&gt; |  2.627    |  1.154    |
-|  13       | &lt;skipped&gt; |  3.753    |  2.368    |
+|  11       | &lt;skipped&gt; |  3.601    |  2.81     |
+|  12       | -5.924    |  2.627    |  1.154    |
+|  13       | -14.95    |  3.753    |  2.368    |
 |  14       | -17.89    |  2.17     | -2.766    |
 |  15       | -6.084    |  2.34     |  2.269    |
-|  16       | -7.0      |  2.0      |  3.0      |
-|  17       | -17.14    |  4.0      | -0.4635   |
-|  18       | -3.505    |  2.0      |  0.2897   |
-|  19       | -3.356    |  2.0      |  1.596    |
-|  20       | -3.053    |  2.0      |  0.7706   |
-|  21       | -3.008    |  2.0      |  1.09     |
-|  22       | -3.034    |  2.0      |  1.184    |
-|  23       | -3.001    |  2.0      |  0.9696   |
-|  24       | -3.0      |  2.0      |  0.9897   |
-|  25       | -3.0      |  2.0      |  0.9944   |
-|  26       | -3.0      |  2.0      |  0.9975   |
-|  27       | -3.0      |  2.0      |  1.001    |
-|  28       | -3.0      |  2.0      |  0.9982   |
-|  29       | -3.0      |  2.0      |  1.016    |
-|  30       | -3.002    |  2.0      |  0.9599   |
-|  31       | -3.001    |  2.0      |  0.9745   |
-|  32       | &lt;skipped&gt; |  2.0      |  1.024    |
-|  33       | -3.001    |  2.0      |  1.024    |
-|  34       | -3.0      |  2.0      |  1.022    |
-|  35       | -3.001    |  2.0      |  0.9654   |
-|  36       | -3.0      |  2.0      |  1.021    |
-|  37       | &lt;skipped&gt; |  2.0      |  1.019    |
-|  38       | -3.001    |  2.0      |  0.9694   |
+|  16       | &lt;skipped&gt; |  2.0      |  3.0      |
+|  17       | -3.331    |  2.0      |  0.4243   |
+|  18       | -3.033    |  2.0      |  0.8184   |
+|  19       | -3.128    |  2.0      |  1.357    |
+|  20       | -18.44    |  4.0      | -0.8539   |
+|  21       | -7.0      |  2.0      |  3.0      |
+|  22       | -3.002    |  2.0      |  1.04     |
+|  23       | -3.0      |  2.0      |  0.9842   |
+|  24       | &lt;skipped&gt; |  2.0      |  0.9933   |
+|  25       | -3.0      |  2.0      |  0.9932   |
+|  26       | -3.001    |  2.0      |  1.037    |
+|  27       | -3.001    |  2.0      |  0.9758   |
+|  28       | -3.0      |  2.0      |  0.9814   |
+|  29       | &lt;skipped&gt; |  2.0      |  1.045    |
+|  30       | -3.0      |  2.0      |  0.9874   |
+|  31       | -3.002    |  2.0      |  1.05     |
+|  32       | -3.0      |  2.0      |  0.9786   |
+|  33       | -3.0      |  2.0      |  0.9824   |
+|  34       | -3.0      |  2.0      |  0.9857   |
+|  35       | -3.002    |  2.0      |  1.04     |
+|  36       | -3.0      |  2.0      |  0.981    |
+|  37       | -3.001    |  2.0      |  1.031    |
+|  38       | -3.0      |  2.0      |  0.9799   |
 |  39       | -3.0      |  2.0      |  1.021    |
-|  40       | -3.001    |  2.0      |  0.975    |
-|  41       | -3.0      |  2.0      |  1.021    |
-|  42       | &lt;skipped&gt; |  4.0      | -3.0      |
-|  43       | -3.0      |  2.0      |  1.019    |
-|  44       | -3.001    |  2.0      |  0.9717   |
-|  45       | -3.0      |  2.0      |  1.019    |
+|  40       | -3.0      |  2.0      |  0.9797   |
+|  41       | -3.0      |  2.0      |  0.9816   |
+|  42       | &lt;skipped&gt; |  2.0      |  0.9842   |
+|  43       | &lt;skipped&gt; |  2.0      |  1.029    |
+|  44       | -3.0      |  2.0      |  0.9843   |
+|  45       | -3.0      |  2.0      |  0.988    |
 =================================================
 </pre></div></div>
 </div>
@@ -790,7 +790,7 @@ Found the target value to be: 0.7861845912690542
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;target&#39;: -3.000000400520359, &#39;params&#39;: {&#39;x&#39;: 2.0, &#39;y&#39;: 1.0006328667783022}}
+{&#39;target&#39;: -3.0000463923784926, &#39;params&#39;: {&#39;x&#39;: 2.0, &#39;y&#39;: 0.9931888049145412}}
 </pre></div></div>
 </div>
 </section>
@@ -863,7 +863,7 @@ Found the target value to be: 0.7861845912690542
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bayes_opt.event</span> <span class="kn">import</span> <span class="n">OptimizationEvent</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hbayes.event</span> <span class="kn">import</span> <span class="n">OptimizationEvent</span>
 </pre></div>
 </div>
 </div>
@@ -1007,10 +1007,6 @@ mappingproxy({&#39;START&#39;: &lt;OptimizationEvent.START: 1&gt;,
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../v0.0.1/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="advanced-tour.html">main</a></dd>

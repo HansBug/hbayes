@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bayes_opt.bayesian_optimization &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>hbayes.bayesian_optimization &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="bayes_opt.config" href="../config/index.html" />
+    <link rel="next" title="hbayes.config" href="../config/index.html" />
     <link rel="prev" title="Visualization" href="../../best_practice/visualization.html" /> 
 </head>
 
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> bayes-opt
+            <a href="../../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -103,17 +103,17 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bayes_opt.bayesian_optimization</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hbayes.bayesian_optimization</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#queue">Queue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bayesianoptimization">BayesianOptimization</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">bayes_opt.target_space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../util/index.html">bayes_opt.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">hbayes.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">hbayes.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -128,7 +128,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">bayes-opt</a>
+          <a href="../../index.html">hbayes</a>
         
       </nav>
 
@@ -159,7 +159,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>bayes_opt.bayesian_optimization</li>
+      <li>hbayes.bayesian_optimization</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -204,22 +204,22 @@
     text-align: unset;
 }
 </style>
-<section id="module-bayes_opt.bayesian_optimization">
-<span id="bayes-opt-bayesian-optimization"></span><h1>bayes_opt.bayesian_optimization<a class="headerlink" href="#module-bayes_opt.bayesian_optimization" title="Permalink to this headline">¶</a></h1>
+<section id="module-hbayes.bayesian_optimization">
+<span id="hbayes-bayesian-optimization"></span><h1>hbayes.bayesian_optimization<a class="headerlink" href="#module-hbayes.bayesian_optimization" title="Permalink to this headline">¶</a></h1>
 <section id="queue">
 <h2>Queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.bayesian_optimization.Queue">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.bayesian_optimization.</code><code class="sig-name descname">Queue</code><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#Queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.Queue" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.Queue">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.bayesian_optimization.</code><code class="sig-name descname">Queue</code><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#Queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.Queue" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.Queue.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#Queue.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.Queue.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.Queue.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#Queue.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.Queue.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.Queue.add">
-<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#Queue.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.Queue.add" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.Queue.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#Queue.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.Queue.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add object to end of queue.</p>
 </dd></dl>
 
@@ -229,8 +229,8 @@
 <section id="bayesianoptimization">
 <h2>BayesianOptimization<a class="headerlink" href="#bayesianoptimization" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.bayesian_optimization.</code><code class="sig-name descname">BayesianOptimization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bounds_transformer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.bayesian_optimization.</code><code class="sig-name descname">BayesianOptimization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bounds_transformer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>This class takes the function to optimize as well as the parameters bounds         in order to find which values for the parameters yield the maximum value         using bayesian optimization.</p>
 </dd>
@@ -247,8 +247,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bounds_transformer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bounds_transformer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor of <code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -275,8 +275,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.maximize">
-<code class="sig-name descname">maximize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init_points</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">25</span></em>, <em class="sig-param"><span class="n">acq</span><span class="o">=</span><span class="default_value">'ucb'</span></em>, <em class="sig-param"><span class="n">kappa</span><span class="o">=</span><span class="default_value">2.576</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">xi</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">gp_params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.maximize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.maximize" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.maximize">
+<code class="sig-name descname">maximize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init_points</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">25</span></em>, <em class="sig-param"><span class="n">acq</span><span class="o">=</span><span class="default_value">'ucb'</span></em>, <em class="sig-param"><span class="n">kappa</span><span class="o">=</span><span class="default_value">2.576</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">xi</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">gp_params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.maximize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.maximize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Probes the target space to find the parameters that yield the maximum
 value for the given function.</p>
 <dl class="field-list simple">
@@ -295,28 +295,28 @@ value for the given function.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.probe">
-<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">lazy</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.probe" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.probe">
+<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">lazy</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the function on the given points. Useful to guide the optimizer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> – The parameters where the optimizer will evaluate the function.</p></li>
-<li><p><strong>lazy</strong> – If True, the optimizer will evaluate the points when calling <a class="reference internal" href="#bayes_opt.bayesian_optimization.BayesianOptimization.maximize" title="bayes_opt.bayesian_optimization.BayesianOptimization.maximize"><code class="xref py py-func docutils literal notranslate"><span class="pre">maximize()</span></code></a>.             Otherwise, it will evaluate it at the moment.</p></li>
+<li><p><strong>lazy</strong> – If True, the optimizer will evaluate the points when calling <a class="reference internal" href="#hbayes.bayesian_optimization.BayesianOptimization.maximize" title="hbayes.bayesian_optimization.BayesianOptimization.maximize"><code class="xref py py-func docutils literal notranslate"><span class="pre">maximize()</span></code></a>.             Otherwise, it will evaluate it at the moment.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.register">
-<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">y</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.register" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.register">
+<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">y</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expect observation with known target</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.set_bounds">
-<code class="sig-name descname">set_bounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_bounds</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>float<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.set_bounds" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.set_bounds">
+<code class="sig-name descname">set_bounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_bounds</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Tuple<span class="p">[</span>float<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.set_bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>A method that allows changing the lower and upper searching bounds</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -326,14 +326,14 @@ value for the given function.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.set_gp_params">
-<code class="sig-name descname">set_gp_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.set_gp_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.set_gp_params" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.set_gp_params">
+<code class="sig-name descname">set_gp_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.set_gp_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.set_gp_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set parameters to the internal Gaussian Process Regressor</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.suggest">
-<code class="sig-name descname">suggest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utility_function</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../util/index.html#bayes_opt.util.UtilityFunction" title="bayes_opt.util.UtilityFunction">bayes_opt.util.UtilityFunction</a></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.suggest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.suggest" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.bayesian_optimization.BayesianOptimization.suggest">
+<code class="sig-name descname">suggest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utility_function</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../util/index.html#hbayes.util.UtilityFunction" title="hbayes.util.UtilityFunction">hbayes.util.UtilityFunction</a></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><a class="reference internal" href="../../_modules/hbayes/bayesian_optimization.html#BayesianOptimization.suggest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.bayesian_optimization.BayesianOptimization.suggest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Most promising point to probe next</p>
 </dd></dl>
 
@@ -351,7 +351,7 @@ value for the given function.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../config/index.html" class="btn btn-neutral float-right" title="bayes_opt.config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../config/index.html" class="btn btn-neutral float-right" title="hbayes.config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../../best_practice/visualization.html" class="btn btn-neutral float-left" title="Visualization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -385,10 +385,6 @@ value for the given function.</p>
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../../v0.0.1/api_doc/bayesian_optimization/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="index.html">main</a></dd>

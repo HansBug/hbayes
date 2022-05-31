@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bayes_opt.domain_reduction &mdash; bayes-opt 0.0.1 documentation</title>
+  <title>hbayes.domain_reduction &mdash; hbayes 0.0.1 documentation</title>
   
 
   
@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="bayes_opt.event" href="../event/index.html" />
-    <link rel="prev" title="bayes_opt.config.meta" href="../config/meta.html" /> 
+    <link rel="next" title="hbayes.event" href="../event/index.html" />
+    <link rel="prev" title="hbayes.config.meta" href="../config/meta.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -55,7 +55,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> bayes-opt
+            <a href="../../index.html" class="icon icon-home"> hbayes
           
 
           
@@ -103,19 +103,19 @@
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../config/index.html">bayes_opt.config</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">bayes_opt.domain_reduction</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../bayesian_optimization/index.html">hbayes.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">hbayes.config</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hbayes.domain_reduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#transformercore">TransformerCore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#domaintransformer">DomainTransformer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sdrcore">SDRCore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sequentialdomainreductiontransformer">SequentialDomainReductionTransformer</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../event/index.html">bayes_opt.event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">bayes_opt.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">bayes_opt.target_space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../util/index.html">bayes_opt.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../event/index.html">hbayes.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">hbayes.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">hbayes.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/index.html">hbayes.util</a></li>
 </ul>
 
             
@@ -130,7 +130,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">bayes-opt</a>
+          <a href="../../index.html">hbayes</a>
         
       </nav>
 
@@ -161,7 +161,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>bayes_opt.domain_reduction</li>
+      <li>hbayes.domain_reduction</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -206,20 +206,20 @@
     text-align: unset;
 }
 </style>
-<section id="module-bayes_opt.domain_reduction">
-<span id="bayes-opt-domain-reduction"></span><h1>bayes_opt.domain_reduction<a class="headerlink" href="#module-bayes_opt.domain_reduction" title="Permalink to this headline">¶</a></h1>
+<section id="module-hbayes.domain_reduction">
+<span id="hbayes-domain-reduction"></span><h1>hbayes.domain_reduction<a class="headerlink" href="#module-hbayes.domain_reduction" title="Permalink to this headline">¶</a></h1>
 <section id="transformercore">
 <h2>TransformerCore<a class="headerlink" href="#transformercore" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.domain_reduction.TransformerCore">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.domain_reduction.</code><code class="sig-name descname">TransformerCore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#bayes_opt.target_space.TargetSpace" title="bayes_opt.target_space.TargetSpace">bayes_opt.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#TransformerCore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.TransformerCore" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.TransformerCore">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.domain_reduction.</code><code class="sig-name descname">TransformerCore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#hbayes.target_space.TargetSpace" title="hbayes.target_space.TargetSpace">hbayes.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#TransformerCore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.TransformerCore" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>Base class of transformer cores.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="bayes_opt.domain_reduction.TransformerCore.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#bayes_opt.target_space.TargetSpace" title="bayes_opt.target_space.TargetSpace">bayes_opt.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#TransformerCore.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.TransformerCore.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.TransformerCore.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#hbayes.target_space.TargetSpace" title="hbayes.target_space.TargetSpace">hbayes.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#TransformerCore.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.TransformerCore.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -229,19 +229,19 @@
 <section id="domaintransformer">
 <h2>DomainTransformer<a class="headerlink" href="#domaintransformer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.domain_reduction.DomainTransformer">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.domain_reduction.</code><code class="sig-name descname">DomainTransformer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">core_class</span><span class="p">:</span> <span class="n">Type<span class="p">[</span><a class="reference internal" href="#bayes_opt.domain_reduction.TransformerCore" title="bayes_opt.domain_reduction.TransformerCore">bayes_opt.domain_reduction.TransformerCore</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#DomainTransformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.DomainTransformer" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.DomainTransformer">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.domain_reduction.</code><code class="sig-name descname">DomainTransformer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">core_class</span><span class="p">:</span> <span class="n">Type<span class="p">[</span><a class="reference internal" href="#hbayes.domain_reduction.TransformerCore" title="hbayes.domain_reduction.TransformerCore">hbayes.domain_reduction.TransformerCore</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#DomainTransformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.DomainTransformer" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>Base class of transformer.</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>State pattern is used, its main service should be wrapped in <a class="reference internal" href="#bayes_opt.domain_reduction.TransformerCore" title="bayes_opt.domain_reduction.TransformerCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerCore</span></code></a> object.</p>
+<p>State pattern is used, its main service should be wrapped in <a class="reference internal" href="#hbayes.domain_reduction.TransformerCore" title="hbayes.domain_reduction.TransformerCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerCore</span></code></a> object.</p>
 </div>
 <dl class="py method">
-<dt id="bayes_opt.domain_reduction.DomainTransformer.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">core_class</span><span class="p">:</span> <span class="n">Type<span class="p">[</span><a class="reference internal" href="#bayes_opt.domain_reduction.TransformerCore" title="bayes_opt.domain_reduction.TransformerCore">bayes_opt.domain_reduction.TransformerCore</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#DomainTransformer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.DomainTransformer.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.DomainTransformer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">core_class</span><span class="p">:</span> <span class="n">Type<span class="p">[</span><a class="reference internal" href="#hbayes.domain_reduction.TransformerCore" title="hbayes.domain_reduction.TransformerCore">hbayes.domain_reduction.TransformerCore</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#DomainTransformer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.DomainTransformer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -251,15 +251,15 @@
 <section id="sdrcore">
 <h2>SDRCore<a class="headerlink" href="#sdrcore" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.domain_reduction.SDRCore">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.domain_reduction.</code><code class="sig-name descname">SDRCore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#bayes_opt.target_space.TargetSpace" title="bayes_opt.target_space.TargetSpace">bayes_opt.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#SDRCore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.SDRCore" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.SDRCore">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.domain_reduction.</code><code class="sig-name descname">SDRCore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#hbayes.target_space.TargetSpace" title="hbayes.target_space.TargetSpace">hbayes.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#SDRCore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.SDRCore" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
-<dt>Overview:</dt><dd><p>Service core of <a class="reference internal" href="#bayes_opt.domain_reduction.SequentialDomainReductionTransformer" title="bayes_opt.domain_reduction.SequentialDomainReductionTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequentialDomainReductionTransformer</span></code></a>.</p>
+<dt>Overview:</dt><dd><p>Service core of <a class="reference internal" href="#hbayes.domain_reduction.SequentialDomainReductionTransformer" title="hbayes.domain_reduction.SequentialDomainReductionTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequentialDomainReductionTransformer</span></code></a>.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="bayes_opt.domain_reduction.SDRCore.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#bayes_opt.target_space.TargetSpace" title="bayes_opt.target_space.TargetSpace">bayes_opt.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#SDRCore.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.SDRCore.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.SDRCore.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../target_space/index.html#hbayes.target_space.TargetSpace" title="hbayes.target_space.TargetSpace">hbayes.target_space.TargetSpace</a></span></em>, <em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#SDRCore.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.SDRCore.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -269,19 +269,19 @@
 <section id="sequentialdomainreductiontransformer">
 <h2>SequentialDomainReductionTransformer<a class="headerlink" href="#sequentialdomainreductiontransformer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="bayes_opt.domain_reduction.SequentialDomainReductionTransformer">
-<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.domain_reduction.</code><code class="sig-name descname">SequentialDomainReductionTransformer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#SequentialDomainReductionTransformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.SequentialDomainReductionTransformer" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.SequentialDomainReductionTransformer">
+<em class="property">class </em><code class="sig-prename descclassname">hbayes.domain_reduction.</code><code class="sig-name descname">SequentialDomainReductionTransformer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#SequentialDomainReductionTransformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.SequentialDomainReductionTransformer" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Overview:</dt><dd><p>A sequential domain reduction transformer based on the work by         Stander, N. and Craig, K: “On the robustness of a simple domain reduction scheme          for simulation‐based optimization”</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Its main service is wrapped into <a class="reference internal" href="#bayes_opt.domain_reduction.SDRCore" title="bayes_opt.domain_reduction.SDRCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">SDRCore</span></code></a>.</p>
+<p>Its main service is wrapped into <a class="reference internal" href="#hbayes.domain_reduction.SDRCore" title="hbayes.domain_reduction.SDRCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">SDRCore</span></code></a>.</p>
 </div>
 <dl class="py method">
-<dt id="bayes_opt.domain_reduction.SequentialDomainReductionTransformer.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/domain_reduction.html#SequentialDomainReductionTransformer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.domain_reduction.SequentialDomainReductionTransformer.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="hbayes.domain_reduction.SequentialDomainReductionTransformer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gamma_osc</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">gamma_pan</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">eta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/hbayes/domain_reduction.html#SequentialDomainReductionTransformer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hbayes.domain_reduction.SequentialDomainReductionTransformer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -299,10 +299,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../event/index.html" class="btn btn-neutral float-right" title="bayes_opt.event" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../event/index.html" class="btn btn-neutral float-right" title="hbayes.event" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../config/meta.html" class="btn btn-neutral float-left" title="bayes_opt.config.meta" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../config/meta.html" class="btn btn-neutral float-left" title="hbayes.config.meta" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -333,10 +333,6 @@
     <span class="fa fa-caret-down"></span>
   </span>
         <div class="rst-other-versions">
-                <dl>
-                    <dt>Tags</dt>
-                        <dd><a href="../../../v0.0.1/api_doc/domain_reduction/index.html">v0.0.1</a></dd>
-                </dl>
                 <dl>
                     <dt>Branches</dt>
                         <dd><a href="index.html">main</a></dd>
