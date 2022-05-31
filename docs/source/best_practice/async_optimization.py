@@ -44,8 +44,8 @@ class BayesianOptimizationHandler(RequestHandler):
 
         try:
             self._bo.register(
-                params=body["params"],
-                target=body["target"],
+                x=body["params"],
+                y=body["target"],
             )
             print("BO has registered: {} points.".format(len(self._bo.space)), end="\n\n")
         except KeyError:

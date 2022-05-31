@@ -45,7 +45,7 @@ class DomainTransformer:
         self._check_initialization()
         return self._core.transform(space)
 
-    def __getattr__(self, item):
+    def __getattr__(self, item: str):
         self._check_initialization()  # pragma: no cover
         return getattr(self._core, item)  # pragma: no cover
 

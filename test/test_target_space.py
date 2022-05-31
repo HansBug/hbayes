@@ -82,21 +82,21 @@ def test_register():
 
     assert len(space) == 0
     # registering with dict
-    space.register(params={"p1": 1, "p2": 2}, target=3)
+    space.register(x={"p1": 1, "p2": 2}, y=3)
     assert len(space) == 1
     assert all(space.params[0] == np.array([1, 2]))
     assert all(space.target == np.array([3]))
 
     # registering with array
-    space.register(params={"p1": 5, "p2": 4}, target=9)
+    space.register(x={"p1": 5, "p2": 4}, y=9)
     assert len(space) == 2
     assert all(space.params[1] == np.array([5, 4]))
     assert all(space.target == np.array([3, 9]))
 
     with pytest.raises(KeyError):
-        space.register(params={"p1": 1, "p2": 2}, target=3)
+        space.register(x={"p1": 1, "p2": 2}, y=3)
     with pytest.raises(KeyError):
-        space.register(params={"p1": 5, "p2": 4}, target=9)
+        space.register(x={"p1": 5, "p2": 4}, y=9)
 
 
 @pytest.mark.unittest
@@ -105,7 +105,7 @@ def test_probe():
 
     assert len(space) == 0
     # probing with dict
-    space.probe(params={"p1": 1, "p2": 2})
+    space.probe(x={"p1": 1, "p2": 2})
     assert len(space) == 1
     assert all(space.params[0] == np.array([1, 2]))
     assert all(space.target == np.array([3]))
@@ -117,7 +117,7 @@ def test_probe():
     assert all(space.target == np.array([3, 9]))
 
     # probing same point with dict
-    space.probe(params={"p1": 1, "p2": 2})
+    space.probe(x={"p1": 1, "p2": 2})
     assert len(space) == 2
     assert all(space.params[1] == np.array([5, 4]))
     assert all(space.target == np.array([3, 9]))
@@ -151,10 +151,10 @@ def test_max():
     space = TargetSpace(target_func, PBOUNDS)
 
     assert not space.max()
-    space.probe(params={"p1": 1, "p2": 2})
-    space.probe(params={"p1": 5, "p2": 4})
-    space.probe(params={"p1": 2, "p2": 3})
-    space.probe(params={"p1": 1, "p2": 6})
+    space.probe(x={"p1": 1, "p2": 2})
+    space.probe(x={"p1": 5, "p2": 4})
+    space.probe(x={"p1": 2, "p2": 3})
+    space.probe(x={"p1": 1, "p2": 6})
     assert space.max() == {"params": {"p1": 5, "p2": 4}, "target": 9}
 
 
@@ -163,10 +163,10 @@ def test_res():
     space = TargetSpace(target_func, PBOUNDS)
 
     assert space.res() == []
-    space.probe(params={"p1": 1, "p2": 2})
-    space.probe(params={"p1": 5, "p2": 4})
-    space.probe(params={"p1": 2, "p2": 3})
-    space.probe(params={"p1": 1, "p2": 6})
+    space.probe(x={"p1": 1, "p2": 2})
+    space.probe(x={"p1": 5, "p2": 4})
+    space.probe(x={"p1": 2, "p2": 3})
+    space.probe(x={"p1": 1, "p2": 6})
 
     expected_res = [
         {"params": {"p1": 1, "p2": 2}, "target": 3},

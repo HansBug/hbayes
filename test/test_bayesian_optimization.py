@@ -20,18 +20,18 @@ def test_register():
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
     assert len(optimizer.space) == 0
 
-    optimizer.register(params={"p1": 1, "p2": 2}, target=3)
+    optimizer.register(x={"p1": 1, "p2": 2}, y=3)
     assert len(optimizer.res) == 1
     assert len(optimizer.space) == 1
 
-    optimizer.space.register(params={"p1": 5, "p2": 4}, target=9)
+    optimizer.space.register(x={"p1": 5, "p2": 4}, y=9)
     assert len(optimizer.res) == 2
     assert len(optimizer.space) == 2
 
     with pytest.raises(KeyError):
-        optimizer.register(params={"p1": 1, "p2": 2}, target=3)
+        optimizer.register(x={"p1": 1, "p2": 2}, y=3)
     with pytest.raises(KeyError):
-        optimizer.register(params={"p1": 5, "p2": 4}, target=9)
+        optimizer.register(x={"p1": 5, "p2": 4}, y=9)
 
 
 @pytest.mark.unittest
@@ -91,7 +91,7 @@ def test_suggest_with_one_observation():
     util = UtilityFunction(kind="ucb", kappa=5, xi=0)
     optimizer = BayesianOptimization(target_func, PBOUNDS, random_state=1)
 
-    optimizer.register(params={"p1": 1, "p2": 2}, target=3)
+    optimizer.register(x={"p1": 1, "p2": 2}, y=3)
 
     for _ in range(5):
         sample = optimizer.space.params_to_array(optimizer.suggest(util))
@@ -133,7 +133,7 @@ def test_prime_queue_with_register():
     assert len(optimizer._queue) == 0
     assert len(optimizer.space) == 0
 
-    optimizer.register(params={"p1": 1, "p2": 2}, target=3)
+    optimizer.register(x={"p1": 1, "p2": 2}, y=3)
     optimizer._prime_queue(init_points=0)
     assert len(optimizer._queue) == 0
     assert len(optimizer.space) == 1
@@ -145,7 +145,7 @@ def test_prime_queue_with_register_and_init():
     assert len(optimizer._queue) == 0
     assert len(optimizer.space) == 0
 
-    optimizer.register(params={"p1": 1, "p2": 2}, target=3)
+    optimizer.register(x={"p1": 1, "p2": 2}, y=3)
     optimizer._prime_queue(init_points=3)
     assert len(optimizer._queue) == 3
     assert len(optimizer.space) == 1

@@ -1,9 +1,12 @@
 import warnings
+from typing import Dict, Union, Tuple
 
+import numpy as np
 from hbutils.design import Observable
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern
 
+from .domain_reduction import DomainTransformer
 from .event import OptimizationEvent
 from .logger import _get_default_logger
 from .target_space import TargetSpace
@@ -73,12 +76,11 @@ class BayesianOptimization(Observable):
 
         self._verbose = verbose
         self._bounds_transformer = bounds_transformer
-        if self._bounds_transformer:
-            try:
+        if self._bounds_transformer is not None:
+            if isinstance(self._bounds_transformer, DomainTransformer):
                 self._bounds_transformer.initialize(self._space)
-            except (AttributeError, TypeError):
-                raise TypeError('The transformer must be an instance of '
-                                'DomainTransformer')
+            else:
+                raise TypeError('The transformer must be an instance of DomainTransformer')
 
         super(BayesianOptimization, self).__init__(events=OptimizationEvent)
 
@@ -94,14 +96,14 @@ class BayesianOptimization(Observable):
     def res(self):
         return self._space.res()
 
-    def register(self, params, target):
+    def register(self, x: Union[np.ndarray, Dict[str, float]], y: float):
         """
         Expect observation with known target
         """
-        self._space.register(params, target)
+        self._space.register(x, y)
         self.dispatch(OptimizationEvent.STEP)
 
-    def probe(self, params, lazy=True):
+    def probe(self, params: Dict[str, float], lazy=True):
         """
         Evaluates the function on the given points. Useful to guide the optimizer.
 
@@ -115,8 +117,10 @@ class BayesianOptimization(Observable):
             self._space.probe(params)
             self.dispatch(OptimizationEvent.STEP)
 
-    def suggest(self, utility_function):
-        """Most promising point to probe next"""
+    def suggest(self, utility_function: UtilityFunction) -> Dict[str, float]:
+        """
+        Most promising point to probe next
+        """
         if len(self._space) == 0:
             return self._space.array_to_params(self._space.random_sample())
 
@@ -127,6 +131,7 @@ class BayesianOptimization(Observable):
             self._gp.fit(self._space.params, self._space.target)
 
         # Finding argmax of the acquisition function.
+        # noinspection PyArgumentList
         suggestion = acq_max(
             ac=utility_function.utility,
             gp=self._gp,
@@ -136,7 +141,7 @@ class BayesianOptimization(Observable):
         )
         return self._space.array_to_params(suggestion)
 
-    def _prime_queue(self, init_points):
+    def _prime_queue(self, init_points: int):
         """
         Make sure there's something in the queue at the very beginning.
         """
@@ -144,16 +149,17 @@ class BayesianOptimization(Observable):
             init_points = max(init_points, 1)
 
         for _ in range(init_points):
-            self._queue.add(self._space.random_sample())
+            array_ = self._space.random_sample()
+            self._queue.add(self._space.array_to_params(array_))
 
     def _prime_subscriptions(self):
-        if not any([len(subs) for subs in self._events.values()]):
+        if not any([subs for subs in self._events.values()]):
             _logger = _get_default_logger(self._verbose)
             self.subscribe(OptimizationEvent.START, _logger)
             self.subscribe(OptimizationEvent.STEP, _logger)
             self.subscribe(OptimizationEvent.END, _logger)
 
-    def maximize(self, init_points=5, n_iter=25,
+    def maximize(self, init_points: int = 5, n_iter: int = 25,
                  acq='ucb', kappa=2.576, kappa_decay=1, kappa_decay_delay=0,
                  xi=0.0, **gp_params):
         """
@@ -178,11 +184,7 @@ class BayesianOptimization(Observable):
         self._prime_queue(init_points)
         self.set_gp_params(**gp_params)
 
-        util = UtilityFunction(kind=acq,
-                               kappa=kappa,
-                               xi=xi,
-                               kappa_decay=kappa_decay,
-                               kappa_decay_delay=kappa_decay_delay)
+        util = UtilityFunction(acq, kappa, xi, kappa_decay, kappa_decay_delay)
         iteration = 0
         while not self._queue.empty or iteration < n_iter:
             try:
@@ -195,12 +197,11 @@ class BayesianOptimization(Observable):
             self.probe(x_probe, lazy=False)
 
             if self._bounds_transformer:
-                self.set_bounds(
-                    self._bounds_transformer.transform(self._space))
+                self.set_bounds(self._bounds_transformer.transform(self._space))
 
         self.dispatch(OptimizationEvent.END)
 
-    def set_bounds(self, new_bounds):
+    def set_bounds(self, new_bounds: Dict[str, Tuple[float, float]]):
         """
         A method that allows changing the lower and upper searching bounds
 
@@ -209,5 +210,7 @@ class BayesianOptimization(Observable):
         self._space.set_bounds(new_bounds)
 
     def set_gp_params(self, **params):
-        """Set parameters to the internal Gaussian Process Regressor"""
+        """
+        Set parameters to the internal Gaussian Process Regressor
+        """
         self._gp.set_params(**params)

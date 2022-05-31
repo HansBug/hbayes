@@ -1,11 +1,11 @@
-from typing import List
+from typing import List, Dict, Union, Tuple
 
 import numpy as np
 
 from .util import ensure_rng
 
 
-def _hashable(x):
+def _hashable(x: np.ndarray) -> Tuple[float, ...]:
     """
     Ensure that a point is hashable by a python dict.
     """
@@ -48,16 +48,16 @@ class TargetSpace(object):
         self.target_func = target_func
 
         # Get the name of the parameters
-        self._keys = sorted(pbounds)
+        self._keys: List[str] = sorted(pbounds)
         # Create an array with parameters bounds
-        self._bounds = np.array([pbounds[k] for k in self._keys], dtype=np.float)
+        self._bounds = np.array([pbounds[k] for k in self._keys], dtype=np.float64)
 
         # pre-allocated memory for X and Y points
         self._params = np.empty(shape=(0, self.dim))
         self._target = np.empty(shape=0)
 
         # keep track of unique points we have seen so far
-        self._cache = {}
+        self._cache: Dict[Tuple[float, ...], float] = {}
 
     def __contains__(self, x) -> bool:
         return _hashable(x) in self._cache
@@ -82,14 +82,14 @@ class TargetSpace(object):
         return len(self._keys)
 
     @property
-    def keys(self) -> List:
+    def keys(self) -> List[str]:
         return self._keys
 
     @property
-    def bounds(self):
+    def bounds(self) -> np.ndarray:
         return self._bounds
 
-    def params_to_array(self, params):
+    def params_to_array(self, params: Dict[str, float]) -> np.ndarray:
         try:
             assert set(params) == set(self.keys)
         except AssertionError:
@@ -99,7 +99,7 @@ class TargetSpace(object):
             )
         return np.asarray([params[key] for key in self.keys])
 
-    def array_to_params(self, x):
+    def array_to_params(self, x: np.ndarray) -> Dict[str, float]:
         try:
             assert len(x) == len(self.keys)
         except AssertionError:
@@ -109,29 +109,28 @@ class TargetSpace(object):
             )
         return dict(zip(self.keys, x))
 
-    def _as_array(self, x):
-        try:
-            x = np.asarray(x, dtype=float)
-        except TypeError:
+    def _as_array(self, x: Union[np.ndarray, Dict[str, float]]) -> np.ndarray:
+        if isinstance(x, dict):
             x = self.params_to_array(x)
+        else:
+            x = np.asarray(x, dtype=float)
 
         x = x.ravel()
-        try:
-            assert x.size == self.dim
-        except AssertionError:
+        if x.size == self.dim:
+            return x
+        else:
             raise ValueError(
                 "Size of array ({}) is different than the ".format(len(x)) +
                 "expected number of parameters ({}).".format(len(self.keys))
             )
-        return x
 
-    def register(self, params, target):
+    def register(self, x, y):
         # noinspection PyShadowingNames
         """
         Append a point and its target value to the known data.
 
-        :param params: A single point, with len(x) == self.dim.
-        :param target: Target function value.
+        :param x: A single point, with len(x) == self.dim.
+        :param y: Target function value.
         :raises KeyError: If the point is not unique.
 
         .. note::
@@ -152,41 +151,41 @@ class TargetSpace(object):
             >>> len(space)
             1
         """
-        x = self._as_array(params)
+        x = self._as_array(x)
         if x in self:
             raise KeyError('Data point {} is not unique'.format(x))
 
         # Insert data into unique dictionary
-        self._cache[_hashable(x.ravel())] = target
+        self._cache[_hashable(x.ravel())] = y
 
         self._params = np.concatenate([self._params, x.reshape(1, -1)])
-        self._target = np.concatenate([self._target, [target]])
+        self._target = np.concatenate([self._target, [y]])
 
-    def probe(self, params):
+    def probe(self, x: Union[np.ndarray, Dict[str, float]]) -> float:
         """
         Evaluates a single point x, to obtain the value y and then records them as observations.
 
         .. notes:
-            If ``params` has been previously seen returns a cached value of y.
+            If ``x` has been previously seen returns a cached value of y.
 
-        :param params: A single point, with ``len(params) == self.dim``.
+        :param x: A single point, with ``len(params) == self.dim``.
         :returns: Target function value.
         """
-        x = self._as_array(params)
+        x = self._as_array(x)
 
         try:
             target = self._cache[_hashable(x)]
         except KeyError:
-            params = dict(zip(self._keys, x))
-            target = self.target_func(**params)
+            x = dict(zip(self._keys, x))
+            target = self.target_func(**x)
             self.register(x, target)
         return target
 
-    def random_sample(self):
+    def random_sample(self) -> np.ndarray:
         """
         Creates random points within the bounds of the space.
 
-        :returns: [num x dim] array points with dimensions corresponding to `self._keys`
+        :returns: [dim] array points with dimensions corresponding to `self._keys`
 
         Examples:
             >>> from bayes_opt.target_space import TargetSpace
@@ -226,7 +225,7 @@ class TargetSpace(object):
             for target, param in zip(self.target, params)
         ]
 
-    def set_bounds(self, new_bounds):
+    def set_bounds(self, new_bounds: Dict[str, Tuple[float, float]]):
         """
         A method that allows changing the lower and upper searching bounds
 

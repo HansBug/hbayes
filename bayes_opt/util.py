@@ -26,21 +26,21 @@ def acq_max(ac, gp, y_max, bounds, random_state, n_warmup=10000, n_iter=10):
     """
 
     # Warm up with random points
-    x_tries = random_state.uniform(bounds[:, 0], bounds[:, 1],
-                                   size=(n_warmup, bounds.shape[0]))
+    x_tries = random_state.uniform(bounds[:, 0], bounds[:, 1], size=(n_warmup, bounds.shape[0]))
     ys = ac(x_tries, gp=gp, y_max=y_max)
     x_max = x_tries[ys.argmax()]
     max_acq = ys.max()
 
-    # Explore the parameter space more throughly
-    x_seeds = random_state.uniform(bounds[:, 0], bounds[:, 1],
-                                   size=(n_iter, bounds.shape[0]))
+    # Explore the parameter space more thoroughly
+    x_seeds = random_state.uniform(bounds[:, 0], bounds[:, 1], size=(n_iter, bounds.shape[0]))
     for x_try in x_seeds:
         # Find the minimum of minus the acquisition function
-        res = minimize(lambda x: -ac(x.reshape(1, -1), gp=gp, y_max=y_max),
-                       x_try.reshape(1, -1),
-                       bounds=bounds,
-                       method="L-BFGS-B")
+        res = minimize(
+            lambda x: -ac(x.reshape(1, -1), gp=gp, y_max=y_max),
+            x_try.reshape(1, -1),
+            bounds=bounds,
+            method="L-BFGS-B"
+        )
 
         # See if success
         if not res.success:
@@ -144,8 +144,8 @@ def load_logs(optimizer, logs):
                 iteration = json.loads(iteration)
                 try:
                     optimizer.register(
-                        params=iteration["params"],
-                        target=iteration["target"],
+                        x=iteration["params"],
+                        y=iteration["target"],
                     )
                 except KeyError:
                     pass
