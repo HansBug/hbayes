@@ -1,9 +1,9 @@
 Installation
 ===================
 
-``Bayes-Opt`` is currently hosted on PyPI. It required python >= 3.6.
+``hbayes`` is currently hosted on PyPI. It required python >= 3.6.
 
-You can simply install Bayes-Opt from PyPI with the following command:
+You can simply install ``hbayes`` from PyPI with the following command:
 
 .. code:: shell
 
@@ -26,4 +26,4 @@ of ``hbayes`` should be shown.
     :language: text
     :linenos:
 
-Bayes-Opt is still under development, you can also check out the documents in stable version through `https://hansbug.github.io/BayesianOptimization/ <https://hansbug.github.io/BayesianOptimization/>`_.
+``hbayes`` is still under development, you can also check out the documents in stable version through `https://hansbug.github.io/BayesianOptimization/ <https://hansbug.github.io/BayesianOptimization/>`_.

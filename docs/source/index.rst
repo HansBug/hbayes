@@ -1,4 +1,4 @@
-Welcome to Bayes-Opt's Documentation
+Welcome to HBayes' Documentation
 ================================================
 
 Overview
