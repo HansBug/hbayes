@@ -97,6 +97,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'enum_tools.autoenum',
     "sphinx_multiversion",
+    'nbsphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

@@ -8,3 +8,5 @@ packaging
 sphinx-multiversion~=0.2.4
 where~=1.0.2
 easydict>=1.7,<2
+nbsphinx>=0.8.8
+ipython>=7.16.3

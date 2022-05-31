@@ -37,11 +37,17 @@ class DomainTransformer:
     def initialize(self, space: TargetSpace):
         self._core = self._core_class(space, *self._args, **self._kwargs)
 
-    def transform(self, space: TargetSpace) -> Dict[str, np.ndarray]:
-        if self._core is not None:
-            return self._core.transform(space)
-        else:
+    def _check_initialization(self):
+        if self._core is None:
             raise SyntaxError('Transformer not initialized yet.')  # pragma: no cover
+
+    def transform(self, space: TargetSpace) -> Dict[str, np.ndarray]:
+        self._check_initialization()
+        return self._core.transform(space)
+
+    def __getattr__(self, item):
+        self._check_initialization()  # pragma: no cover
+        return getattr(self._core, item)  # pragma: no cover
 
 
 def _create_bounds(parameters: dict, bounds: np.array) -> Dict[str, np.ndarray]:
@@ -130,6 +136,3 @@ class SequentialDomainReductionTransformer(DomainTransformer):
 
     def __init__(self, gamma_osc: float = 0.7, gamma_pan: float = 1.0, eta: float = 0.9):
         DomainTransformer.__init__(self, SDRCore, gamma_osc, gamma_pan, eta)
-        self.gamma_osc = gamma_osc
-        self.gamma_pan = gamma_pan
-        self.eta = eta
