@@ -8,7 +8,7 @@ jobs:
   release:
     name: Publish to official pypi
     runs-on: ${{ matrix.os }}
-    if: ${{ github.repository == 'hansbug/BayesianOptimization' }}
+    if: ${{ github.repository == 'hansbug/bayes-opt' }}
     strategy:
       matrix:
         os:

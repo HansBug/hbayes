@@ -42,8 +42,7 @@ setup(
     author_email=meta['__AUTHOR_EMAIL__'],
     license='MIT License',
     keywords='A simple tool for automatic parameter tuning.',
-    url='https://github.com/HansBug/BayesianOptimization',
-    download_url='https://github.com/fmfn/BayesianOptimization/tarball/0.6',
+    url='https://github.com/HansBug/bayes-opt',
 
     python_requires=">=3.6",
     install_requires=requirements,
