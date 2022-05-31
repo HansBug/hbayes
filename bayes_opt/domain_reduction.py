@@ -25,7 +25,7 @@ class DomainTransformer:
         Base class of transformer.
 
     .. note::
-        State pattern is used, its main service should be wrapped in :class:`TransformCore` object.
+        State pattern is used, its main service should be wrapped in :class:`TransformerCore` object.
     """
 
     def __init__(self, core_class: Type[TransformerCore], *args, **kwargs):

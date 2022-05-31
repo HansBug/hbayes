@@ -1,9 +1,10 @@
-.PHONY: test package clean unittest
+.PHONY: test package clean unittest docs pdocs
 
 PYTHON ?= $(shell which python)
 PYTEST ?= $(shell which pytest)
 
 PROJ_DIR := $(shell readlink -f ${CURDIR})
+DOC_DIR  := ${PROJ_DIR}/docs
 DIST_DIR := ${PROJ_DIR}/dist
 TEST_DIR := ${PROJ_DIR}/test
 SRC_DIR  := ${PROJ_DIR}/bayes_opt
@@ -28,3 +29,8 @@ unittest:
 		--cov="${RANGE_SRC_DIR}" \
 		$(if ${MIN_COVERAGE},--cov-fail-under=${MIN_COVERAGE},) \
 		$(if ${WORKERS},-n ${WORKERS},)
+
+docs:
+	$(MAKE) -C "${DOC_DIR}" build
+pdocs:
+	$(MAKE) -C "${DOC_DIR}" prod

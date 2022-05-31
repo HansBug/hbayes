@@ -136,7 +136,7 @@ class TargetSpace(object):
         :param target: Target function value.
         :raises KeyError: If the point is not unique.
 
-        .. notes::
+        .. note::
             Runs in ammortized constant time.
 
         Examples:

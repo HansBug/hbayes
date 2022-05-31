@@ -60,7 +60,7 @@ def acq_max(ac, gp, y_max, bounds, random_state, n_warmup=10000, n_iter=10):
     return np.clip(x_max, bounds[:, 0], bounds[:, 1])
 
 
-class UtilityFunction(object):
+class UtilityFunction:
     """
     Overview:
         An object to compute the acquisition functions.

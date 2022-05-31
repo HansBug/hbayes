@@ -40,46 +40,21 @@ class Queue:
 
 class BayesianOptimization(Observable):
     """
-    This class takes the function to optimize as well as the parameters bounds
-    in order to find which values for the parameters yield the maximum value
-    using bayesian optimization.
+    Overview:
+        This class takes the function to optimize as well as the parameters bounds \
+        in order to find which values for the parameters yield the maximum value \
+        using bayesian optimization.
 
-    Parameters
-    ----------
-    f: function
-        Function to be maximized.
-
-    pbounds: dict
-        Dictionary with parameters names as keys and a tuple with minimum
-        and maximum values.
-
-    random_state: int or numpy.random.RandomState, optional(default=None)
-        If the value is an integer, it is used as the seed for creating a
-        numpy.random.RandomState. Otherwise, the random state provided it is used.
+    :param f: Function to be maximized.
+    :param pbounds: Dictionary with parameters names as keys and a tuple with minimum and maximum values.=
+    :param random_state: If the value is an integer, it is used as the seed for creating a \
+        numpy.random.RandomState. Otherwise, the random state provided it is used. \
         When set to None, an unseeded random state is generated.
-
-    verbose: int, optional(default=2)
-        The level of verbosity.
-
-    bounds_transformer: DomainTransformer, optional(default=None)
-        If provided, the transformation is applied to the bounds.
-
-    Methods
-    -------
-    probe()
-        Evaluates the function on the given points.
-        Can be used to guide the optimizer.
-
-    maximize()
-        Tries to find the parameters that yield the maximum value for the
-        given function.
-
-    set_bounds()
-        Allows changing the lower and upper searching bounds
+    :param verbose: The level of verbosity.
+    :param bounds_transformer: If provided, the transformation is applied to the bounds.
     """
 
-    def __init__(self, f, pbounds, random_state=None, verbose=2,
-                 bounds_transformer=None):
+    def __init__(self, f, pbounds, random_state=None, verbose=2, bounds_transformer=None):
         self._random_state = ensure_rng(random_state)
 
         # Data structure containing the function to be optimized, the bounds of
@@ -121,7 +96,9 @@ class BayesianOptimization(Observable):
         return self._space.res()
 
     def register(self, params, target):
-        """Expect observation with known target"""
+        """
+        Expect observation with known target
+        """
         self._space.register(params, target)
         self.dispatch(OptimizationEvent.STEP)
 
@@ -129,14 +106,9 @@ class BayesianOptimization(Observable):
         """
         Evaluates the function on the given points. Useful to guide the optimizer.
 
-        Parameters
-        ----------
-        params: dict or list
-            The parameters where the optimizer will evaluate the function.
-
-        lazy: bool, optional(default=True)
-            If True, the optimizer will evaluate the points when calling
-            maximize(). Otherwise, it will evaluate it at the moment.
+        :param params: The parameters where the optimizer will evaluate the function.
+        :param lazy:  If True, the optimizer will evaluate the points when calling :func:`maximize`. \
+            Otherwise, it will evaluate it at the moment.
         """
         if lazy:
             self._queue.add(params)
@@ -167,7 +139,9 @@ class BayesianOptimization(Observable):
         return self._space.array_to_params(suggestion)
 
     def _prime_queue(self, init_points):
-        """Make sure there's something in the queue at the very beginning."""
+        """
+        Make sure there's something in the queue at the very beginning.
+        """
         if self._queue.empty and self._space.empty:
             init_points = max(init_points, 1)
 
@@ -194,37 +168,18 @@ class BayesianOptimization(Observable):
         Probes the target space to find the parameters that yield the maximum
         value for the given function.
 
-        Parameters
-        ----------
-        init_points : int, optional(default=5)
-            Number of iterations before the explorations starts the exploration
-            for the maximum.
-
-        n_iter: int, optional(default=25)
-            Number of iterations where the method attempts to find the maximum
-            value.
-
-        acq: {'ucb', 'ei', 'poi'}
-            The acquisition method used.
-                * 'ucb' stands for the Upper Confidence Bounds method
-                * 'ei' is the Expected Improvement method
-                * 'poi' is the Probability Of Improvement criterion.
-
-        kappa: float, optional(default=2.576)
-            Parameter to indicate how closed are the next parameters sampled.
-                Higher value = favors spaces that are least explored.
-                Lower value = favors spaces where the regression function is the
-                highest.
-
-        kappa_decay: float, optional(default=1)
-            `kappa` is multiplied by this factor every iteration.
-
-        kappa_decay_delay: int, optional(default=0)
-            Number of iterations that must have passed before applying the decay
-            to `kappa`.
-
-        xi: float, optional(default=0.0)
-            [unused]
+        :param init_points: Number of iterations before the explorations starts the exploration for the maximum.
+        :param n_iter: Number of iterations where the method attempts to find the maximum value.
+        :param acq: The acquisition method used.
+            * 'ucb' stands for the Upper Confidence Bounds method
+            * 'ei' is the Expected Improvement method
+            * 'poi' is the Probability Of Improvement criterion.
+        :param kappa: Parameter to indicate how closed are the next parameters sampled. \
+            Higher value = favors spaces that are least explored. \
+            Lower value = favors spaces where the regression function is the highest.
+        :param kappa_decay: `kappa` is multiplied by this factor every iteration.
+        :param kappa_decay_delay: Number of iterations that must have passed before applying the decay to `kappa`.
+        :param xi: [unused yet].
         """
         self._prime_subscriptions()
         self.dispatch(OptimizationEvent.START)
@@ -257,10 +212,7 @@ class BayesianOptimization(Observable):
         """
         A method that allows changing the lower and upper searching bounds
 
-        Parameters
-        ----------
-        new_bounds : dict
-            A dictionary with the parameter name and its new bounds
+        :param new_bounds: A dictionary with the parameter name and its new bounds.
         """
         self._space.set_bounds(new_bounds)
 

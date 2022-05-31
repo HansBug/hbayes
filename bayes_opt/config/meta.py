@@ -1,9 +1,9 @@
 """
 Overview:
-    Meta information for DI-toolkit package.
+    Meta information for ``bayes_opt`` package.
 """
 
-#: Title of this project (should be `DI-toolkit`).
+#: Title of this project (should be `bayes_opt`).
 __TITLE__ = 'bayes-opt'
 
 #: Version of this project.
