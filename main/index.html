@@ -26,6 +26,9 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -88,6 +91,14 @@
               <p><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/installation/index.html">Installation</a></li>
+</ul>
+<p><span class="caption-text">Best Practices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/basic-tour.html">Basic tour of the Bayesian Optimization package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/advanced-tour.html">Advanced tour of the Bayesian Optimization package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/domain_reduction.html">Sequential Domain Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/exploitation_vs_exploration.html">Exploitation vs Exploration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/visualization.html">Visualization</a></li>
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -164,7 +175,31 @@
             
     
     
-  <section id="welcome-to-bayes-opt-s-documentation">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="welcome-to-bayes-opt-s-documentation">
 <h1>Welcome to Bayes-Opt’s Documentation<a class="headerlink" href="#welcome-to-bayes-opt-s-documentation" title="Permalink to this headline">¶</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
@@ -176,6 +211,44 @@
 </ul>
 </div>
 <div class="toctree-wrapper compound">
+<p><span class="caption-text">Best Practices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/basic-tour.html">Basic tour of the Bayesian Optimization package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/basic-tour.html#1.-Specifying-the-function-to-be-optimized">1. Specifying the function to be optimized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/basic-tour.html#2.-Getting-Started">2. Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/basic-tour.html#3.-Guiding-the-optimization">3. Guiding the optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/basic-tour.html#4.-Saving,-loading-and-restarting">4. Saving, loading and restarting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/basic-tour.html#Next-Steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/advanced-tour.html">Advanced tour of the Bayesian Optimization package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/advanced-tour.html#1.-Suggest-Evaluate-Register-Paradigm">1. Suggest-Evaluate-Register Paradigm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/advanced-tour.html#2.-Dealing-with-discrete-parameters">2. Dealing with discrete parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/advanced-tour.html#3.-Tuning-the-underlying-Gaussian-Process">3. Tuning the underlying Gaussian Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/advanced-tour.html#Observers-Continued">Observers Continued</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/domain_reduction.html">Sequential Domain Reduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/domain_reduction.html#Background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/domain_reduction.html#Basics">Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/domain_reduction.html#Parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/exploitation_vs_exploration.html">Exploitation vs Exploration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/exploitation_vs_exploration.html#Target-function">Target function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/exploitation_vs_exploration.html#Acquisition-Function-“Upper-Confidence-Bound”">Acquisition Function “Upper Confidence Bound”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/exploitation_vs_exploration.html#Acquisition-Function-“Expected-Improvement”">Acquisition Function “Expected Improvement”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/exploitation_vs_exploration.html#Acquisition-Function-“Probability-of-Improvement”">Acquisition Function “Probability of Improvement”</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice/visualization.html">Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/visualization.html#Target-Function">Target Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/visualization.html#Create-a-BayesianOptimization-Object">Create a BayesianOptimization Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/visualization.html#Plotting-and-visualizing-the-algorithm-at-each-step">Plotting and visualizing the algorithm at each step</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practice/visualization.html#Stopping">Stopping</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="toctree-wrapper compound">
 <p><span class="caption-text">API Documentation</span></p>

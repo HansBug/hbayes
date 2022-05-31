@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced tour of the Bayesian Optimization package &mdash; bayes-opt 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sequential Domain Reduction" href="domain_reduction.html" />
+    <link rel="prev" title="Basic tour of the Bayesian Optimization package" href="basic-tour.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> bayes-opt
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/installation/index.html">Installation</a></li>
+</ul>
+<p><span class="caption-text">Best Practices</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="basic-tour.html">Basic tour of the Bayesian Optimization package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced tour of the Bayesian Optimization package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#1.-Suggest-Evaluate-Register-Paradigm">1. Suggest-Evaluate-Register Paradigm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#1.1-The-maximize-loop">1.1 The maximize loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#2.-Dealing-with-discrete-parameters">2. Dealing with discrete parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#3.-Tuning-the-underlying-Gaussian-Process">3. Tuning the underlying Gaussian Process</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#3.1-Passing-parameter-to-the-GP">3.1 Passing parameter to the GP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.2-Tuning-the-alpha-parameter">3.2 Tuning the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#3.3-Changing-kernels">3.3 Changing kernels</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Observers-Continued">Observers Continued</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domain_reduction.html">Sequential Domain Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exploitation_vs_exploration.html">Exploitation vs Exploration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization</a></li>
+</ul>
+<p><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/bayesian_optimization/index.html">bayes_opt.bayesian_optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/config/index.html">bayes_opt.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/event/index.html">bayes_opt.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/logger/index.html">bayes_opt.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/target_space/index.html">bayes_opt.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_doc/util/index.html">bayes_opt.util</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bayes-opt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Advanced tour of the Bayesian Optimization package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/best_practice/advanced-tour.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+    
+    
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Advanced-tour-of-the-Bayesian-Optimization-package">
+<h1>Advanced tour of the Bayesian Optimization package<a class="headerlink" href="#Advanced-tour-of-the-Bayesian-Optimization-package" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from bayes_opt import BayesianOptimization
+</pre></div>
+</div>
+</div>
+<section id="1.-Suggest-Evaluate-Register-Paradigm">
+<h2>1. Suggest-Evaluate-Register Paradigm<a class="headerlink" href="#1.-Suggest-Evaluate-Register-Paradigm" title="Permalink to this headline">¶</a></h2>
+<p>Internally the <code class="docutils literal notranslate"><span class="pre">maximize</span></code> method is simply a wrapper around the methods <code class="docutils literal notranslate"><span class="pre">suggest</span></code>, <code class="docutils literal notranslate"><span class="pre">probe</span></code>, and <code class="docutils literal notranslate"><span class="pre">register</span></code>. If you need more control over your optimization loops the Suggest-Evaluate-Register paradigm should give you that extra flexibility.</p>
+<p>For an example of running the <code class="docutils literal notranslate"><span class="pre">BayesianOptimization</span></code> in a distributed fashion (where the function being optimized is evaluated concurrently in different cores/machines/servers), checkout the <code class="docutils literal notranslate"><span class="pre">async_optimization.py</span></code> script in the examples folder.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s start by definying our function, bounds, and instanciating an optimization object.
+def black_box_function(x, y):
+    return -x ** 2 - (y - 1) ** 2 + 1
+</pre></div>
+</div>
+</div>
+<p>Notice that the evaluation of the blackbox function will NOT be carried out by the optimizer object. We are simulating a situation where this function could be being executed in a different machine, maybe it is written in another language, or it could even be the result of a chemistry experiment. Whatever the case may be, you can take charge of it and as long as you don’t invoke the <code class="docutils literal notranslate"><span class="pre">probe</span></code> or <code class="docutils literal notranslate"><span class="pre">maximize</span></code> methods directly, the optimizer object will ignore the blackbox function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer = BayesianOptimization(
+    f=None,
+    pbounds={&#39;x&#39;: (-2, 2), &#39;y&#39;: (-3, 3)},
+    verbose=2,
+    random_state=1,
+)
+</pre></div>
+</div>
+</div>
+<p>One extra ingredient we will need is an <code class="docutils literal notranslate"><span class="pre">UtilityFunction</span></code> instance. In case it is not clear why, take a look at the literature to understand better how this method works.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from bayes_opt import UtilityFunction
+
+utility = UtilityFunction(kind=&quot;ucb&quot;, kappa=2.5, xi=0.0)
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">suggest</span></code> method of our optimizer can be called at any time. What you get back is a suggestion for the next parameter combination the optimizer wants to probe.</p>
+<p>Notice that while the optimizer hasn’t observed any points, the suggestions will be random. However, they will stop being random and improve in quality the more points are observed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>next_point_to_probe = optimizer.suggest(utility)
+print(&quot;Next point to probe is:&quot;, next_point_to_probe)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Next point to probe is: {&#39;x&#39;: -0.331911981189704, &#39;y&#39;: 1.3219469606529488}
+</pre></div></div>
+</div>
+<p>You are now free to evaluate your function at the suggested point however/whenever you like.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>target = black_box_function(**next_point_to_probe)
+print(&quot;Found the target value to be:&quot;, target)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Found the target value to be: 0.7861845912690542
+</pre></div></div>
+</div>
+<p>Last thing left to do is to tell the optimizer what target value was observed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer.register(
+    params=next_point_to_probe,
+    target=target,
+)
+</pre></div>
+</div>
+</div>
+<section id="1.1-The-maximize-loop">
+<h3>1.1 The maximize loop<a class="headerlink" href="#1.1-The-maximize-loop" title="Permalink to this headline">¶</a></h3>
+<p>And that’s it. By repeating the steps above you recreate the internals of the <code class="docutils literal notranslate"><span class="pre">maximize</span></code> method. This should give you all the flexibility you need to log progress, hault execution, perform concurrent evaluations, etc.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for _ in range(5):
+    next_point = optimizer.suggest(utility)
+    target = black_box_function(**next_point)
+    optimizer.register(params=next_point, target=target)
+
+    print(target, next_point)
+print(optimizer.max)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-18.49187152919165 {&#39;x&#39;: 1.8861546000771092, &#39;y&#39;: -2.9917780942581977}
+0.7911494590443674 {&#39;x&#39;: -0.31764604716962586, &#39;y&#39;: 1.3285597809731806}
+-6.738653892565658 {&#39;x&#39;: -1.9777941453451842, &#39;y&#39;: 2.9562679292990444}
+-6.741655559035455 {&#39;x&#39;: 1.9742487076906352, &#39;y&#39;: 2.960611537050956}
+-7.311459236889235 {&#39;x&#39;: -1.999211910635848, &#39;y&#39;: -1.0771641661796976}
+{&#39;target&#39;: 0.7911494590443674, &#39;params&#39;: {&#39;x&#39;: -0.31764604716962586, &#39;y&#39;: 1.3285597809731806}}
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="2.-Dealing-with-discrete-parameters">
+<h2>2. Dealing with discrete parameters<a class="headerlink" href="#2.-Dealing-with-discrete-parameters" title="Permalink to this headline">¶</a></h2>
+<p><strong>There is no principled way of dealing with discrete parameters using this package.</strong></p>
+<p>Ok, now that we got that out of the way, how do you do it? You’re bound to be in a situation where some of your function’s parameters may only take on discrete values. Unfortunately, the nature of bayesian optimization with gaussian processes doesn’t allow for an easy/intuitive way of dealing with discrete parameters - but that doesn’t mean it is impossible. The example below showcases a simple, yet reasonably adequate, way to dealing with discrete parameters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def func_with_discrete_params(x, y, d):
+    # Simulate necessity of having d being discrete.
+    assert type(d) == int
+
+    return ((x + y + d) // (1 + d)) / (1 + (x + y) ** 2)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def function_to_be_optimized(x, y, w):
+    d = int(w)
+    return func_with_discrete_params(x, y, d)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer = BayesianOptimization(
+    f=function_to_be_optimized,
+    pbounds={&#39;x&#39;: (-10, 10), &#39;y&#39;: (-10, 10), &#39;w&#39;: (0, 5)},
+    verbose=2,
+    random_state=1,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer.maximize(alpha=1e-3)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+|   iter    |  target   |     w     |     x     |     y     |
+-------------------------------------------------------------
+|  1        | -0.06199  |  2.085    |  4.406    | -9.998    |
+|  2        | -0.0344   |  1.512    | -7.065    | -8.153    |
+|  3        | -0.2177   |  0.9313   | -3.089    | -2.065    |
+|  4        |  0.1865   |  2.694    | -1.616    |  3.704    |
+|  5        | -0.2187   |  1.022    |  7.562    | -9.452    |
+|  6        |  0.1868   |  2.533    | -1.728    |  3.815    |
+|  7        |  0.04138  |  3.494    |  0.1725   |  6.707    |
+|  8        |  0.0      |  4.737    | -3.817    |  4.586    |
+|  9        |  0.1096   |  1.001    |  0.7072   |  3.447    |
+|  10       |  0.04164  |  4.762    |  2.874    |  1.923    |
+|  11       |  0.1892   |  0.04772  | -2.696    |  6.551    |
+|  12       |  0.2199   |  0.02389  | -5.944    |  9.5      |
+|  13       | -0.457    |  0.07146  | -9.618    |  7.259    |
+|  14       |  0.1358   |  0.329    | -3.351    |  9.922    |
+|  15       |  0.04341  |  3.041    | -5.183    |  9.877    |
+|  16       |  0.08249  |  0.2258   |  5.954    |  6.066    |
+|  17       |  0.0943   |  0.1087   |  1.653    |  8.596    |
+|  18       |  0.02195  |  2.85     |  6.579    |  9.923    |
+|  19       |  0.08179  |  0.03698  |  9.263    |  2.291    |
+|  20       |  0.01622  |  4.217    |  9.192    |  4.37     |
+|  21       |  0.2718   |  0.02731  | -4.618    |  7.787    |
+|  22       |  0.1636   |  0.01546  |  5.282    | -0.4399   |
+|  23       |  0.05458  |  2.567    |  7.691    | -1.721    |
+|  24       |  0.0      |  0.01681  | -4.034    |  4.158    |
+|  25       |  0.1324   |  0.2598   |  4.813    |  2.388    |
+|  26       | -0.01641  |  4.777    | -1.422    | -9.572    |
+|  27       |  0.0      |  0.5638   |  3.639    | -3.352    |
+|  28       | -0.01294  |  4.791    | -9.924    | -2.469    |
+|  29       |  0.04902  |  0.06084  |  9.897    |  9.765    |
+|  30       |  0.1248   |  1.479    | -3.513    |  7.389    |
+=============================================================
+</pre></div></div>
+</div>
+</section>
+<section id="3.-Tuning-the-underlying-Gaussian-Process">
+<h2>3. Tuning the underlying Gaussian Process<a class="headerlink" href="#3.-Tuning-the-underlying-Gaussian-Process" title="Permalink to this headline">¶</a></h2>
+<p>The bayesian optimization algorithm works by performing a gaussian process regression of the observed combination of parameters and their associated target values. The predicted parameter<span class="math notranslate nohighlight">\(\rightarrow\)</span>target hyper-surface (and its uncertainty) is then used to guide the next best point to probe.</p>
+<section id="3.1-Passing-parameter-to-the-GP">
+<h3>3.1 Passing parameter to the GP<a class="headerlink" href="#3.1-Passing-parameter-to-the-GP" title="Permalink to this headline">¶</a></h3>
+<p>Depending on the problemn it could be beneficial to change the default parameters of the underlying GP. You can simply pass GP parameters to the maximize method directly as you can see below:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer = BayesianOptimization(
+    f=black_box_function,
+    pbounds={&#39;x&#39;: (-2, 2), &#39;y&#39;: (-3, 3)},
+    verbose=2,
+    random_state=1,
+)
+optimizer.maximize(
+    init_points=1,
+    n_iter=5,
+    # What follows are GP regressor parameters
+    alpha=1e-3,
+    n_restarts_optimizer=5
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+|   iter    |  target   |     x     |     y     |
+-------------------------------------------------
+|  1        |  0.7862   | -0.3319   |  1.322    |
+|  2        | -18.49    |  1.886    | -2.992    |
+|  3        |  0.7911   | -0.3176   |  1.329    |
+|  4        | -6.173    | -1.796    |  2.987    |
+|  5        | -2.834    |  1.502    |  2.256    |
+|  6        | -4.831    | -1.997    | -0.3574   |
+=================================================
+</pre></div></div>
+</div>
+<p>Another alternative, specially useful if you’re calling <code class="docutils literal notranslate"><span class="pre">maximize</span></code> multiple times or optimizing outside the <code class="docutils literal notranslate"><span class="pre">maximize</span></code> loop, is to call the <code class="docutils literal notranslate"><span class="pre">set_gp_params</span></code> method.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer.set_gp_params(normalize_y=True)
+</pre></div>
+</div>
+</div>
+</section>
+<section id="3.2-Tuning-the-alpha-parameter">
+<h3>3.2 Tuning the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter<a class="headerlink" href="#3.2-Tuning-the-alpha-parameter" title="Permalink to this headline">¶</a></h3>
+<p>When dealing with functions with discrete parameters,or particularly erratic target space it might be beneficial to increase the value of the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter. This parameters controls how much noise the GP can handle, so increase it whenever you think that extra flexibility is needed.</p>
+</section>
+<section id="3.3-Changing-kernels">
+<h3>3.3 Changing kernels<a class="headerlink" href="#3.3-Changing-kernels" title="Permalink to this headline">¶</a></h3>
+<p>By default this package uses the Mattern 2.5 kernel. Depending on your use case you may find that tunning the GP kernel could be beneficial. You’re on your own here since these are very specific solutions to very specific problems.</p>
+</section>
+</section>
+<section id="Observers-Continued">
+<h2>Observers Continued<a class="headerlink" href="#Observers-Continued" title="Permalink to this headline">¶</a></h2>
+<p>Observers are objects that subscribe and listen to particular events fired by the <code class="docutils literal notranslate"><span class="pre">BayesianOptimization</span></code> object.</p>
+<p>When an event gets fired a callback function is called with the event and the <code class="docutils literal notranslate"><span class="pre">BayesianOptimization</span></code> instance passed as parameters. The callback can be specified at the time of subscription. If none is given it will look for an <code class="docutils literal notranslate"><span class="pre">update</span></code> method from the observer.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from bayes_opt.event import OptimizationEvent
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer = BayesianOptimization(
+    f=black_box_function,
+    pbounds={&#39;x&#39;: (-2, 2), &#39;y&#39;: (-3, 3)},
+    verbose=2,
+    random_state=1,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class BasicObserver:
+    def update(self, event, instance):
+        &quot;&quot;&quot;Does whatever you want with the event and `BayesianOptimization` instance.&quot;&quot;&quot;
+        print(&quot;Event `{}` was observed&quot;.format(event))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>my_observer = BasicObserver()
+
+optimizer.subscribe(
+    event=OptimizationEvent.STEP,
+    subscriber=my_observer,
+    callback=None, # Will use the `update` method as callback
+)
+</pre></div>
+</div>
+</div>
+<p>Alternatively you have the option to pass a completely different callback.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def my_callback(event, instance):
+    print(&quot;Go nuts here!&quot;)
+
+optimizer.subscribe(
+    event=OptimizationEvent.START,
+    subscriber=&quot;Any hashable object&quot;,
+    callback=my_callback,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer.maximize(init_points=1, n_iter=2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Go nuts here!
+Event `2` was observed
+Event `2` was observed
+Event `2` was observed
+</pre></div></div>
+</div>
+<p>For a list of all default events you can checkout <code class="docutils literal notranslate"><span class="pre">OptimizationEvent.__members__</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>OptimizationEvent.__members__
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mappingproxy({&#39;START&#39;: &lt;OptimizationEvent.START: 1&gt;,
+              &#39;STEP&#39;: &lt;OptimizationEvent.STEP: 2&gt;,
+              &#39;END&#39;: &lt;OptimizationEvent.END: 3&gt;})
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="domain_reduction.html" class="btn btn-neutral float-right" title="Sequential Domain Reduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic-tour.html" class="btn btn-neutral float-left" title="Basic tour of the Bayesian Optimization package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, HansBug
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: main
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="advanced-tour.html">main</a></dd>
+                </dl>
+        </div>
+    </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -15,7 +15,14 @@ Overview
 
 .. toctree::
     :maxdepth: 2
-    :caption: Best Practice
+    :caption: Best Practices
+
+    best_practice/basic-tour
+    best_practice/advanced-tour
+    best_practice/domain_reduction
+    best_practice/exploitation_vs_exploration
+    best_practice/visualization
+
 
 .. toctree::
     :maxdepth: 2

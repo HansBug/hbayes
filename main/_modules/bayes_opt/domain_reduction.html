@@ -25,6 +25,9 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -86,6 +89,14 @@
               <p><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/installation/index.html">Installation</a></li>
+</ul>
+<p><span class="caption-text">Best Practices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practice/basic-tour.html">Basic tour of the Bayesian Optimization package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practice/advanced-tour.html">Advanced tour of the Bayesian Optimization package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practice/domain_reduction.html">Sequential Domain Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practice/exploitation_vs_exploration.html">Exploitation vs Exploration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practice/visualization.html">Visualization</a></li>
 </ul>
 <p><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -200,11 +211,17 @@
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">TargetSpace</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_core</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_class</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_check_initialization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s1">&#39;Transformer not initialized yet.&#39;</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span>
+
     <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">TargetSpace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s1">&#39;Transformer not initialized yet.&#39;</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_initialization</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">space</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_initialization</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_core</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span></div>
 
 
 <span class="k">def</span> <span class="nf">_create_bounds</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">bounds</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -292,10 +309,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SequentialDomainReductionTransformer.__init__"><a class="viewcode-back" href="../../api_doc/domain_reduction/index.html#bayes_opt.domain_reduction.SequentialDomainReductionTransformer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma_osc</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">gamma_pan</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">):</span>
-        <span class="n">DomainTransformer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SDRCore</span><span class="p">,</span> <span class="n">gamma_osc</span><span class="p">,</span> <span class="n">gamma_pan</span><span class="p">,</span> <span class="n">eta</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_osc</span> <span class="o">=</span> <span class="n">gamma_osc</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gamma_pan</span> <span class="o">=</span> <span class="n">gamma_pan</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">eta</span></div></div>
+        <span class="n">DomainTransformer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">SDRCore</span><span class="p">,</span> <span class="n">gamma_osc</span><span class="p">,</span> <span class="n">gamma_pan</span><span class="p">,</span> <span class="n">eta</span><span class="p">)</span></div></div>
 </pre></div>
 
 
