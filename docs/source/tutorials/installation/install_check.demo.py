@@ -1,4 +1,4 @@
-from bayes_opt.config.meta import __TITLE__, __VERSION__, __AUTHOR__, __DESCRIPTION__
+from hbayes.config.meta import __TITLE__, __VERSION__, __AUTHOR__, __DESCRIPTION__
 
 if __name__ == '__main__':
     print(__TITLE__, __VERSION__)

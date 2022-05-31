@@ -1,7 +1,7 @@
 import pytest
 
-from bayes_opt import OptimizationEvent
-from bayes_opt.logger import StepTracker
+from hbayes import OptimizationEvent
+from hbayes.logger import StepTracker
 
 
 @pytest.mark.unittest

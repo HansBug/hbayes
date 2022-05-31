@@ -1,22 +1,22 @@
 # Bayesian Optimization
 
-[![PyPI](https://img.shields.io/pypi/v/bayes-opt)](https://pypi.org/project/bayes-opt/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bayes-opt)](https://pypi.org/project/bayes-opt/)
+[![PyPI](https://img.shields.io/pypi/v/hbayes)](https://pypi.org/project/hbayes/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hbayes)](https://pypi.org/project/hbayes/)
 ![Loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HansBug/d9b45d4c1b12045384046990db092098/raw/loc.json)
 ![Comments](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HansBug/d9b45d4c1b12045384046990db092098/raw/comments.json)
 
-[![Code Test](https://github.com/HansBug/bayes-opt/workflows/Code%20Test/badge.svg)](https://github.com/HansBug/bayes-opt/actions?query=workflow%3A%22Code+Test%22)
-[![Badge Creation](https://github.com/HansBug/bayes-opt/workflows/Badge%20Creation/badge.svg)](https://github.com/HansBug/bayes-opt/actions?query=workflow%3A%22Badge+Creation%22)
-[![Package Release](https://github.com/HansBug/bayes-opt/workflows/Package%20Release/badge.svg)](https://github.com/HansBug/bayes-opt/actions?query=workflow%3A%22Package+Release%22)
+[![Code Test](https://github.com/HansBug/hbayes/workflows/Code%20Test/badge.svg)](https://github.com/HansBug/hbayes/actions?query=workflow%3A%22Code+Test%22)
+[![Badge Creation](https://github.com/HansBug/hbayes/workflows/Badge%20Creation/badge.svg)](https://github.com/HansBug/hbayes/actions?query=workflow%3A%22Badge+Creation%22)
+[![Package Release](https://github.com/HansBug/hbayes/workflows/Package%20Release/badge.svg)](https://github.com/HansBug/hbayes/actions?query=workflow%3A%22Package+Release%22)
 [![codecov](https://codecov.io/gh/HansBug/BayesianOptimization/branch/main/graph/badge.svg?token=LGB44A91FL)](https://codecov.io/gh/HansBug/BayesianOptimization)
 
-[![GitHub stars](https://img.shields.io/github/stars/HansBug/bayes-opt)](https://github.com/HansBug/bayes-opt/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/HansBug/bayes-opt)](https://github.com/HansBug/bayes-opt/network)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/HansBug/bayes-opt)
-[![GitHub issues](https://img.shields.io/github/issues/HansBug/bayes-opt)](https://github.com/HansBug/bayes-opt/issues)
-[![GitHub pulls](https://img.shields.io/github/issues-pr/HansBug/bayes-opt)](https://github.com/HansBug/bayes-opt/pulls)
-[![Contributors](https://img.shields.io/github/contributors/HansBug/bayes-opt)](https://github.com/HansBug/bayes-opt/graphs/contributors)
-[![GitHub license](https://img.shields.io/github/license/HansBug/bayes-opt)](https://github.com/HansBug/bayes-opt/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/HansBug/hbayes)](https://github.com/HansBug/hbayes/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/HansBug/hbayes)](https://github.com/HansBug/hbayes/network)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/HansBug/hbayes)
+[![GitHub issues](https://img.shields.io/github/issues/HansBug/hbayes)](https://github.com/HansBug/hbayes/issues)
+[![GitHub pulls](https://img.shields.io/github/issues-pr/HansBug/hbayes)](https://github.com/HansBug/hbayes/pulls)
+[![Contributors](https://img.shields.io/github/contributors/HansBug/hbayes)](https://github.com/HansBug/hbayes/graphs/contributors)
+[![GitHub license](https://img.shields.io/github/license/HansBug/hbayes)](https://github.com/HansBug/hbayes/blob/master/LICENSE)
 
 An extended implementation of Bayesian Optimization.
 
@@ -27,15 +27,15 @@ This is a forked project based on [fmfn/BayesianOptimization v1.2.0](https://git
 You can simply install it with `pip` command line from the official PyPI site.
 
 ```shell
-pip install bayes-opt
+pip install hbayes
 ```
 
-For more information about installation, you can refer to [Installation](https://hansbug.github.io/bayes-opt/main/tutorials/installation/index.html).
+For more information about installation, you can refer to [Installation](https://hansbug.github.io/hbayes/main/tutorials/installation/index.html).
 
 
 ## Documentation
 
-The detailed documentation are hosted on [https://hansbug.github.io/bayes-opt/main/index.html](https://hansbug.github.io/bayes-opt/main/index.html).
+The detailed documentation are hosted on [https://hansbug.github.io/hbayes/main/index.html](https://hansbug.github.io/hbayes/main/index.html).
 
 Only english version is provided now, the chinese documentation is still under development.
 
@@ -45,7 +45,7 @@ Only english version is provided now, the chinese documentation is still under d
 A painless example
 
 ```python
-from bayes_opt import BayesianOptimization
+from hbayes import BayesianOptimization
 
 
 def black_box_function(x, y):
@@ -121,15 +121,15 @@ The output should be
 {'target': -3.00000039014846, 'params': {'x': 2.0, 'y': 0.9993753813483197}}
 ```
 
-For more tutorial of usages and practices, take a look at [Best Practice](https://hansbug.github.io/bayes-opt/main/best_practice/advanced-tour.html) in documentation.
+For more tutorial of usages and practices, take a look at [Best Practice](https://hansbug.github.io/hbayes/main/best_practice/advanced-tour.html) in documentation.
 
 
 # Contributing
 
-We appreciate all contributions to improve `bayes-opt`, both logic and system designs. Please refer to CONTRIBUTING.md for more guides.
+We appreciate all contributions to improve `hbayes`, both logic and system designs. Please refer to CONTRIBUTING.md for more guides.
 
 
 # License
 
-`bayes-opt` released under the MIT license.
+`hbayes` released under the MIT license.
 

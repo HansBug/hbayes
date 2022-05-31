@@ -5,7 +5,7 @@ from distutils.core import setup
 
 from setuptools import find_packages
 
-_package_name = "bayes_opt"
+_package_name = "hbayes"
 
 here = os.path.abspath(os.path.dirname(__file__))
 meta = {}
@@ -42,7 +42,7 @@ setup(
     author_email=meta['__AUTHOR_EMAIL__'],
     license='MIT License',
     keywords='A simple tool for automatic parameter tuning.',
-    url='https://github.com/HansBug/bayes-opt',
+    url='https://github.com/HansBug/hbayes',
 
     python_requires=">=3.6",
     install_requires=requirements,

@@ -1,7 +1,7 @@
 # import numpy as np
 
-# from bayes_opt import BayesianOptimization
-# from bayes_opt.util import ensure_rng
+# from hbayes import BayesianOptimization
+# from hbayes.util import ensure_rng
 
 
 # def test_simple_optimization():

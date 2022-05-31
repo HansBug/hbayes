@@ -1,10 +1,10 @@
 """
 Overview:
-    Meta information for ``bayes_opt`` package.
+    Meta information for ``hbayes`` package.
 """
 
-#: Title of this project (should be `bayes_opt`).
-__TITLE__ = 'bayes-opt'
+#: Title of this project (should be `hbayes`).
+__TITLE__ = 'hbayes'
 
 #: Version of this project.
 __VERSION__ = "0.0.1"

@@ -1,9 +1,9 @@
 import pytest
 
-from bayes_opt.config.meta import __TITLE__
+from hbayes.config.meta import __TITLE__
 
 
 @pytest.mark.unittest
 class TestConfigMeta:
     def test_title(self):
-        assert __TITLE__ == 'bayes-opt'
+        assert __TITLE__ == 'hbayes'

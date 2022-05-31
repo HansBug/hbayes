@@ -1,7 +1,7 @@
 import pytest
 
-from bayes_opt import BayesianOptimization
-from bayes_opt import SequentialDomainReductionTransformer
+from hbayes import BayesianOptimization
+from hbayes import SequentialDomainReductionTransformer
 
 
 def black_box_function(x, y):

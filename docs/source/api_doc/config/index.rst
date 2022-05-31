@@ -1,9 +1,9 @@
-bayes_opt.config
+hbayes.config
 =====================
 
-.. currentmodule:: bayes_opt.config
+.. currentmodule:: hbayes.config
 
-.. automodule:: bayes_opt.config
+.. automodule:: hbayes.config
 
 .. toctree::
     :maxdepth: 3

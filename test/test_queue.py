@@ -1,6 +1,6 @@
 import pytest
 
-from bayes_opt.bayesian_optimization import Queue
+from hbayes.bayesian_optimization import Queue
 
 
 @pytest.mark.unittest

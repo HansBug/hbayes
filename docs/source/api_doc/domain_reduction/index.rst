@@ -1,9 +1,9 @@
-bayes_opt.domain_reduction
+hbayes.domain_reduction
 =======================================
 
-.. currentmodule:: bayes_opt.domain_reduction
+.. currentmodule:: hbayes.domain_reduction
 
-.. automodule:: bayes_opt.domain_reduction
+.. automodule:: hbayes.domain_reduction
 
 
 TransformerCore

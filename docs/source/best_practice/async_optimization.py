@@ -3,8 +3,8 @@ import random
 import threading
 import time
 
-from bayes_opt import BayesianOptimization
-from bayes_opt.util import UtilityFunction
+from hbayes import BayesianOptimization
+from hbayes.util import UtilityFunction
 
 try:
     import json

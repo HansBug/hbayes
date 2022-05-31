@@ -89,7 +89,7 @@ jobs:
           pip --version
           pip list
           tree .
-          cloc bayes_opt
+          cloc hbayes
           cloc test
       - name: Run unittest
         env:

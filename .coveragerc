@@ -1,6 +1,6 @@
 [run]
 branch = False
-source = bayes_opt
+source = hbayes
 
 [report]
 exclude_lines =
@@ -21,4 +21,4 @@ omit =
     */setup.py
     examples/*
     tests/*
-    bayes_opt/logger.py
+    hbayes/logger.py

@@ -3,9 +3,9 @@ import pytest
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern
 
-from bayes_opt import BayesianOptimization
-from bayes_opt.util import UtilityFunction
-from bayes_opt.util import acq_max, load_logs, ensure_rng
+from hbayes import BayesianOptimization
+from hbayes.util import UtilityFunction
+from hbayes.util import acq_max, load_logs, ensure_rng
 
 
 def get_globals():

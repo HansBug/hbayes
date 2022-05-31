@@ -28,7 +28,7 @@ class TargetSpace(object):
         Allows for constant-time appends while ensuring no duplicates are added.
 
     Examples:
-        >>> from bayes_opt.target_space import TargetSpace
+        >>> from hbayes.target_space import TargetSpace
         >>>
         >>> def target_func(p1, p2):
         ...     return p1 + p2
@@ -147,7 +147,7 @@ class TargetSpace(object):
 
         Examples:
             >>> import numpy as np
-            >>> from bayes_opt.target_space import TargetSpace
+            >>> from hbayes.target_space import TargetSpace
             >>>
             >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}
             >>> space = TargetSpace(lambda p1, p2: p1 + p2, pbounds)
@@ -203,7 +203,7 @@ class TargetSpace(object):
         :returns: [dim] array points with dimensions corresponding to `self._keys`
 
         Examples:
-            >>> from bayes_opt.target_space import TargetSpace
+            >>> from hbayes.target_space import TargetSpace
             >>>
             >>> target_func = lambda p1, p2: p1 + p2
             >>> pbounds = {'p1': (0, 1), 'p2': (1, 100)}

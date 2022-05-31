@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from bayes_opt.target_space import TargetSpace, FuncFailed
+from hbayes.target_space import TargetSpace, FuncFailed
 
 
 def target_func(**kwargs):

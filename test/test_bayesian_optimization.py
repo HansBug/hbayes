@@ -3,11 +3,11 @@ import random
 import numpy as np
 import pytest
 
-from bayes_opt import BayesianOptimization
-from bayes_opt import UtilityFunction
-from bayes_opt.event import OptimizationEvent
-from bayes_opt.logger import ScreenLogger
-from bayes_opt.target_space import FuncFailed
+from hbayes import BayesianOptimization
+from hbayes import UtilityFunction
+from hbayes.event import OptimizationEvent
+from hbayes.logger import ScreenLogger
+from hbayes.target_space import FuncFailed
 
 
 def target_func(**kwargs):

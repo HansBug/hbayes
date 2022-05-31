@@ -1,9 +1,9 @@
-bayes_opt.event
+hbayes.event
 =====================
 
-.. currentmodule:: bayes_opt.event
+.. currentmodule:: hbayes.event
 
-.. automodule:: bayes_opt.event
+.. automodule:: hbayes.event
 
 
 OptimizationEvent
