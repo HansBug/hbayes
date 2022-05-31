@@ -234,7 +234,6 @@
         <span class="c1"># Data structure containing the function to be optimized, the bounds of</span>
         <span class="c1"># its domain, and a record of the evaluations we have done so far</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_space</span> <span class="o">=</span> <span class="n">TargetSpace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pbounds</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
 
         <span class="c1"># Internal GP regressor</span>
@@ -258,7 +257,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">BayesianOptimization</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="n">OptimizationEvent</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">space</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TargetSpace</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span>
 
     <span class="nd">@property</span>
@@ -295,7 +294,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">array_to_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">random_sample</span><span class="p">())</span>
 
-        <span class="c1"># Sklearn&#39;s GP throws a large number of warnings at times, but</span>
+        <span class="c1"># Scikit-Learn GP throws a large number of warnings at times, but</span>
         <span class="c1"># we don&#39;t really need to see them here.</span>
         <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -309,7 +308,6 @@
             <span class="n">bounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_random_state</span>
         <span class="p">)</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_space</span><span class="o">.</span><span class="n">array_to_params</span><span class="p">(</span><span class="n">suggestion</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_prime_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_points</span><span class="p">):</span>
@@ -329,25 +327,19 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">STEP</span><span class="p">,</span> <span class="n">_logger</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">OptimizationEvent</span><span class="o">.</span><span class="n">END</span><span class="p">,</span> <span class="n">_logger</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BayesianOptimization.maximize"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.maximize">[docs]</a>    <span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">init_points</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                 <span class="n">n_iter</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
-                 <span class="n">acq</span><span class="o">=</span><span class="s1">&#39;ucb&#39;</span><span class="p">,</span>
-                 <span class="n">kappa</span><span class="o">=</span><span class="mf">2.576</span><span class="p">,</span>
-                 <span class="n">kappa_decay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">kappa_decay_delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                 <span class="n">xi</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-                 <span class="o">**</span><span class="n">gp_params</span><span class="p">):</span>
+<div class="viewcode-block" id="BayesianOptimization.maximize"><a class="viewcode-back" href="../../api_doc/bayesian_optimization/index.html#bayes_opt.bayesian_optimization.BayesianOptimization.maximize">[docs]</a>    <span class="k">def</span> <span class="nf">maximize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_points</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                 <span class="n">acq</span><span class="o">=</span><span class="s1">&#39;ucb&#39;</span><span class="p">,</span> <span class="n">kappa</span><span class="o">=</span><span class="mf">2.576</span><span class="p">,</span> <span class="n">kappa_decay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kappa_decay_delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">xi</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">gp_params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Probes the target space to find the parameters that yield the maximum</span>
 <span class="sd">        value for the given function.</span>
 
 <span class="sd">        :param init_points: Number of iterations before the explorations starts the exploration for the maximum.</span>
 <span class="sd">        :param n_iter: Number of iterations where the method attempts to find the maximum value.</span>
-<span class="sd">        :param acq: The acquisition method used.</span>
-<span class="sd">            * &#39;ucb&#39; stands for the Upper Confidence Bounds method</span>
-<span class="sd">            * &#39;ei&#39; is the Expected Improvement method</span>
-<span class="sd">            * &#39;poi&#39; is the Probability Of Improvement criterion.</span>
+<span class="sd">        :param acq: The acquisition method used. \</span>
+<span class="sd">            ``ucb`` stands for the Upper Confidence Bounds method. \</span>
+<span class="sd">            ``ei`` is the Expected Improvement method. \</span>
+<span class="sd">            ``poi`` is the Probability Of Improvement criterion.</span>
 <span class="sd">        :param kappa: Parameter to indicate how closed are the next parameters sampled. \</span>
 <span class="sd">            Higher value = favors spaces that are least explored. \</span>
 <span class="sd">            Lower value = favors spaces where the regression function is the highest.</span>

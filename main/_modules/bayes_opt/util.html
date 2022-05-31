@@ -248,9 +248,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_iters_counter</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ucb&#39;</span><span class="p">,</span> <span class="s1">&#39;ei&#39;</span><span class="p">,</span> <span class="s1">&#39;poi&#39;</span><span class="p">]:</span>
-            <span class="n">err</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The utility function </span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2"> has not been implemented, &quot;</span> \
-                  <span class="sa">f</span><span class="s2">&quot;please choose one of ucb, ei, or poi.&quot;</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The utility function </span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2"> has not been implemented, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;please choose one of ucb, ei, or poi.&quot;</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span></div>
 
