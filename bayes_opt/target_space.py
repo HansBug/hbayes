@@ -1,3 +1,5 @@
+from typing import List
+
 import numpy as np
 
 from .util import ensure_rng
@@ -48,10 +50,7 @@ class TargetSpace(object):
         # Get the name of the parameters
         self._keys = sorted(pbounds)
         # Create an array with parameters bounds
-        self._bounds = np.array(
-            [item[1] for item in sorted(pbounds.items(), key=lambda x: x[0])],
-            dtype=np.float
-        )
+        self._bounds = np.array([pbounds[k] for k in self._keys], dtype=np.float)
 
         # pre-allocated memory for X and Y points
         self._params = np.empty(shape=(0, self.dim))
@@ -60,31 +59,30 @@ class TargetSpace(object):
         # keep track of unique points we have seen so far
         self._cache = {}
 
-    def __contains__(self, x):
+    def __contains__(self, x) -> bool:
         return _hashable(x) in self._cache
 
-    def __len__(self):
-        assert len(self._params) == len(self._target)
+    def __len__(self) -> int:
         return len(self._target)
 
     @property
-    def empty(self):
+    def empty(self) -> bool:
         return len(self) == 0
 
     @property
-    def params(self):
+    def params(self) -> np.ndarray:
         return self._params
 
     @property
-    def target(self):
+    def target(self) -> np.ndarray:
         return self._target
 
     @property
-    def dim(self):
+    def dim(self) -> int:
         return len(self._keys)
 
     @property
-    def keys(self):
+    def keys(self) -> List:
         return self._keys
 
     @property
@@ -211,22 +209,18 @@ class TargetSpace(object):
         """
         try:
             # noinspection PyArgumentList
-            res = {
+            return {
                 'target': self.target.max(),
-                'params': dict(
-                    zip(self.keys, self.params[self.target.argmax()])
-                )
+                'params': dict(zip(self.keys, self.params[self.target.argmax()])),
             }
         except ValueError:
-            res = {}
-        return res
+            return None
 
     def res(self):
         """
         Get all target values found and corresponding parameters.
         """
         params = [dict(zip(self.keys, p)) for p in self.params]
-
         return [
             {"target": target, "params": param}
             for target, param in zip(self.target, params)

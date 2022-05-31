@@ -150,7 +150,7 @@ def test_random_sample():
 def test_max():
     space = TargetSpace(target_func, PBOUNDS)
 
-    assert space.max() == {}
+    assert not space.max()
     space.probe(params={"p1": 1, "p2": 2})
     space.probe(params={"p1": 5, "p2": 4})
     space.probe(params={"p1": 2, "p2": 3})

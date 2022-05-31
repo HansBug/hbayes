@@ -1,4 +1,4 @@
-from typing import Type, Optional, Dict
+from typing import Type, Optional, Dict, List
 
 import numpy as np
 
@@ -50,7 +50,7 @@ class DomainTransformer:
         return getattr(self._core, item)  # pragma: no cover
 
 
-def _create_bounds(parameters: dict, bounds: np.array) -> Dict[str, np.ndarray]:
+def _create_bounds(parameters: List, bounds: np.array) -> Dict[str, np.ndarray]:
     return {param: bounds[i, :] for i, param in enumerate(parameters)}
 
 
@@ -115,7 +115,7 @@ class SDRCore(TransformerCore):
 
         new_bounds = np.array([
             self.current_optimal - 0.5 * self.r,
-            self.current_optimal + 0.5 * self.r
+            self.current_optimal + 0.5 * self.r,
         ]).T
 
         _trim(new_bounds, self.original_bounds)

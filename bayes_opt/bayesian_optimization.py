@@ -60,7 +60,6 @@ class BayesianOptimization(Observable):
         # Data structure containing the function to be optimized, the bounds of
         # its domain, and a record of the evaluations we have done so far
         self._space = TargetSpace(f, pbounds, random_state)
-
         self._queue = Queue()
 
         # Internal GP regressor
@@ -84,7 +83,7 @@ class BayesianOptimization(Observable):
         super(BayesianOptimization, self).__init__(events=OptimizationEvent)
 
     @property
-    def space(self):
+    def space(self) -> TargetSpace:
         return self._space
 
     @property
@@ -121,7 +120,7 @@ class BayesianOptimization(Observable):
         if len(self._space) == 0:
             return self._space.array_to_params(self._space.random_sample())
 
-        # Sklearn's GP throws a large number of warnings at times, but
+        # Scikit-Learn GP throws a large number of warnings at times, but
         # we don't really need to see them here.
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -135,7 +134,6 @@ class BayesianOptimization(Observable):
             bounds=self._space.bounds,
             random_state=self._random_state
         )
-
         return self._space.array_to_params(suggestion)
 
     def _prime_queue(self, init_points):
@@ -155,25 +153,19 @@ class BayesianOptimization(Observable):
             self.subscribe(OptimizationEvent.STEP, _logger)
             self.subscribe(OptimizationEvent.END, _logger)
 
-    def maximize(self,
-                 init_points=5,
-                 n_iter=25,
-                 acq='ucb',
-                 kappa=2.576,
-                 kappa_decay=1,
-                 kappa_decay_delay=0,
-                 xi=0.0,
-                 **gp_params):
+    def maximize(self, init_points=5, n_iter=25,
+                 acq='ucb', kappa=2.576, kappa_decay=1, kappa_decay_delay=0,
+                 xi=0.0, **gp_params):
         """
         Probes the target space to find the parameters that yield the maximum
         value for the given function.
 
         :param init_points: Number of iterations before the explorations starts the exploration for the maximum.
         :param n_iter: Number of iterations where the method attempts to find the maximum value.
-        :param acq: The acquisition method used.
-            * 'ucb' stands for the Upper Confidence Bounds method
-            * 'ei' is the Expected Improvement method
-            * 'poi' is the Probability Of Improvement criterion.
+        :param acq: The acquisition method used. \
+            ``ucb`` stands for the Upper Confidence Bounds method. \
+            ``ei`` is the Expected Improvement method. \
+            ``poi`` is the Probability Of Improvement criterion.
         :param kappa: Parameter to indicate how closed are the next parameters sampled. \
             Higher value = favors spaces that are least explored. \
             Lower value = favors spaces where the regression function is the highest.
