@@ -109,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../event/index.html">bayes_opt.event</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logger/index.html">bayes_opt.logger</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">bayes_opt.target_space</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#funcfailed">FuncFailed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#targetspace">TargetSpace</a></li>
 </ul>
 </li>
@@ -205,6 +206,18 @@
 </style>
 <section id="module-bayes_opt.target_space">
 <span id="bayes-opt-target-space"></span><h1>bayes_opt.target_space<a class="headerlink" href="#module-bayes_opt.target_space" title="Permalink to this headline">¶</a></h1>
+<section id="funcfailed">
+<h2>FuncFailed<a class="headerlink" href="#funcfailed" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bayes_opt.target_space.FuncFailed">
+<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.target_space.</code><code class="sig-name descname">FuncFailed</code><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#FuncFailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.FuncFailed" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Overview:</dt><dd><p>Exception class thrown then <code class="docutils literal notranslate"><span class="pre">target_func</span></code> is failed.         The result (including x and y) will be skipped and ignored after that.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="targetspace">
 <h2>TargetSpace<a class="headerlink" href="#targetspace" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -253,8 +266,15 @@
 
 <dl class="py method">
 <dt id="bayes_opt.target_space.TargetSpace.probe">
-<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.probe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numpy.ndarray<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>float<span class="p">]</span><a class="reference internal" href="../../_modules/bayes_opt/target_space.html#TargetSpace.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.target_space.TargetSpace.probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates a single point x, to obtain the value y and then records them as observations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">x</span></code> has been previously seen returns a cached value of y.</p></li>
+<li><p>If <a class="reference internal" href="#bayes_opt.target_space.FuncFailed" title="bayes_opt.target_space.FuncFailed"><code class="xref py py-class docutils literal notranslate"><span class="pre">FuncFailed</span></code></a> is raised from <code class="docutils literal notranslate"><span class="pre">target_func</span></code>, this pair of x and y will be ignored, with                 return value of <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> – A single point, with <code class="docutils literal notranslate"><span class="pre">len(params)</span> <span class="pre">==</span> <span class="pre">self.dim</span></code>.</p>

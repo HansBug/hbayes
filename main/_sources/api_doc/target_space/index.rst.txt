@@ -6,6 +6,12 @@ bayes_opt.target_space
 .. automodule:: bayes_opt.target_space
 
 
+FuncFailed
+-----------------------
+
+.. autoclass:: FuncFailed
+
+
 TargetSpace
 -----------------------
 
