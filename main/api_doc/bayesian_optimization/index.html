@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bayes_opt.bayesian_optimization &mdash; bayes-opt 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="bayes_opt.config" href="../config/index.html" />
+    <link rel="prev" title="Installation" href="../../tutorials/installation/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> bayes-opt
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/installation/index.html">Installation</a></li>
+</ul>
+<p><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bayes_opt.bayesian_optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#queue">Queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bayesianoptimization">BayesianOptimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../config/index.html">bayes_opt.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../domain_reduction/index.html">bayes_opt.domain_reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../event/index.html">bayes_opt.event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger/index.html">bayes_opt.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../target_space/index.html">bayes_opt.target_space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/index.html">bayes_opt.util</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">bayes-opt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>bayes_opt.bayesian_optimization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_doc/bayesian_optimization/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+    
+    
+  <section id="module-bayes_opt.bayesian_optimization">
+<span id="bayes-opt-bayesian-optimization"></span><h1>bayes_opt.bayesian_optimization<a class="headerlink" href="#module-bayes_opt.bayesian_optimization" title="Permalink to this headline">¶</a></h1>
+<section id="queue">
+<h2>Queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bayes_opt.bayesian_optimization.Queue">
+<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.bayesian_optimization.</code><code class="sig-name descname">Queue</code><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#Queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.Queue" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.Queue.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#Queue.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.Queue.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.Queue.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#Queue.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.Queue.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add object to end of queue.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="bayesianoptimization">
+<h2>BayesianOptimization<a class="headerlink" href="#bayesianoptimization" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization">
+<em class="property">class </em><code class="sig-prename descclassname">bayes_opt.bayesian_optimization.</code><code class="sig-name descname">BayesianOptimization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bounds_transformer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Overview:</dt><dd><p>This class takes the function to optimize as well as the parameters bounds         in order to find which values for the parameters yield the maximum value         using bayesian optimization.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – Function to be maximized.</p></li>
+<li><p><strong>pbounds</strong> – Dictionary with parameters names as keys and a tuple with minimum and maximum values.=</p></li>
+<li><p><strong>random_state</strong> – If the value is an integer, it is used as the seed for creating a         numpy.random.RandomState. Otherwise, the random state provided it is used.         When set to None, an unseeded random state is generated.</p></li>
+<li><p><strong>verbose</strong> – The level of verbosity.</p></li>
+<li><p><strong>bounds_transformer</strong> – If provided, the transformation is applied to the bounds.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">pbounds</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">bounds_transformer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor of <code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>events</strong> – Set of events, can be a list, tuple or an enum class.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When enum is used, its values will be used as events. For example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hbutils.design</span> <span class="kn">import</span> <span class="n">Observable</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyIntEnum</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">B</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># equals to `Observable([MyIntEnum.A, MyIntEnum.B])`</span>
+<span class="gp">... </span><span class="n">o</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">(</span><span class="n">MyIntEnum</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">_events</span>  <span class="c1"># just for explanation, do not do this on actual use</span>
+<span class="go">{&lt;MyIntEnum.A: 1&gt;: {}, &lt;MyIntEnum.B: 2&gt;: {}}</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.maximize">
+<code class="sig-name descname">maximize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init_points</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">acq</span><span class="o">=</span><span class="default_value">'ucb'</span></em>, <em class="sig-param"><span class="n">kappa</span><span class="o">=</span><span class="default_value">2.576</span></em>, <em class="sig-param"><span class="n">kappa_decay</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kappa_decay_delay</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">xi</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">gp_params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.maximize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.maximize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probes the target space to find the parameters that yield the maximum
+value for the given function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_points</strong> – Number of iterations before the explorations starts the exploration for the maximum.</p></li>
+<li><p><strong>n_iter</strong> – Number of iterations where the method attempts to find the maximum value.</p></li>
+<li><p><strong>acq</strong> – The acquisition method used.
+* ‘ucb’ stands for the Upper Confidence Bounds method
+* ‘ei’ is the Expected Improvement method
+* ‘poi’ is the Probability Of Improvement criterion.</p></li>
+<li><p><strong>kappa</strong> – Parameter to indicate how closed are the next parameters sampled.             Higher value = favors spaces that are least explored.             Lower value = favors spaces where the regression function is the highest.</p></li>
+<li><p><strong>kappa_decay</strong> – <cite>kappa</cite> is multiplied by this factor every iteration.</p></li>
+<li><p><strong>kappa_decay_delay</strong> – Number of iterations that must have passed before applying the decay to <cite>kappa</cite>.</p></li>
+<li><p><strong>xi</strong> – [unused yet].</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.probe">
+<code class="sig-name descname">probe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lazy</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.probe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.probe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the function on the given points. Useful to guide the optimizer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> – The parameters where the optimizer will evaluate the function.</p></li>
+<li><p><strong>lazy</strong> – If True, the optimizer will evaluate the points when calling <a class="reference internal" href="#bayes_opt.bayesian_optimization.BayesianOptimization.maximize" title="bayes_opt.bayesian_optimization.BayesianOptimization.maximize"><code class="xref py py-func docutils literal notranslate"><span class="pre">maximize()</span></code></a>.             Otherwise, it will evaluate it at the moment.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.register">
+<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expect observation with known target</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.set_bounds">
+<code class="sig-name descname">set_bounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_bounds</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.set_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.set_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method that allows changing the lower and upper searching bounds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_bounds</strong> – A dictionary with the parameter name and its new bounds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.set_gp_params">
+<code class="sig-name descname">set_gp_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.set_gp_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.set_gp_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parameters to the internal Gaussian Process Regressor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bayes_opt.bayesian_optimization.BayesianOptimization.suggest">
+<code class="sig-name descname">suggest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utility_function</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/bayes_opt/bayesian_optimization.html#BayesianOptimization.suggest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bayes_opt.bayesian_optimization.BayesianOptimization.suggest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Most promising point to probe next</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../config/index.html" class="btn btn-neutral float-right" title="bayes_opt.config" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../tutorials/installation/index.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, HansBug
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: main
+    <span class="fa fa-caret-down"></span>
+  </span>
+        <div class="rst-other-versions">
+                <dl>
+                    <dt>Branches</dt>
+                        <dd><a href="index.html">main</a></dd>
+                </dl>
+        </div>
+    </div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
